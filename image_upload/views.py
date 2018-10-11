@@ -1,6 +1,6 @@
 import os
 import json
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 import boto3
 
 
@@ -10,9 +10,9 @@ def upload_view(request):
 
 def sign_s3_view(request):
     S3_BUCKET = os.environ.get('S3_BUCKET')
-
-    file_name = request.args.get('file_name')
-    file_type = request.args.get('file_type')
+    print(S3_BUCKET)
+    file_name = request.GET.get('file_name')
+    file_type = request.GET.get('file_type')
 
     s3 = boto3.client('s3')
 
@@ -27,7 +27,7 @@ def sign_s3_view(request):
                         ExpiresIn=3600
                         )
 
-    return json.dumps({
+    return HttpResponse(json.dumps({
                     'data': presigned_post,
                     'url': 'https://%s.s3.amazonaws.com/%s' % (S3_BUCKET, file_name)
-                    })
+                    }), content_type="application/json")
