@@ -5,8 +5,38 @@
     <title>Venue</title>
 </head>
 <img>
-{% for signed_url in urls %}
-<img src="{{signed_url}}" height="50%" width="50%">
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+{% for signed_url, params in urls.items %}
+    <img id="{{params.key}}" src="{{signed_url}}" height="50%" width="50%">
+    <button id="{{params.key}}_btn" onClick="delete_image({{params.key}})">Delete Image</button>
+    <p id="{{params.key}}_tags">Tags: {{params.tags}}</p>
 {% endfor %}
 </body>
+
+{% csrf_token %}
+<script>
+    function delete_image(imageId){
+        var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/view/delete_image')
+        xhr.setRequestHeader('X-CSRFToken', csrftoken);
+        var postData = new FormData();
+        postData.append('key', imageId);
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState === 4){
+              if(xhr.status === 200 || xhr.status === 204){
+                document.getElementById(imageId).remove();
+                document.getElementById(imageId+'_tags').remove();
+                document.getElementById(imageId+'_btn').remove();
+                alert("Delete successful");
+              }
+              else{
+                alert("Could not delete file.");
+              }
+            }
+        };
+        xhr.send(postData);
+    }
+</script>
 </html>

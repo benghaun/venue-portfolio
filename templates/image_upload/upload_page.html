@@ -6,11 +6,12 @@
 </head>
 <body>
 <input type="file" id="file_input"/>
-<p id="status">Please select an image</p>
+<p id="status">Please enter tags separated by commas: <input id="tags" type="text"></p>
 
 
 <button type="button" id="submit_button" onClick="getSignedRequest()">Upload image</button>
 </body>
+
 
 <script>
 /*
@@ -18,6 +19,7 @@
     document.getElementById("file_input").onchange = function(){
         var files = document.getElementById("file_input").files;
         var file = files[0];
+
         if(!file){
           return alert("No file selected.");
         }
@@ -28,12 +30,13 @@
 
 function getSignedRequest(){
     var xhr = new XMLHttpRequest();
+    var tags = document.getElementById("tags").value;
     var files = document.getElementById("file_input").files;
     var file = files[0];
     if (!file){
         return alert("No file selected.")
     }
-    xhr.open("GET", "/upload/sign_s3?file_name="+file.name+"&file_type="+file.type);
+    xhr.open("GET", "/upload/sign_s3?file_name="+file.name+"&file_type="+file.type+"&tags="+tags);
     xhr.onreadystatechange = function(){
     if(xhr.readyState === 4){
       if(xhr.status === 200){
@@ -54,7 +57,7 @@ function uploadFile(file, s3Data, url){
     document.getElementById("submit_button").innerHTML = "Uploading..."
     var postData = new FormData();
     for(key in s3Data.fields){
-    postData.append(key, s3Data.fields[key]);
+        postData.append(key, s3Data.fields[key]);
     }
     postData.append('file', file);
 
