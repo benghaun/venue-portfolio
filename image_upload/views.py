@@ -10,11 +10,10 @@ def upload_view(request):
 
 def sign_s3_view(request):
     S3_BUCKET = os.environ.get('S3_BUCKET')
-    print(S3_BUCKET)
     file_name = request.GET.get('file_name')
     file_type = request.GET.get('file_type')
 
-    s3 = boto3.client('s3')
+    s3 = boto3.client('s3', region_name='eu-west-3')
 
     presigned_post = s3.generate_presigned_post(
                         Bucket=S3_BUCKET,
