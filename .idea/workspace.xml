@@ -2,19 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5d25c8c5-b83d-4ea3-91d4-fdd1da3b5b2f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/venue/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/venue/migrations/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image_upload/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/image_upload/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image_view/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/image_view/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image_view/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/image_view/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/image_upload/upload_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/image_upload/upload_page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/image_view/image_view.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/image_view/image_view.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venue/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/venue/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venue/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/venue/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venue/settings_dev.py" beforeDir="false" afterPath="$PROJECT_DIR$/venue/settings_dev.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venue/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/venue/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -46,7 +34,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="Procfile" value="1" />
+          <entry key="Procfile" value="2" />
           <entry key="html" value="7" />
           <entry key="py" value="26" />
         </counts>
@@ -54,13 +42,13 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="HTML" value="7" />
-          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="PLAIN_TEXT" value="2" />
           <entry key="Python" value="26" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="Procfile" value="19" />
+          <entry key="Procfile" value="89" />
           <entry key="html" value="1528" />
           <entry key="py" value="2739" />
         </counts>
@@ -68,7 +56,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="HTML" value="1528" />
-          <entry key="PLAIN_TEXT" value="19" />
+          <entry key="PLAIN_TEXT" value="89" />
           <entry key="Python" value="2739" />
         </counts>
       </usages-collector>
@@ -119,11 +107,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/image_view/image_view.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="391">
               <caret line="30" column="53" selection-start-line="30" selection-start-column="53" selection-end-line="30" selection-end-column="53" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Procfile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="68" selection-start-line="1" selection-start-column="68" selection-end-line="1" selection-end-column="68" />
             </state>
           </provider>
         </entry>
@@ -166,7 +163,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/image_upload/templates/image_upload/upload_page.html" />
-        <option value="$PROJECT_DIR$/Procfile" />
         <option value="$PROJECT_DIR$/image_download/urls.py" />
         <option value="$PROJECT_DIR$/image_download/views.py" />
         <option value="$PROJECT_DIR$/image_upload/urls.py" />
@@ -182,6 +178,7 @@
         <option value="$PROJECT_DIR$/venue/urls.py" />
         <option value="$PROJECT_DIR$/templates/image_upload/upload_page.html" />
         <option value="$PROJECT_DIR$/templates/image_view/image_view.html" />
+        <option value="$PROJECT_DIR$/Procfile" />
       </list>
     </option>
   </component>
@@ -207,17 +204,6 @@
             <path>
               <item name="venue" type="b2602c69:ProjectViewProjectNode" />
               <item name="venue" type="462c0819:PsiDirectoryNode" />
-              <item name="image_upload" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="venue" type="b2602c69:ProjectViewProjectNode" />
-              <item name="venue" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="venue" type="b2602c69:ProjectViewProjectNode" />
-              <item name="venue" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="image_upload" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -299,13 +285,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="15" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Procfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="24" selection-start-column="24" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -440,6 +419,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="30" column="53" selection-start-line="30" selection-start-column="53" selection-end-line="30" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Procfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="68" selection-start-line="1" selection-start-column="68" selection-end-line="1" selection-end-column="68" />
         </state>
       </provider>
     </entry>
