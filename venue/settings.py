@@ -25,7 +25,7 @@ SECRET_KEY = '3y6-%^zjog@#&(rt-=tma+*k5z@d)(xq@xv#t*6h-cnn5_1m=+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["venue-portfolio.herokuapp.com"]
 
 
 # Application definition
