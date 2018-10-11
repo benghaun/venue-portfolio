@@ -8,7 +8,7 @@ def upload_view(request):
     return render(request, 'image_upload/upload_page.html')
 
 
-def sign_s3_view(request):
+def sign_s3(request):
     S3_BUCKET = os.environ.get('S3_BUCKET')
     file_name = request.GET.get('file_name')
     file_type = request.GET.get('file_type')
