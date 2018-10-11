@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5d25c8c5-b83d-4ea3-91d4-fdd1da3b5b2f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/image_view/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/image_view/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/image_view/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/image_view/image_view.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image_upload/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/image_upload/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image_upload/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/image_upload/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/image_upload/upload_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/image_upload/upload_page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venue/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/venue/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venue/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/venue/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image_view/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/image_view/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -58,32 +49,20 @@
         <counts>
           <entry key="Procfile" value="19" />
           <entry key="html" value="513" />
-          <entry key="py" value="1247" />
+          <entry key="py" value="1281" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="HTML" value="513" />
           <entry key="PLAIN_TEXT" value="19" />
-          <entry key="Python" value="1247" />
+          <entry key="Python" value="1281" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/venue/wsgi.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="78" selection-start-line="3" selection-start-column="78" selection-end-line="3" selection-end-column="78" />
-              <folding>
-                <element signature="e#221#230#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/image_view/urls.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -93,19 +72,16 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/image_view/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" selection-start-line="8" selection-end-line="8" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
+            <state>
+              <caret column="9" selection-start-column="9" selection-end-column="9" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/image_view/image_view.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="170">
@@ -146,12 +122,12 @@
         <option value="$PROJECT_DIR$/image_upload/views.py" />
         <option value="$PROJECT_DIR$/image_upload/urls.py" />
         <option value="$PROJECT_DIR$/image_view/urls.py" />
-        <option value="$PROJECT_DIR$/image_view/views.py" />
         <option value="$PROJECT_DIR$/templates/image_view/image_view.html" />
+        <option value="$PROJECT_DIR$/image_view/views.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-5" />
     <option name="width" value="1750" />
     <option name="height" value="970" />
@@ -235,7 +211,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24983476" />
@@ -317,22 +293,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/image_view/image_view.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="7" lean-forward="true" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/venue/wsgi.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="78" selection-start-line="3" selection-start-column="78" selection-end-line="3" selection-end-column="78" />
           <folding>
             <element signature="e#221#230#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/image_view/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -344,10 +317,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/image_view/image_view.html">
+    <entry file="file://$PROJECT_DIR$/image_view/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="7" lean-forward="true" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+        <state>
+          <caret column="9" selection-start-column="9" selection-end-column="9" />
         </state>
       </provider>
     </entry>
