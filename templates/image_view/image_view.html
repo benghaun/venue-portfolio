@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Venue</title>
-</head>
-<img>
-<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+{% extends 'base.html' %}
+
+{% block content %}
+<body>
 {% for signed_url, params in urls.items %}
     <img id="{{params.key}}" src="{{signed_url}}" height="50%" width="50%">
     <button id="{{params.key}}_btn" onClick="delete_image({{params.key}})">Delete Image</button>
@@ -40,3 +35,5 @@
     }
 </script>
 </html>
+
+{% endblock %}
