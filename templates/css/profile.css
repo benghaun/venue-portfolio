@@ -1,7 +1,85 @@
-#navbar {
-	bottom:0px;
+.navbar {
+	bottom:-5rem;
+	background-color: black;
+	height: 12rem;
+	border-top: 3px solid white;
 }
 
+.nav-image{
+	background-repeat: no-repeat !important;
+	background-size: cover !important;
+	background-position: 0% 72% !important;
+}
+
+
 body {
+	margin-top: 5rem !important;
 	background-color: #DAD3CE;
+}
+
+img{
+	max-height: 100%;
+	max-width: 100%;
+}
+.rounded {
+	border-radius: 1rem !important;
+}
+
+.portrait-fit{
+	width: 100%;
+	max-width: : 100%;
+	object-fit: cover;
+	object-position: 50% 50%;
+	border-radius: 1em;
+}
+
+.portrait{
+	height: 100%;
+	width: 100%;
+	overflow-wrap: hidden;
+}
+
+.category-block{
+	height: 36em;
+	width: 100%;
+	max-width: 100%;
+	/*overflow: hidden;*/
+}
+
+.sm_vert_thumb{
+	height: 13.8em;
+	overflow-wrap: hidden;
+}
+
+.thumbnail-fit{
+	width: auto;
+	height: 100%;
+	max-width: : 100%;
+	object-fit: cover;
+	object-position: 20%;
+	border-radius: 1em;
+}
+
+.navbar-button{
+	color: white;
+	font-family: Quattrocento;
+	font-style: normal;
+	font-size: 18px;
+	line-height: 20px;
+	text-align: center;
+	letter-spacing: 0.5em !important;
+	-webkit-transition: -webkit-stroke-width 1s;
+}
+
+.navbar-button:hover{
+	color: white;
+	text-decoration: none;
+	-webkit-stroke-width: 5.3rem !important;
+    -webkit-stroke-color: #FFFFFF !important;
+    -webkit-fill-color: #FFFFFF !important;
+    text-shadow: 0rem 0rem 1rem white, 0rem 0rem 1rem white, 0rem 0rem 1rem white, 0rem 0rem 1rem white;
+}
+
+a:hover{
+
 }
