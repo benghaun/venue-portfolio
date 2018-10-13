@@ -5,53 +5,67 @@
 <link rel="stylesheet" type="text/css" href="{% static 'profile.css' %}">
 <body>
     <div class="container">
-        <div class="category-block">
-
+        <div>
             <div class="row">
-                <div class="col-5">
-                    <div class="portrait">
-                        <img src="{% static 'DemonDude1.png' %}" class="portrait-fit">
-                    </div>
+                <div class="col-md-4 col-sm-12 ml-auto">
+                    <a href="#">
+                        <div class="portrait" style="background-image: url('{% static 'DemonDude1.png' %}')">
+                            <div class="black-grad"></div>
+                            <div class="cat-name">FEATURED</div>
+                        </div>
+                    </a>
                 </div>
-                <div class="col-7">
+                <div class="col-md-7 col-sm-12 mr-auto">
                     <div class="row">
-                        <div class="col-12">
-                            <div class="portrait">
-                                <img src="{% static 'forest.jpg' %}" class="portrait-fit">
-                            </div>
+                        <div class="col-12 no-padding">
+                            <a href="#">
+                                <div class="landscape" style="background-image: url('{% static 'Chilling-in-the-Forest.jpg' %}')">
+                                    <div class="black-grad"></div>
+                                    <div class="cat-name">LANDSCAPES</div>
+                                </div>
+                            </a>
                         </div>
                     </div>
-                    <br>
                     <div class="row">
-                        <div class="col-2">
-                            <div class="sm_vert_thumb">
-                                <img src="{% static 'Angel.jpg' %}" class="thumbnail-fit">
-                            </div>
+                        <div class="col-md-2 col-sm-12 no-padding mr-auto">
+                            <a href="#">
+                                <div class="fitted-vert-thumb" style="background-image: url('{% static 'Angel.jpg' %}');background-position: 25%;">
+                                    <div class="black-grad-vert"></div>
+                                    <div class="cat-name-vert">C H A R A C T E R S</div>
+                                </div>
+                            </a>
                         </div>
-                        <div class="col-2">
-                            <div class="sm_vert_thumb">
-                                <img src="{% static 'Angel.jpg' %}" class="thumbnail-fit">
-                            </div>
+                        <div class="col-md-2 col-sm-12 no-padding mx-auto">
+                            <a href="#">
+                                <div class="fitted-vert-thumb" style="background-image: url('{% static 'D.va-Portrait.jpg' %}');">
+                                    <div class="black-grad-vert"></div>
+                                    <div class="cat-name-vert">P O R T R A I T S</div>
+                                </div>
+                            </a>
                         </div>
-                        <div class="col-2">
-                            <div class="sm_vert_thumb">
-                                <img src="{% static 'Angel.jpg' %}" class="thumbnail-fit">
-                            </div>
+                        <div class="col-md-2 col-sm-12 no-padding mx-auto">
+                            <a href="3">
+                                <div class="lg-vert-thumb" style="background-image: url('{% static 'Balazar.png' %}');background-position: 55% 30%;background-size: 25em">
+                                    <div class="black-grad-vert"></div>
+                                    <div class="cat-name-vert">F A N T A S Y</div>
+                                </div>
+                            </a>
                         </div>
-                        <div class="col-2">
-                            <div class="sm_vert_thumb">
-                                <img src="{% static 'Angel.jpg' %}" class="thumbnail-fit">
-                            </div>
+                        <div class="col-md-2 col-sm-12 no-padding mx-auto">
+                            <a href="#">
+                                <div class="lg-vert-thumb" style="background-image: url('{% static 'Caricature-Eimran.jpg' %}');background-position: 45% 30%;">
+                                    <div class="black-grad-vert"></div>
+                                    <div class="cat-name-vert">C A R I C A T U R E</div>
+                                </div>
+                            </a>
                         </div>
-                        <div class="col-2">
-                            <div class="sm_vert_thumb">
-                                <img src="{% static 'Angel.jpg' %}" class="thumbnail-fit">
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <div class="sm_vert_thumb">
-                                <img src="{% static 'Angel.jpg' %}" class="thumbnail-fit">
-                            </div>
+                        <div class="col-md-2 col-sm-12 no-padding ml-auto" style="margin-bottom: 20rem;">
+                            <a href="#">
+                                <div class="lg-vert-thumb" style="background-image: url('{% static 'Material-Studies.jpg' %}');background-position: 55% 13%;background-size: 70em">
+                                    <div class="black-grad-vert"></div>
+                                    <div class="cat-name-vert">S T U D I E S</div>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -65,53 +79,76 @@
     ),url('{% static 'AttackOfMiku.jpg' %}')">
         <div class="container">
             <div class="nav navbar-nav mx-auto">
-                <li><a href="#" class="navbar-button">Featured</a></li>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-            </div>
+                    <li><a href="#" class="navbar-button">Featured</a></li>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
             <div class="nav navbar-nav mx-auto">
-                <li><a href="#" class="navbar-button">Fantasy</a></li>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-            </div>
+                    <li><a href="#" class="navbar-button">Fantasy</a></li>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
             <div class="nav navbar-nav mx-auto">
-                <li><a href="#" class="navbar-button">Portraits</a></li>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-            </div>
+                    <li><a href="#" class="navbar-button">Portraits</a></li>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
             <div class="nav navbar-nav mx-auto">
-                <li><a href="#" class="navbar-button">Landscapes</a></li>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-            </div>
+                    <li><a href="#" class="navbar-button">Landscapes</a></li>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
             <div class="nav navbar-nav mx-auto">
-                <li><a href="#" class="navbar-button">Studies</a></li>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-            </div>
-
+                    <li><a href="#" class="navbar-button">Studies</a></li>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
         </div>
     </nav>
+    <div class="social-media-block">
+        <button type="button" class="btn btn-default btn-circle no-padding" >
+            <img src="{% static 'twitter.png' %}" alt="twitter">
+        </button>
+        <button type="button" class="btn btn-default btn-circle no-padding" >
+            <img src="{% static 'facebook.png' %}" alt="facebook">
+        </button>
+        <button type="button" class="btn btn-default btn-circle no-padding" >
+            <img src="{% static 'instagram.png' %}" alt="instagram">
+        </button>
+    </div>
+
+    <div>
+        <a href="#" class="profile-name">LEAKYJAR</a>
+    </div>
+    
+    <div class="user-description">
+        Welcome to my portfolio! I am a concept artist and illustrator <br> working primarily on digital mediums.
+        Feel free to take a look </br> around or speak to my assistant!
+    </div>
+
+    <button type="button" class="btn btn-default btn-circle no-padding btn-assistant" >
+            <img src="{% static 'AssistantThumb.png' %}" alt="assistant">
+    </button>
 </body>
 
 {% endblock %}
