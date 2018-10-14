@@ -11,6 +11,7 @@ def profile(request):
 
 
 def category(request, category):
+    print(category)
     images = Image.objects.filter(tags__contains=[category.lower()])
     urls = []
     for image in images:
@@ -24,4 +25,7 @@ def category(request, category):
                                         ExpiresIn=60)
         urls.append(url)
 
-    return render(request, 'category/category.html', {'urls': urls})
+    return render(request, 'profile/category.html', {'urls': urls})
+
+def image(request, category):
+    return render(request, 'profile/img-view.html')

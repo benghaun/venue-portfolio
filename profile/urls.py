@@ -1,8 +1,10 @@
-from django.urls import path, re_path
+from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    path('', views.profile),
-    re_path('(?P<category>.*)', views.category),
-    re_path('(?P<category>.*)/', views.category)
+    url(r'^$', views.profile),
+    url(r'^(?P<category>.*)/img-view$', views.image),
+    url(r'^(?P<category>.*)/img-view/$', views.image),
+    url(r'^(?P<category>.*)$', views.category),
+    url(r'^(?P<category>.*)/$', views.category),
 ]

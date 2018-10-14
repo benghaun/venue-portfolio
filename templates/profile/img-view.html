@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'img-view.css' %}">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<body>
+
+    <div id='carousel-custom' class='carousel slide' data-ride='carousel' data-interval="false">
+    <!-- Wrapper for slides -->
+    <div class='carousel-inner carousel-shape'>
+        <div class='carousel-item height active'>
+            <div class="display-image" style="background-image: url('{% static 'DemonDude1.png' %}')"></div>
+        </div>
+        <div class='carousel-item height'>
+            <div class="display-image" style="background-image: url('{% static 'Chilling-in-the-Forest.jpg' %}')"></div>
+        </div>
+        <div class='carousel-item'>
+            <img src='http://placehold.it/400x200&text=slide3' alt='' />
+        </div>
+        <div class='carousel-item'>
+            <img src='http://placehold.it/400x200&text=slide4' alt='' />
+        </div>
+        <div class='carousel-item'>
+            <img src='http://placehold.it/400x200&text=slide5' alt='' />
+        </div>
+        <div class='carousel-item'>
+            <img src='http://placehold.it/400x200&text=slide6' alt='' />
+        </div>
+        <div class='carousel-item'>
+            <img src='http://placehold.it/400x200&text=slide7' alt='' />
+        </div>
+        <div class='carousel-item'>
+            <img src='http://placehold.it/400x200&text=slide8' alt='' />
+        </div>
+        <div class='carousel-item'>
+            <img src='http://placehold.it/400x200&text=slide9' alt='' />
+        </div>
+
+        <!-- Controls -->
+        <a class='left carousel-control carousel-custom-left' href='#carousel-custom' data-slide='prev'>
+            <span class='carousel-left-icon'><</span>
+        </a>
+        <a class='right carousel-control carousel-custom-right' href='#carousel-custom' data-slide='next'>
+            <span class='carousel-right-icon'>></span>
+        </a>
+
+        <!-- Indicators -->
+        <ol class='carousel-indicators carousel-indicators-custom'>
+            <li data-target='#carousel-custom' data-slide-to='0' class='active'><div class="display-image-thumb" style="background-image: url('{% static 'DemonDude1.png' %}')"></div></li>
+            <li data-target='#carousel-custom' data-slide-to='1'><div class="display-image-thumb" style="background-image: url('{% static 'Chilling-in-the-Forest.jpg' %}')"></div></li>
+            <li data-target='#carousel-custom' data-slide-to='2'><div class="display-image-thumb" style="background-image: url('{% static 'DemonDude1.png' %}')"></div></li>
+            <li data-target='#carousel-custom' data-slide-to='3'><div class="display-image-thumb" style="background-image: url('{% static 'DemonDude1.png' %}')"></div></li>
+            <li data-target='#carousel-custom' data-slide-to='4'><div class="display-image-thumb" style="background-image: url('{% static 'DemonDude1.png' %}')"></div></li>
+            <li data-target='#carousel-custom' data-slide-to='5'><div class="display-image-thumb" style="background-image: url('{% static 'DemonDude1.png' %}')"></div></li>
+            <li data-target='#carousel-custom' data-slide-to='6'><div class="display-image-thumb" style="background-image: url('{% static 'DemonDude1.png' %}')"></div></li>
+            <li data-target='#carousel-custom' data-slide-to='7'><div class="display-image-thumb" style="background-image: url('{% static 'DemonDude1.png' %}')"></div></li>
+            <li data-target='#carousel-custom' data-slide-to='8'><div class="display-image-thumb" style="background-image: url('{% static 'DemonDude1.png' %}')"></div></li>
+        </ol>
+
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mx-auto">
+                <div class="title">- MALE ARMOR 1 -</div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar-default nav-image navbar" style="background: linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),url('{% static 'AttackOfMiku.jpg' %}')">
+        <div class="container">
+            <div class="nav navbar-nav mx-auto">
+                    <li><a href="#" class="navbar-button">Featured</a></li>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            <div class="nav navbar-nav mx-auto">
+                    <li><a href="#" class="navbar-button">Fantasy</a></li>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            <div class="nav navbar-nav mx-auto">
+                    <li><a href="#" class="navbar-button">Portraits</a></li>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            <div class="nav navbar-nav mx-auto">
+                    <li><a href="#" class="navbar-button">Landscapes</a></li>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            <div class="nav navbar-nav mx-auto">
+                    <li><a href="#" class="navbar-button">Studies</a></li>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+        </div>
+    </nav>
+
+    <div class="social-media-block">
+        <button type="button" class="btn btn-default btn-circle no-padding" >
+            <img src="{% static 'twitter.png' %}" alt="twitter">
+        </button>
+        <button type="button" class="btn btn-default btn-circle no-padding" >
+            <img src="{% static 'facebook.png' %}" alt="facebook">
+        </button>
+        <button type="button" class="btn btn-default btn-circle no-padding" >
+            <img src="{% static 'instagram.png' %}" alt="instagram">
+        </button>
+    </div>
+
+    <div>
+        <a href="/" class="profile-name">LEAKYJAR</a>
+    </div>
+
+    <button type="button" class="btn btn-default btn-circle no-padding btn-assistant" >
+            <img src="{% static 'AssistantThumb.png' %}" alt="assistant">
+    </button>
+
+</body>
+
+{% endblock %}
