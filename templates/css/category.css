@@ -45,7 +45,47 @@ img{
 }
 
 .small-thumb{
-	height: 10rem;
+	background-color: transparent;
+	position:relative;
+	width: 100%;
+}
+
+.small-thumb:before{
+	content: "";
+	display:block;
+	padding-top: 100%;
+}
+
+.small-thumb-cover{
+	position:  absolute;
+	background-size: cover;
+	background-position: center;
+	filter: blur(5px); 
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+.small-thumb-contain{
+	position:  absolute;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+.content{
+	position:  absolute;
+	background-size: contain;
+	background-position: center;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
 }
 
 .navbar-button{

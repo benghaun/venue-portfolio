@@ -15,7 +15,7 @@ def sign_s3(request):
     file_type = request.GET.get('file_type')
     tags = request.GET.get('tags').lower().split(",")
     # remove leading and trailing whitespaces in tags
-    for i in range(tags):
+    for i in range(len(tags)):
         tags[i] = tags[i].strip()
     s3 = boto3.client('s3', region_name='eu-west-3')
     image = Image(name=file_name, tags=tags)

@@ -23,40 +23,36 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-3">
+            {% for url in urls %}
+            <div class="col-4">
                 <a href="#">
-                    <div class="fit-img small-thumb" style="background-image: url('{% static 'DemonDude1.png' %}')"></div>
+                    <div class="fit-img small-thumb">
+                        <div class="content">
+                            <div class="small-thumb-cover" style="background-image: url('{{url}}')"></div>
+                            <div class="small-thumb-contain" style="background-image: url('{{url}}')"></div>
+                        </div>
+                    </div>
                 </a>
             </div>
-            <div class="col-3">
-
-                <a href="#">
-                    <div class="fit-img small-thumb" style="background-image: url('{% static 'DemonDude1.png' %}')"></div>
-                </a>
-            </div>
-            <div class="col-3">
-                <a href="#">
-                    <div class="fit-img small-thumb" style="background-image: url('{% static 'DemonDude1.png' %}')"></div>
-                </a>
-            </div>
-            <div class="col-3">
-                <a href="#">
-                    <div class="fit-img small-thumb" style="background-image: url('{% static 'DemonDude1.png' %}')"></div>
-                </a>
-            </div>
+            {% endfor %}
         </div>
-        <div class="row">
-            <div class="col-3">
-                <a href="#">
-                    <div class="fit-img small-thumb" style="background-image: url('{% static 'DemonDude1.png' %}')"></div>
-                </a>
-            </div>
-            <div class="col-3">
-                <a href="#">
-                    <div class="fit-img small-thumb" style="background-image: url('{% static 'DemonDude1.png' %}')"></div>
-                </a>
-            </div>
-        </div>
+        <!--<div class="row">-->
+            <!--<div class="col-4">-->
+                <!--<a href="#">-->
+                    <!--<div class="fit-img small-thumb" style="background-image: url('{% static 'DemonDude1.png' %}')"></div>-->
+                <!--</a>-->
+            <!--</div>-->
+            <!--<div class="col-4">-->
+                <!--<a href="#">-->
+                    <!--<div class="fit-img small-thumb" style="background-image: url('{% static 'DemonDude1.png' %}')"></div>-->
+                <!--</a>-->
+            <!--</div>-->
+        <!--</div>-->
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
     </div>
 
     <nav class="navbar-default nav-image navbar" style="background: linear-gradient(
