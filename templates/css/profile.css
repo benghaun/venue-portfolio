@@ -92,11 +92,6 @@ img{
     text-shadow: 0rem 0rem 1rem white, 0rem 0rem 1rem white, 0rem 0rem 1rem white, 0rem 0rem 1rem white;
 }
 
-.nav-container{
-	width: 100%;
-	height: 100%;
-}
-
 .no-padding{
 	padding: 0em !important;
 }
@@ -246,7 +241,7 @@ img{
 	font-family: Lato;
 	letter-spacing: 0.05rem;
 	font-style: normal;
-	font-size: 1.3rem;
+	font-size: calc(0.5em + 1vmin);
 	line-height: 20px;
 	text-align: left;
 	text-shadow: 0rem 0rem 1rem white,
