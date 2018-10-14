@@ -15,14 +15,14 @@ def sign_s3(request):
     S3_BUCKET = os.environ.get('S3_BUCKET')
     file_name = request.GET.get('file_name')
     file_type = request.GET.get('file_type')
+    description = request.GET.get('description')
     tags = request.GET.get('tags').lower().split(",")
     tags = [x for x in tags if x]  # remove empty strings
     # remove leading and trailing whitespaces in tags
     for i in range(len(tags)):
         tags[i] = tags[i].strip()
-    print(tags)
     s3 = boto3.client('s3', region_name='eu-west-3')
-    image = Image(name=file_name, tags=tags)
+    image = Image(name=file_name, tags=tags, description=description)
     image.save()
     image_id = str(image.id)
     presigned_post = s3.generate_presigned_post(
