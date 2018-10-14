@@ -1,36 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Venue</title>
-</head>
+{% extends 'base.html' %}
+
+{% block content %}
 <body>
-<input type="file" id="file_input"/>
-<p id="status">Please enter tags separated by commas: <input id="tags" type="text"></p>
+<div id="fields">
+    <input type="file" id="file_input"/> <br/> <br/>
+    <!--<p id="status">Please enter tags separated by commas: <input id="tags" type="text"></p>-->
+    <select name="tags" value="tags">
+        <option value="" selected disabled hidden>Select tag</option>
+        {% for tag in tags %}
+        <option value="{{tag.name}}">{{tag.name}}</option>
+        {% endfor %}
+    </select> <br/>
+
+</div>
+<button type="button" onClick="addTag()">Add another tag</button> <br/> <br/>
 
 
 <button type="button" id="submit_button" onClick="getSignedRequest()">Upload image</button>
+<br/><br/>
+
+<form action="add_tag/" method="post">
+    {% csrf_token %}
+    <p>Create a new tag:</p>
+    <p>Tag name: </p><input type="text" name="tag_name">
+    <p>Description: </p><input type="text" name="tag_description"> <br/>
+    <input type="submit" value="Create tag">
+</form>
+{% if message %}
+    {{message}}
+{% endif %}
 </body>
 
 
 <script>
-/*
-(function() {
-    document.getElementById("file_input").onchange = function(){
-        var files = document.getElementById("file_input").files;
-        var file = files[0];
-
-        if(!file){
-          return alert("No file selected.");
-        }
-        getSignedRequest(file);
-    };
-})();
-*/
-
+function addTag() {
+    var fieldsDiv = document.getElementById("fields");
+    var content = document.createElement("SELECT");
+    var brTag = document.createElement("br");
+    content.innerHTML = `<option value="" selected disabled hidden>Select tag</option>
+        {% for tag in tags %}
+        <option value="{{tag.name}}">{{tag.name}}</option>
+        {% endfor %}`
+    fieldsDiv.appendChild(content);
+    fieldsDiv.appendChild(brTag);
+}
 function getSignedRequest(){
     var xhr = new XMLHttpRequest();
-    var tags = document.getElementById("tags").value;
+    var tags = '';
+    $('select').each(function(){
+        console.log($(this).val())
+        tags = tags + ',' + $(this).val()
+    });
     var files = document.getElementById("file_input").files;
     var file = files[0];
     if (!file){
@@ -76,3 +96,4 @@ function uploadFile(file, s3Data, url){
 }
 </script>
 </html>
+{% endblock %}
