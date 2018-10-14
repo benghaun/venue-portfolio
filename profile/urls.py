@@ -1,7 +1,8 @@
-from django.urls import path, include
+from django.urls import path, re_path
 from . import views
 
 urlpatterns = [
     path('', views.profile),
-    path(r'(?P<category>.*)/', views.category)
+    re_path('(?P<category>.*)', views.category),
+    re_path('(?P<category>.*)/', views.category)
 ]
