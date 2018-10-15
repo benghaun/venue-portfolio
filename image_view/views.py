@@ -16,7 +16,7 @@ def show_images(request):
             url = s3.generate_presigned_url(ClientMethod="get_object",
                                             Params={'Bucket': S3_BUCKET,
                                                     'Key': filename},
-                                            ExpiresIn=60)
+                                            ExpiresIn=86400)
             tags = ""
             try:
                 if filename.isdigit():

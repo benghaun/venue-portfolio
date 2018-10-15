@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <a href="/profile/featured/img-view">
+                <a href="/profile/{{category}}/img-view">
                     <div class="fit-img" style="background-image: url('{% static 'DemonDude1.png' %}')"></div>
                 </a>
             </div>
@@ -22,12 +22,14 @@
             </div>
         </div>
         <div class="row">
-            {% for url in urls %}
+            {% for url, params in urls.items %}
             <div class="col-4">
                 <a href="#">
                     <div class="fit-img small-thumb">
                         <div class="content">
-                            <div class="small-thumb-cover" style="background-image: url('{{url}}')"></div>
+                            <a href="/profile/{{category}}/img-view?selected={{params.key}}">
+                                <div class="small-thumb-cover" style="background-image: url('{{url}}')"></div>
+                            </a>
                         </div>
                     </div>
                 </a>
@@ -107,4 +109,6 @@
 
 </body>
 
+<script>
+</script>
 {% endblock %}

@@ -1,5 +1,4 @@
 import os
-import json
 from django.shortcuts import render, HttpResponse
 import boto3
 from venue.models import Image, Tag
@@ -12,15 +11,15 @@ def profile(request):
 
 def category(request, category):
     images = Image.objects.filter(tags__contains=[category.lower()])
-    urls = []
+    urls = {}
     for image in images:
         image_id = str(image.id)
         s3 = boto3.client('s3', region_name='eu-west-3')
         url = s3.generate_presigned_url(ClientMethod="get_object",
                                         Params={'Bucket': S3_BUCKET,
                                                 'Key': image_id},
-                                        ExpiresIn=60)
-        urls.append(url)
+                                        ExpiresIn=86400)
+        urls[url] = {'key': image_id}
 
     try:
         tag_description = Tag.objects.get(name=category.lower()).description
@@ -31,4 +30,20 @@ def category(request, category):
 
 
 def image(request, category):
-    return render(request, 'profile/img-view.html')
+    s3 = boto3.client('s3', region_name='eu-west-3')
+    urls = {}
+    selected = request.GET.get("selected")
+    images = Image.objects.filter(tags__contains=[category.lower()])
+    image_ids = []
+    for i in range(images.count()):
+        image = images[i]
+        image_id = str(image.id)
+        image_ids.append(image_id)
+        url = s3.generate_presigned_url(ClientMethod="get_object",
+                                        Params={'Bucket': S3_BUCKET,
+                                                'Key': image_id},
+                                        ExpiresIn=86400)
+        urls[url] = {"key": image_id, "idx": i}
+    if selected not in image_ids:
+        selected = None
+    return render(request, 'profile/img-view.html', {'urls': urls, 'selected': selected})
