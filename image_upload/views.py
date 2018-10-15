@@ -44,6 +44,6 @@ def sign_s3(request):
 def add_tag(request):
     tag_name = request.POST.get("tag_name")
     tag_description = request.POST.get("tag_description")
-    tag = Tag(name=tag_name, description=tag_description)
+    tag = Tag(name=tag_name.lower(), description=tag_description)
     tag.save()
     return redirect('/upload?message=tag%20created')

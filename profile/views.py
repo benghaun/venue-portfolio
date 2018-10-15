@@ -2,7 +2,7 @@ import os
 import json
 from django.shortcuts import render, HttpResponse
 import boto3
-from venue.models import Image
+from venue.models import Image, Tag
 S3_BUCKET = os.environ.get('S3_BUCKET')
 
 
@@ -11,13 +11,10 @@ def profile(request):
 
 
 def category(request, category):
-    print(category)
     images = Image.objects.filter(tags__contains=[category.lower()])
     urls = []
     for image in images:
         image_id = str(image.id)
-        print(image.tags)
-        print(image_id)
         s3 = boto3.client('s3', region_name='eu-west-3')
         url = s3.generate_presigned_url(ClientMethod="get_object",
                                         Params={'Bucket': S3_BUCKET,
@@ -25,7 +22,13 @@ def category(request, category):
                                         ExpiresIn=60)
         urls.append(url)
 
-    return render(request, 'profile/category.html', {'urls': urls})
+    try:
+        tag_description = Tag.objects.get(name=category.lower()).description
+    except Tag.DoesNotExist:
+        tag_description = ""
+
+    return render(request, 'profile/category.html', {'urls': urls, 'category': category, 'description': tag_description})
+
 
 def image(request, category):
     return render(request, 'profile/img-view.html')

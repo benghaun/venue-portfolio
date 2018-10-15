@@ -49,7 +49,6 @@ function getSignedRequest(){
     var xhr = new XMLHttpRequest();
     var tags = '';
     $('select').each(function(){
-        console.log($(this).val())
         tags = tags + ',' + $(this).val()
     });
     var description = document.getElementById("img_description").value
