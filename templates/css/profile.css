@@ -5,6 +5,7 @@
 	background-color: black;
 	height: 12rem;
 	border-top: 3px solid white;
+	z-index: 1;
 }
 
 .nav-image{
@@ -135,8 +136,9 @@ img{
 	bottom: 0em;
 	left: 0em;
 	margin: 2rem;
-	position: fixed;	
-}
+	position: fixed;
+	z-index: 2;
+}	
 
 .profile-name:hover{
 	color: white;
@@ -152,6 +154,7 @@ img{
 	margin-right: 2rem;
 	margin-bottom: 1rem;
 	overflow: hidden;
+	z-index: 2;
 }
 
 .btn-assistant:hover{
