@@ -5,6 +5,7 @@ from django.contrib.postgres.fields import ArrayField
 class Image(models.Model):
     tags = ArrayField(models.CharField(max_length=200), blank=True)
     name = models.CharField(max_length=200)
+    title = models.TextField()
     description = models.TextField()
 
     def __str__(self):
@@ -12,7 +13,7 @@ class Image(models.Model):
 
 
 class Tag(models.Model):
-    name = models.CharField(max_length=200, unique=True)
+    name = models.CharField(max_length=13, unique=True)
     description = models.TextField()
 
     def __str__(self):
