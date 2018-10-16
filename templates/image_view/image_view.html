@@ -4,7 +4,7 @@
 <body>
 {% for signed_url, params in urls.items %}
     <img id="{{params.key}}" src="{{signed_url}}" height="50%" width="50%">
-    <button id="{{params.key}}_btn" onClick="delete_image({{params.key}})">Delete Image</button>
+    <button id="{{params.key}}_btn" onClick="delete_image('{{params.key}}')">Delete Image</button>
     <p id="{{params.key}}_tags">Tags: {{params.tags}}</p>
 {% endfor %}
 </body>
