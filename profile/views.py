@@ -47,18 +47,20 @@ def image(request, category):
         image = images[i]
         image_id = str(image.id)
         image_ids.append(image_id)
+        title = image.title
         url = s3.generate_presigned_url(ClientMethod="get_object",
                                         Params={'Bucket': S3_BUCKET,
                                                 'Key': image_id + "." + image.ext},
                                         ExpiresIn=86400)
-        urls[url] = {"key": image_id, "idx": i}
+        urls[url] = {"key": image_id, "idx": i, "title": title}
         thumbnail_url = s3.generate_presigned_url(ClientMethod="get_object",
                                                   Params={'Bucket': S3_BUCKET,
                                                           'Key': 'resized/' + image_id + "." + image.ext},
                                                   ExpiresIn=86400)
-        thumbnail_urls[thumbnail_url] = {"key": image_id, "idx": i}
+        thumbnail_urls[thumbnail_url] = {"key": image_id, "idx": i, "title": title}
 
     if selected not in image_ids:
-        selected = None
-
-    return render(request, 'profile/img-view.html', {'urls': urls, 'selected': selected, 'thumbnail_urls': thumbnail_urls})
+        selected = '0'
+    selected_title = Image.objects.get(id=int(selected)).title.upper()
+    return render(request, 'profile/img-view.html', {'urls': urls, 'selected': selected,
+                                                     'thumbnail_urls': thumbnail_urls, 'selected_title': selected_title})

@@ -21,11 +21,14 @@ def show_images(request):
                 tags = ""
                 try:
                     img_id = filename.split('.')[0]
-                    tags = Image.objects.get(id=img_id).tags
+                    image = Image.objects.get(id=img_id)
+                    tags = image.tags
                     tags = ", ".join(tags)
+                    title = image.title
                 except Image.DoesNotExist:
+                    title = ""
                     pass
-                urls[url] = {"key": filename, "tags": tags}
+                urls[url] = {"key": filename, "tags": tags, "title": title}
     return render(request, 'image_view/image_view.html', {'urls': urls})
 
 

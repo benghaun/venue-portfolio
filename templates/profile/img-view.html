@@ -12,13 +12,13 @@
         {% for url, params in urls.items %}
             {% if selected %}
                 {% if params.key == selected %}
-                    <div class='carousel-item height active'>
+                    <div class='carousel-item height active' id="{{params.title}}">
                         <div class="display-image" style="background-image: url('{{url}}' )">
                             <a href="{{url}}" data-fancybox class="fancy-click"></a>
                         </div>
                     </div>
                 {% else %}
-                    <div class='carousel-item height'>
+                    <div class='carousel-item height' id="{{params.title}}">
                         <div class="display-image" style="background-image: url('{{url}}'">
                             <a href="{{url}}" data-fancybox class="fancy-click"></a>
                         </div>
@@ -26,13 +26,13 @@
                 {% endif %}
             {% else %}
                 {% if params.idx == 0 %}
-                    <div class='carousel-item height active'>
+                    <div class='carousel-item height active' id="{{params.title}}">
                         <div class="display-image" style="background-image: url('{{url}}')">
                             <a href="{{url}}" data-fancybox class="fancy-click"></a>
                         </div>
                     </div>
                 {% else %}
-                    <div class='carousel-item height'>
+                    <div class='carousel-item height' id="{{params.title}}">
                         <div class="display-image" style="background-image: url('{{url}}' )">
                             <a href="{{url}}" data-fancybox class="fancy-click"></a>
                         </div>
@@ -75,7 +75,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12 mx-auto">
-                <div class="title" id="img-title">- MALE ARMOR 1 -</div>
+                <div class="title" id="img-title">- {{selected_title}} -</div>
             </div>
         </div>
     </div>
