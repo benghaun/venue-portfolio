@@ -1,7 +1,9 @@
 import os
 from django.shortcuts import render, HttpResponse
 import boto3
+import requests
 from venue.models import Image, Tag
+from venue.utils import in_bucket
 S3_BUCKET = os.environ.get('S3_BUCKET')
 
 
@@ -12,15 +14,20 @@ def profile(request):
 def category(request, category):
     images = Image.objects.filter(tags__contains=[category.lower()])
     urls = {}
-    for image in images:
+    for i in range(len(images)):
+        image = images[i]
         image_id = str(image.id)
         key = image_id + "." + image.ext
         s3 = boto3.client('s3', region_name='eu-west-3')
+        if in_bucket("resized/" + key, s3=s3):
+            s3_key = "resized/" + key
+        else:
+            s3_key = key
         url = s3.generate_presigned_url(ClientMethod="get_object",
                                         Params={'Bucket': S3_BUCKET,
-                                                'Key': "resized/" + key},
+                                                'Key': s3_key},
                                         ExpiresIn=86400)
-        urls[url] = {'key': image_id}
+        urls[url] = {'key': image_id, 'idx': i}
 
     try:
         tag_description = Tag.objects.get(name=category.lower()).description
