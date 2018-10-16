@@ -75,46 +75,32 @@
     <div class="container">
         <div class="row">
             <div class="col-12 mx-auto">
-                <div class="title">- MALE ARMOR 1 -</div>
+                <div class="title" id="img-title">- MALE ARMOR 1 -</div>
             </div>
         </div>
     </div>
 
-    <nav class="navbar-default nav-image navbar" style="background: linear-gradient(
+        <nav class="navbar-default nav-image navbar" style="background: linear-gradient(
       rgba(0, 0, 0, 0.5),
       rgba(0, 0, 0, 0.5)
     ),url('{% static 'AttackOfMiku.jpg' %}')">
         <div class="container">
-            <div class="nav navbar-nav mx-auto">
-                    <li><a href="#" class="navbar-button">Featured</a></li>
+            <div class="nav navbar-nav ml-auto">
+                    <li><a href="/" class="navbar-button">Gallery</a></li>
                     <br>
                     <br>
                     <br>
                     <br>
                 </div>
             <div class="nav navbar-nav mx-auto">
-                    <li><a href="#" class="navbar-button">Fantasy</a></li>
+                    <li><a href="#" class="navbar-button">About</a></li>
                     <br>
                     <br>
                     <br>
                     <br>
                 </div>
-            <div class="nav navbar-nav mx-auto">
-                    <li><a href="#" class="navbar-button">Portraits</a></li>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                </div>
-            <div class="nav navbar-nav mx-auto">
-                    <li><a href="#" class="navbar-button">Landscapes</a></li>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                </div>
-            <div class="nav navbar-nav mx-auto">
-                    <li><a href="#" class="navbar-button">Studies</a></li>
+            <div class="nav navbar-nav mr-auto">
+                    <li><a href="#" class="navbar-button">Contact</a></li>
                     <br>
                     <br>
                     <br>
@@ -122,7 +108,6 @@
                 </div>
         </div>
     </nav>
-
     <div class="social-media-block">
         <button type="button" class="btn btn-default btn-circle no-padding" >
             <img src="{% static 'twitter.png' %}" alt="twitter">
@@ -139,9 +124,16 @@
         <a href="/" class="profile-name">LEAKYJAR</a>
     </div>
 
-    <button type="button" class="btn btn-default btn-circle no-padding btn-assistant" >
+    <div class="user-description">
+        Welcome to my portfolio! I am a concept artist and illustrator <br> working primarily on digital mediums.
+        Feel free to take a look </br> around or speak to my assistant!
+    </div>
+
+    <button type="button" id="assistant" class="btn btn-default btn-circle no-padding btn-assistant" onClick="launchAssistant()">
             <img src="{% static 'AssistantThumb.png' %}" alt="assistant">
     </button>
+    <script src="{% static 'assistant.js' %}"></script>
+    <script src="{% static 'img_title_change.js' %}"></script>
 
 </body>
 
