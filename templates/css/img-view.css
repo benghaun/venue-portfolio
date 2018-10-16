@@ -310,3 +310,9 @@ img{
 	width: calc(30rem + 30vw);
 	height: calc(10rem + 50vh);
 }
+
+.fancy-click{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}

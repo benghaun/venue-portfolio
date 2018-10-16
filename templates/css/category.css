@@ -198,3 +198,175 @@ img{
       rgba(255, 255, 255, 1));
 	box-shadow: 0rem 0rem .5rem .2rem white;
 }
+
+
+#carousel-example-generic {
+    margin: 20px auto;
+    width: 400px;
+}
+
+#carousel-custom {
+    margin: 20px auto;
+}
+#carousel-custom .carousel-indicators {
+    margin: 10px 0 0;
+    overflow: auto;
+    position: static;
+    text-align: left;
+    white-space: nowrap;
+    width: 100%;
+    justify-content: flex-start;
+    opacity: 0;
+	z-index: 0;
+}
+
+#carousel-custom .carousel-indicators:hover {
+    opacity: 1;
+}
+
+#carousel-custom .carousel-indicators li {
+	flex: 0 0 auto !important;
+    background-color: transparent;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    display: inline-block;
+    height: 90%;
+    width: 20%;
+}
+#carousel-custom .carousel-indicators li div {
+    display: block;
+    opacity: 0.5;
+}
+#carousel-custom .carousel-indicators li.active div {
+    opacity: 1;
+}
+#carousel-custom .carousel-indicators li:hover div {
+    opacity: 0.75;
+}
+
+.carousel-custom-left{
+	position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 20%;
+    opacity: 0;
+}
+
+.carousel-custom-left:hover{
+	opacity: 0.6;
+	background: linear-gradient(
+		to left,
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 1));
+}
+
+.carousel-left-icon{
+	color: white;
+    font-size: 3rem;
+    position: absolute;
+    top: 45%;
+    left: 10%;
+}
+
+.carousel-custom-right{
+	position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 20%;
+    opacity: 0;
+}
+
+.carousel-custom-right:hover{
+	opacity: 0.6;
+	background: linear-gradient(
+		to right,
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 1));
+}
+
+.carousel-right-icon{
+	color: white;
+    font-size: 3rem;
+    position: absolute;
+    top: 45%;
+    right: 10%;
+}
+
+.carousel-shape{
+	border-radius: 1rem;
+	width: 100%;
+	height: 100%;
+}
+
+.display-image{
+	background-color: black;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	width: 100%;
+	height: 100%;
+}
+
+.display-image-thumb{
+	background-color: black;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	width: 100%;
+	height: 100%;
+	border-radius: 1rem;
+}
+
+.height{
+	height: 100%;
+}
+
+.carousel-indicators-custom{
+	position: absolute !important;
+	bottom: 0;
+	width: 100%;
+	height: 25%;
+}
+
+::-webkit-scrollbar{
+	height:0.7rem;
+}
+
+::-webkit-scrollbar-thumb{
+	border-radius: 0.5rem;
+	background-color: #606060;
+	opacity: .5;
+	box-shadow: inset 0 0 0.2rem rgba(0, 0, 0, 0.3);
+
+}
+
+::-webkit-scrollbar-track{
+	border-radius: 0.5rem;
+	background-color: grey;
+	box-shadow: inset 0 0 0.2rem rgba(0, 0, 0, 0.3);
+
+}
+
+.scroll-left-icon{
+	color: white;
+    font-size: 3rem;
+    position: absolute;
+    bottom: 25%;
+    left: 10%;
+}
+
+.scroll-right-icon{
+	color: white;
+    font-size: 3rem;
+    position: absolute;
+    bottom: 25%;
+    right: 10%;
+}
+
+.carousel-wrapper{
+	overflow: hidden;
+	width: 100%;
+	height: 20rem;
+}

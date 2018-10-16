@@ -10,7 +10,7 @@
     <div class="variable-content">
         <div class="variable-text">{{ text }}</div>
         {% for button_txt, params in buttons.items %}
-            <button class="assistant-btn btn-{{params.type}}" onClick="{{params.onClick}}">{{button_txt}}</button>
+            <button class="option-btn btn-{{params.type}}" onClick="{{params.onClick}}">{{button_txt}}</button>
             <br>
         {% endfor %}
         <!--<button class="assistant-btn btn-1">Browse</button>-->

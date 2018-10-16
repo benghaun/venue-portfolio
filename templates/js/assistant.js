@@ -29,14 +29,17 @@ function launchAssistant(){
 		type : 'iframe',
 		opts : {
 			afterLoad : function( instance, current ) {
-				console.info( 'done!' );
-				var fancybox_slide = document.getElementsByClassName('fancybox-slide');
-				console.log(fancybox_slide[0]);
-				fancybox_slide[0].style = 'overflow: hidden !important';
+				console.info( 'done!' );				
 				var fancybox_content = document.getElementsByClassName('fancybox-content');
 				fancybox_content[0].style.background = "transparent";
+			},
+			afterShow : function( instance, current ) {
+				console.info( 'done!' );				
+				var fancybox_slide = document.getElementsByClassName('fancybox-slide--iframe');
+				console.log(fancybox_slide[0]);
+				fancybox_slide[0].style.overflow = 'hidden !important';
+				console.log(fancybox_slide[0].style.overflow);
 			}
 		}
 	});
-	
 }

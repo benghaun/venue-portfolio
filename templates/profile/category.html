@@ -8,9 +8,36 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <a href="/profile/{{category}}/img-view">
-                    <div class="fit-img" style="background-image: url('{% static 'DemonDude1.png' %}')"></div>
-                </a>
+                <div id='carousel-custom' class='carousel slide carousel-wrapper' data-ride='carousel' data-interval="false">
+    <!-- Wrapper for slides -->
+    <div class='carousel-inner carousel-shape'>
+        {% for url, params in urls.items %}
+                {% if params.idx == 0 %}
+                    <div class='carousel-item height active'>
+                        <div class="display-image" style="background-image: url('{{url}}')">
+                            <a href="{{url}}" data-fancybox class="fancy-click"></a>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class='carousel-item height'>
+                        <div class="display-image" style="background-image: url('{{url}}' )">
+                            <a href="{{url}}" data-fancybox class="fancy-click"></a>
+                        </div>
+                    </div>
+                {% endif %}
+        {% endfor %}
+
+        <!-- Controls -->
+        <a class='left carousel-control carousel-custom-left' href='#carousel-custom' data-slide='prev'>
+            <span class='carousel-left-icon'><</span>
+        </a>
+        <a class='right carousel-control carousel-custom-right' href='#carousel-custom' data-slide='next'>
+            <span class='carousel-right-icon'>></span>
+        </a>
+
+    </div>
+
+</div>
             </div>
             <div class="col-md-6 mx-auto">
                 <div class="cat-head">
