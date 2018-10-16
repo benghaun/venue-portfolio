@@ -1,7 +1,6 @@
 import os
 from django.shortcuts import render, HttpResponse
 import boto3
-import requests
 from venue.models import Image, Tag
 from venue.utils import in_bucket
 S3_BUCKET = os.environ.get('S3_BUCKET')
