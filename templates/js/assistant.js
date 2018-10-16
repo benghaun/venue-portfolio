@@ -1,9 +1,42 @@
-$('[data-fancybox="assistant"]').fancybox.open({
-	src  : '/assistant',
-	type : 'iframe',
-	opts : {
-		afterShow : function( instance, current ) {
-			console.info( 'done!' );
+function launchAssistant(){
+	$('#assistant').fancybox({
+
+		iframe: {
+    	// Iframe template
+		    tpl:
+		      '<iframe id="fancybox-frame{rnd}" name="fancybox-frame{rnd}" class="fancybox-iframe" allowfullscreen allow="autoplay; fullscreen" src=""></iframe>',
+
+		    // Preload iframe before displaying it
+		    // This allows to calculate iframe content width and height
+		    // (note: Due to "Same Origin Policy", you can't get cross domain data).
+		    preload: true,
+
+		    // Custom CSS styling for iframe wrapping element
+		    // You can use this to set custom iframe dimensions
+		    css: {
+		    },
+
+		    // Iframe tag attributes
+		    attr: {
+		      scrolling: "auto"
+		    }
+		},
+
+	});
+
+	$.fancybox.open({
+		src  : '/assistant',
+		type : 'iframe',
+		opts : {
+			afterLoad : function( instance, current ) {
+				console.info( 'done!' );
+				var fancybox_slide = document.getElementsByClassName('fancybox-slide');
+				console.log(fancybox_slide[0]);
+				fancybox_slide[0].style = 'overflow: hidden !important';
+				var fancybox_content = document.getElementsByClassName('fancybox-content');
+				fancybox_content[0].style.background = "transparent";
+			}
 		}
-	}
-});
+	});
+	
+}

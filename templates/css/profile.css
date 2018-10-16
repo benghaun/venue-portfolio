@@ -247,5 +247,6 @@ img{
 	font-size: calc(0.5em + 1vmin);
 	line-height: 20px;
 	text-align: left;
-	text-shadow: 0rem 0rem 1rem white,
+	text-shadow: 0rem 0rem 1rem white;
+	z-index: 2;
 }

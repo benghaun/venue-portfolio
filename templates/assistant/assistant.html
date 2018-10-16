@@ -1,7 +1,22 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'assistant.css' %}">
 <body>
-assistant
+<div class="inner-body">
+    <div class="speech-symbol">"</div>
+    <div class="assistant-speech">Hi, I’m the gallery assistant, here to help.</div>
+    <div class="variable-content">
+        <div class="variable-text">Welcome to Leakyjar's gallery. I can show you what's on display, or help you get in touch with him.</div>
+        <button class="assistant-btn btn-1">Browse</button>
+        <br>
+        <button class="assistant-btn btn-2">Leave a message</button>
+    </div>
+
+</div>
+
+<div class="assistant-img" style="background-image: url('{% static 'Assistant1.png' %}')"></div>
+
 </body>
 {% endblock %}

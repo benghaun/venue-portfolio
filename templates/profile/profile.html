@@ -147,12 +147,10 @@
         Feel free to take a look </br> around or speak to my assistant!
     </div>
 
-    <button type="button" class="btn btn-default btn-circle no-padding btn-assistant" data-fancybox data-src="{% static 'DemonDude1.png' %}">
+    <button type="button" id="assistant" class="btn btn-default btn-circle no-padding btn-assistant" onClick="launchAssistant()">
             <img src="{% static 'AssistantThumb.png' %}" alt="assistant">
     </button>
-
-<script src="{% static 'jquery.fancybox.min.js' %}"></script>
-<!--<script src="{% static 'assistant.js' %}"></script>-->
+    <script src="{% static 'assistant.js' %}"></script>
 
 </body>
 

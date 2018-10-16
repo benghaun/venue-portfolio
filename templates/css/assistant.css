@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+body{
+	background: rgba(255,255,255,0);
+    height: max-content;
+    width: max-content;
+    position: absolute;
+    overflow: hidden;
+    transform: translate(-50%);
+    left: 50%;
+    right: 50%;
+    margin-top: 10rem;
+}
+
+.inner-body{
+	height: max-content;
+	width: max-content;
+	background: rgba(255,255,255,0.8);
+	border-radius: 1rem;
+	padding-bottom: 2rem;
+	padding-left: 2rem;
+	padding-right: 20rem;
+	min-height: 30rem;
+
+}
+
+.speech-symbol{	
+	font-family: Rammetto One;
+	font-weight: bold;
+	font-size: 8rem;
+	text-align: left;
+	color: #A40A0A;
+	display: inline-block;
+	margin-left: : 2rem;
+	margin-right: 1rem;
+}
+
+.assistant-speech{
+	width: calc(10rem + 25vw);
+	font-weight: bold;
+	font-size: 2rem;
+	text-align: left;
+	color: #A40A0A;
+	display: inline-block;
+}
+
+.variable-content{
+	width: calc(10rem + 25vw);
+	font-style: normal;
+	font-size: 1rem;
+	text-align: left;
+	margin-top: : 1rem;
+	margin-left: 6rem;
+	overflow: auto;
+}
+
+.variable-text{
+	margin-bottom: 2rem;
+}
+
+.assistant-btn{
+	border-radius: 1rem;
+	width: 80%;
+	height: 5vh;
+	border: none;
+	font-weight: bold;
+	color: white;
+	margin-bottom: 0.5rem;
+
+}
+
+.btn-1{
+	background-color: #B25F45;
+}
+
+.btn-2{
+	background-color: #24685B;
+}
+
+.assistant-img{
+	height: calc(30rem + 10vh);
+	width: calc(10rem + 10vw);
+	background-size: contain;
+	background-position: center bottom;
+	background-repeat: no-repeat;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
