@@ -51,7 +51,7 @@
 
         <!-- Indicators -->
         <ol class='carousel-indicators carousel-indicators-custom'>
-            {% for url, params in urls.items %}
+            {% for url, params in thumbnail_urls.items %}
                 {% if selected %}
                     {% if params.key == selected %}
                         <li data-target='#carousel-custom' data-slide-to='{{params.idx}}' class='active'><div class="display-image-thumb" style="background-image: url('{{url}}')"></div></li>

@@ -6,6 +6,7 @@ class Image(models.Model):
     tags = ArrayField(models.CharField(max_length=200), blank=True)
     name = models.CharField(max_length=200)
     title = models.TextField()
+    ext = models.CharField(max_length=5)
     description = models.TextField()
 
     def __str__(self):

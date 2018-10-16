@@ -54,6 +54,7 @@ function getSignedRequest(){
     });
     var description = document.getElementById("img_description").value
     var files = document.getElementById("file_input").files;
+    var title = document.getElementById("img_title").value
     var file = files[0];
     if (!file){
         return alert("No file selected.")

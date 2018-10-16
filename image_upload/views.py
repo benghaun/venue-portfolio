@@ -19,17 +19,19 @@ def sign_s3(request):
     description = request.GET.get('description')
     title = request.GET.get('title')
     tags = request.GET.get('tags').lower().split(",")
-    tags = [x for x in tags if x]  # remove empty strings
+    # remove empty strings, undefined, and repeats
+    tags = list(set([x for x in tags if (x and x != 'null')]))
     # remove leading and trailing whitespaces in tags
     for i in range(len(tags)):
         tags[i] = tags[i].strip()
+    ext = file_name.split('.')[-1]
     s3 = boto3.client('s3', region_name='eu-west-3')
-    image = Image(name=file_name, tags=tags, description=description, title=title)
+    image = Image(name=file_name, tags=tags, description=description, title=title, ext=ext)
     image.save()
     image_id = str(image.id)
     presigned_post = s3.generate_presigned_post(
                         Bucket=S3_BUCKET,
-                        Key=image_id,
+                        Key=image_id + ".%s" % ext,
                         Fields={"acl": "public-read", "Content-Type": file_type},
                         Conditions=[
                           {"acl": "public-read"},
