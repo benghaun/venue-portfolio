@@ -4,7 +4,7 @@ function launchAssistant(){
 		iframe: {
     	// Iframe template
 		    tpl:
-		      '<iframe id="fancybox-frame{rnd}" name="fancybox-frame{rnd}" class="fancybox-iframe" allowfullscreen allow="autoplay; fullscreen" src=""></iframe>',
+		      '<iframe id="fancybox-frame{rnd}" name="fancybox-frame{rnd}" class="fancybox-iframe" allowfullscreen allow="autoplay; fullscreen" src="" sandbox="allow-top-navigation allow-scripts allow-forms"></iframe>',
 
 		    // Preload iframe before displaying it
 		    // This allows to calculate iframe content width and height
