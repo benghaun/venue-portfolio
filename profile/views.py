@@ -1,6 +1,7 @@
 import os
 import json
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import render, HttpResponse
 import boto3
 from venue.models import Image, Tag
@@ -8,12 +9,13 @@ from venue.utils import in_bucket
 S3_BUCKET = os.environ.get('S3_BUCKET')
 
 
-def profile(request):
-    return render(request, 'profile/profile.html')
+def profile(request, username):
+    return render(request, 'profile/profile.html', {'uploader': username})
 
 
-def category(request, category):
-    images = Image.objects.filter(tags__contains=[category.lower()])
+def category_view(request, username, category):
+    uploader = User.objects.get(username=username)
+    images = Image.objects.filter(tags__contains=[category.lower()], uploader_id=uploader.id)
     urls = {}
     for i in range(len(images)):
         image = images[i]
@@ -35,15 +37,17 @@ def category(request, category):
     except Tag.DoesNotExist:
         tag_description = ""
 
-    return render(request, 'profile/category.html', {'urls': urls, 'category': category, 'description': tag_description})
+    return render(request, 'profile/category.html', {'urls': urls, 'category': category,
+                                                     'description': tag_description, 'uploader': username})
 
 
-def image(request, category):
+def image(request, username, category):
     s3 = boto3.client('s3', region_name='eu-west-3')
     urls = {}
     thumbnail_urls = {}
     selected = request.GET.get("selected")
-    images = Image.objects.filter(tags__contains=[category.lower()])
+    uploader = User.objects.get(username=username)
+    images = Image.objects.filter(tags__contains=[category.lower()], uploader_id=uploader.id)
     image_ids = []
     for i in range(images.count()):
         image = images[i]

@@ -8,6 +8,7 @@ class Image(models.Model):
     title = models.TextField()
     ext = models.CharField(max_length=5)
     description = models.TextField()
+    uploader_id = models.IntegerField()
 
     def __str__(self):
         return self.id
@@ -16,6 +17,7 @@ class Image(models.Model):
 class Tag(models.Model):
     name = models.CharField(max_length=13, unique=True)
     description = models.TextField()
+    uploader_id = models.IntegerField()
 
     def __str__(self):
         return self.name

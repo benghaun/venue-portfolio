@@ -1,17 +1,20 @@
 import os
 import json
 from django.core.exceptions import ValidationError
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponse, redirect
 import boto3
 from venue.models import Image, Tag
 
 
+@login_required()
 def upload_view(request):
     tags = Tag.objects.all()
     message = request.GET.get('message')
     return render(request, 'image_upload/upload_page.html', {'tags': tags, 'message': message})
 
 
+@login_required()
 def sign_s3(request):
     S3_BUCKET = os.environ.get('S3_BUCKET')
     file_name = request.GET.get('file_name')
@@ -26,7 +29,7 @@ def sign_s3(request):
         tags[i] = tags[i].strip()
     ext = file_name.split('.')[-1]
     s3 = boto3.client('s3', region_name='eu-west-3')
-    image = Image(name=file_name, tags=tags, description=description, title=title, ext=ext)
+    image = Image(name=file_name, tags=tags, description=description, title=title, ext=ext, uploader_id=request.user.id)
     image.save()
     image_id = str(image.id)
     presigned_post = s3.generate_presigned_post(
@@ -45,11 +48,12 @@ def sign_s3(request):
                     }), content_type="application/json")
 
 
+@login_required()
 def add_tag(request):
     tag_name = request.POST.get("tag_name")
     tag_description = request.POST.get("tag_description")
     try:
-        tag = Tag(name=tag_name.lower(), description=tag_description)
+        tag = Tag(name=tag_name.lower(), description=tag_description, uploader_id=request.user.id)
         tag.save()
     except ValidationError:
         return redirect('/upload?message=tag%20too%long')
