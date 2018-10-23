@@ -5,5 +5,5 @@ BASE_DIR = settings.BASE_DIR
 
 
 def home(request):
-    return render(request, 'profile/profile.html')
+    return render(request, 'profile/profile.html', {"uploader": "leakyjar"})
 
