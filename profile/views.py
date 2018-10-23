@@ -1,4 +1,6 @@
 import os
+import json
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponse
 import boto3
 from venue.models import Image, Tag
@@ -64,3 +66,8 @@ def image(request, category):
     selected_title = Image.objects.get(id=int(selected)).title.upper()
     return render(request, 'profile/img-view.html', {'urls': urls, 'selected': selected,
                                                      'thumbnail_urls': thumbnail_urls, 'selected_title': selected_title})
+
+
+@login_required()
+def edit_profile(request):
+    return HttpResponse(json.dumps('ok'))
