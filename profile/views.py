@@ -15,7 +15,10 @@ def profile(request, username):
 
 def category_view(request, username, category):
     uploader = User.objects.get(username=username)
-    images = Image.objects.filter(tags__contains=[category.lower()], uploader_id=uploader.id)
+    if category == "all":
+        images = Image.objects.filter(uploader_id=uploader.id)
+    else:
+        images = Image.objects.filter(tags__contains=[category.lower()], uploader_id=uploader.id)
     urls = {}
     for i in range(len(images)):
         image = images[i]
