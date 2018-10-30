@@ -50,7 +50,10 @@ def image(request, username, category):
     thumbnail_urls = {}
     selected = request.GET.get("selected")
     uploader = User.objects.get(username=username)
-    images = Image.objects.filter(tags__contains=[category.lower()], uploader_id=uploader.id)
+    if category == "all":
+        images = Image.objects.filter(uploader_id=uploader.id)
+    else:
+        images = Image.objects.filter(tags__contains=[category.lower()], uploader_id=uploader.id)
     image_ids = []
     for i in range(images.count()):
         image = images[i]
