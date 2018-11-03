@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponse, redirect
 import boto3
 from venue.models import Image, Tag
+from .utils import get_tags
 
 
 @login_required()
@@ -12,6 +13,13 @@ def upload_view(request):
     tags = Tag.objects.all()
     message = request.GET.get('message')
     return render(request, 'image_upload/upload_page.html', {'tags': tags, 'message': message})
+
+
+@login_required()
+def get_tag_view(request):
+    file = request.FILES.get('file')
+    tags = get_tags(file.read())
+    return HttpResponse(json.dumps(tags))
 
 
 @login_required()
