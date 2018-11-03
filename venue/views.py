@@ -4,6 +4,9 @@ from django.conf import settings
 BASE_DIR = settings.BASE_DIR
 
 
+# def home(request):
+#     return render(request, 'profile/profile.html', {"uploader": "leakyjar"})
+
 def home(request):
-    return render(request, 'profile/profile.html', {"uploader": "leakyjar"})
+    return render(request, 'landing/landing.html', {"uploader": "leakyjar"})
 
