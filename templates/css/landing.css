@@ -1,0 +1,93 @@
+.container {
+	max-width: 100rem;
+}
+
+body {
+	margin-top: 2rem !important;
+	background-color: #DAD3CE;
+}
+
+img{
+	max-height: 100%;
+	max-width: 100%;
+}
+
+/*assistant btn*/
+.btn-assistant{
+    width: 4em;
+    height: 4em;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	margin-right: 2rem;
+	margin-bottom: 1rem;
+	overflow: hidden;
+	z-index: 2;
+}
+
+.btn-assistant:hover{
+	background: linear-gradient(
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 1));
+	box-shadow: 0rem 0rem .5rem .2rem white;
+}
+
+.btn-circle {
+    width: 3em;
+    height: 3em;
+    padding: 1em 0em;
+    border-radius: 5em;
+    text-align: center;
+    font-size: 1em;
+    line-height: 1.42857;
+    margin-bottom: 1rem;
+}
+
+.btn-circle:hover {
+	background: linear-gradient(
+      rgba(0, 123, 255, 1),
+      rgba(0, 123, 255, 1))
+}
+/*assistant btn*/
+
+.no-padding{
+	padding: 0em !important;
+}
+
+.small-thumb-cover{
+	position:  absolute;
+	background-size: cover;
+	background-position: center;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+.fit-img{
+	width: 100%;	
+	padding-top: 100%;
+	background-color: black;
+	overflow: hidden;
+    background-position: center;
+    border-radius: 1em;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.cus-col-3{
+	width: 40%;
+	display: inline-flex;
+}
+
+.cus-col-2{
+	width: 20%;
+	display: inline-flex;
+}
+
+.cus-col-1{
+	width: 10%;
+	display: inline-flex;
+}
