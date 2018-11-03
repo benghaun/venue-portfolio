@@ -17,6 +17,6 @@ def assistant(request):
     elif action == 'browse':
         text = "Sure, what type of art are you interested in?"
         for tag in tags:
-            buttons[tag.name] = {'type': '1', 'onClick': "window.top.location.href='/profile/%s'" % tag.name}
+            buttons[tag.name] = {'type': '1', 'onClick': "window.top.location.href='/profile/leakyjar/%s'" % tag.name}
     return render(request, 'assistant/assistant.html', {'text': text, 'buttons': buttons})
 

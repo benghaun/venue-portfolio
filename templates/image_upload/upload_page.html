@@ -35,6 +35,35 @@
 
 
 <script>
+$('#file_input').on('click touchstart' , function(){
+    $(this).val('');
+});
+
+$("#file_input").change(function() {
+    var file = document.getElementById("file_input").files[0];
+    getRecommendedTags(file);
+});
+
+function getRecommendedTags(file) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/upload/getTags/");
+    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+    xhr.setRequestHeader('X-CSRFToken', csrftoken);
+    var postData = new FormData();
+    postData.append('file', file);
+    xhr.onreadystatechange = function() {
+    if(xhr.readyState === 4){
+      if(xhr.status === 200 || xhr.status === 204){
+        alert(xhr.responseText);
+      }
+      else{
+        alert("Could not get tags.");
+      }
+    }
+    };
+    xhr.send(postData);
+}
+
 function addTag() {
     var fieldsDiv = document.getElementById("fields");
     var content = document.createElement("SELECT");
@@ -46,6 +75,7 @@ function addTag() {
     fieldsDiv.appendChild(content);
     fieldsDiv.appendChild(brTag);
 }
+
 function getSignedRequest(){
     var xhr = new XMLHttpRequest();
     var tags = '';
