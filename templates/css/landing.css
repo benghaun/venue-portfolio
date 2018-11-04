@@ -1,5 +1,6 @@
 .container {
-	max-width: 100rem;
+	max-width: 90%;
+	margin: auto;
 }
 
 body {
@@ -13,24 +14,6 @@ img{
 }
 
 /*assistant btn*/
-.btn-assistant{
-    width: 4em;
-    height: 4em;
-	position: fixed;
-	bottom: 0;
-	right: 0;
-	margin-right: 2rem;
-	margin-bottom: 1rem;
-	overflow: hidden;
-	z-index: 2;
-}
-
-.btn-assistant:hover{
-	background: linear-gradient(
-      rgba(255, 255, 255, 1),
-      rgba(255, 255, 255, 1));
-	box-shadow: 0rem 0rem .5rem .2rem white;
-}
 
 .btn-circle {
     width: 3em;
@@ -48,7 +31,41 @@ img{
       rgba(0, 123, 255, 1),
       rgba(0, 123, 255, 1))
 }
+
+.btn-assistant{
+    width: 4em;
+    height: 4em;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	margin-right: 2rem;
+	margin-bottom: 1rem;
+	overflow: hidden;
+	z-index: 2;
+	box-shadow: 0rem 0rem .5rem 0.1rem rgba(0, 0, 0, 0.5);
+}
+
+.btn-assistant:hover{
+	background: linear-gradient(
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 1));
+	box-shadow: 0rem 0rem .5rem .2rem white;
+}
+
+
 /*assistant btn*/
+
+/*social media*/
+.social-media-block{
+	position: fixed;
+	right: 0;
+	top: 0;
+	margin-top: 2em;
+	margin-right: 2em;
+	height: 20em;
+	width: 3em;
+}
+/*social media*/
 
 .no-padding{
 	padding: 0em !important;
@@ -77,17 +94,22 @@ img{
     margin-bottom: 2rem;
 }
 
+.brick{
+	/*overflow: hidden;*/
+    border-radius: 1em;
+}
+
 .cus-col-3{
 	width: 40%;
-	display: inline-flex;
+	/*overflow: hidden;*/
 }
 
 .cus-col-2{
 	width: 20%;
-	display: inline-flex;
+	/*overflow: hidden;*/
 }
 
 .cus-col-1{
 	width: 10%;
-	display: inline-flex;
+	/*overflow: hidden;*/
 }
