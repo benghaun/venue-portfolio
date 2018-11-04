@@ -190,6 +190,7 @@ img{
 	margin-bottom: 1rem;
 	overflow: hidden;
 	z-index: 2;
+	box-shadow: 0rem 0rem .5rem 0.1rem rgba(0, 0, 0, 0.5);
 }
 
 .btn-assistant:hover{
