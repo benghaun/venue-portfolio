@@ -1,9 +1,11 @@
 import os
 import json
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+from authentication.models import User
+from django.db.models import F
 from django.shortcuts import render, HttpResponse
 import boto3
+from profile.utils import is_liked
 from venue.models import Image, Tag
 from venue.utils import in_bucket
 S3_BUCKET = os.environ.get('S3_BUCKET')
@@ -84,5 +86,18 @@ def image(request, username, category):
 
 
 @login_required()
-def edit_profile(request):
-    return HttpResponse(json.dumps('ok'))
+def toggle_like(request):
+    """Handles POST request which toggles the liking of a given image by the user"""
+    image_id = request.POST.get("image_id")
+    username = request.user.username
+    user = User.objects.get(username=username)
+    if is_liked(username, image_id):
+        Image.objects.get(id=int(image_id)).update(likes=F('likes') - 1)
+        user.liked_images.append(image_id)
+        response = "Disliked"
+    else:
+        Image.objects.get(id=int(image_id)).update(likes=F('likes') + 1)
+        user.liked_images.remove(image_id)
+        response = "Liked"
+    user.save()
+    return HttpResponse(response)

@@ -9,6 +9,7 @@ class Image(models.Model):
     ext = models.CharField(max_length=5)
     description = models.TextField()
     uploader_id = models.IntegerField()
+    likes = models.IntegerField(default=0)
 
     def __str__(self):
         return self.id
