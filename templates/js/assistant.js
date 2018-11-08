@@ -1,4 +1,4 @@
-function launchAssistant(){
+function launchAssistant(args){
 	$('#assistant').fancybox({
 
 		iframe: {
@@ -25,7 +25,7 @@ function launchAssistant(){
 	});
 
 	$.fancybox.open({
-		src  : '/assistant',
+		src  : '/assistant/?action=' + args,
 		type : 'iframe',
 		opts : {
 			afterLoad : function( instance, current ) {
