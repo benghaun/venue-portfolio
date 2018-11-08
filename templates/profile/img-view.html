@@ -5,36 +5,35 @@
 <link rel="stylesheet" type="text/css" href="{% static 'img-view.css' %}">
 
 <body>
-
 <div id='carousel-custom' class='carousel slide carousel-wrapper' data-ride='carousel' data-interval="false">
     <!-- Wrapper for slides -->
     <div class='carousel-inner carousel-shape'>
-        {% for url, params in urls.items %}
+        {% for idx, params in urls.items %}
             {% if selected %}
                 {% if params.key == selected %}
                     <div class='carousel-item height active' id="{{params.title}}">
-                        <div class="display-image" style="background-image: url('{{url}}' )">
-                            <a href="{{url}}" data-fancybox class="fancy-click"></a>
+                        <div class="display-image" style="background-image: url('{{params.medium_url}}' )">
+                            <a href="{{params.url}}" data-fancybox class="fancy-click"></a>
                         </div>
                     </div>
                 {% else %}
                     <div class='carousel-item height' id="{{params.title}}">
-                        <div class="display-image" style="background-image: url('{{url}}'">
-                            <a href="{{url}}" data-fancybox class="fancy-click"></a>
+                        <div class="display-image" style="background-image: url('{{params.medium_url}}'">
+                            <a href="{{params.url}}" data-fancybox class="fancy-click"></a>
                         </div>
                     </div>
                 {% endif %}
             {% else %}
                 {% if params.idx == 0 %}
                     <div class='carousel-item height active' id="{{params.title}}">
-                        <div class="display-image" style="background-image: url('{{url}}')">
-                            <a href="{{url}}" data-fancybox class="fancy-click"></a>
+                        <div class="display-image" style="background-image: url('{{params.medium_url}}')">
+                            <a href="{{params.url}}" data-fancybox class="fancy-click"></a>
                         </div>
                     </div>
                 {% else %}
                     <div class='carousel-item height' id="{{params.title}}">
-                        <div class="display-image" style="background-image: url('{{url}}' )">
-                            <a href="{{url}}" data-fancybox class="fancy-click"></a>
+                        <div class="display-image" style="background-image: url('{{params.medium_url}}' )">
+                            <a href="{{params.url}}" data-fancybox class="fancy-click"></a>
                         </div>
                     </div>
                 {% endif %}
@@ -51,18 +50,18 @@
 
         <!-- Indicators -->
         <ol class='carousel-indicators carousel-indicators-custom'>
-            {% for url, params in thumbnail_urls.items %}
+            {% for idx, params in thumbnail_urls.items %}
                 {% if selected %}
                     {% if params.key == selected %}
-                        <li data-target='#carousel-custom' data-slide-to='{{params.idx}}' class='active'><div class="display-image-thumb" style="background-image: url('{{url}}')"></div></li>
+                        <li data-target='#carousel-custom' data-slide-to='{{params.idx}}' class='active'><div class="display-image-thumb" style="background-image: url('{{params.url}}')"></div></li>
                     {% else %}
-                        <li data-target='#carousel-custom' data-slide-to='{{params.idx}}'><div class="display-image-thumb" style="background-image: url('{{url}}')"></div></li>
+                        <li data-target='#carousel-custom' data-slide-to='{{params.idx}}'><div class="display-image-thumb" style="background-image: url('{{params.url}}')"></div></li>
                     {% endif %}
                 {% else %}
                     {% if params.idx == 0 %}
-                        <li data-target='#carousel-custom' data-slide-to='{{params.idx}}' class='active'><div class="display-image-thumb" style="background-image: url('{{url}}')"></div></li>
+                        <li data-target='#carousel-custom' data-slide-to='{{params.idx}}' class='active'><div class="display-image-thumb" style="background-image: url('{{params.url}}')"></div></li>
                     {% else %}
-                        <li data-target='#carousel-custom' data-slide-to='{{params.idx}}'><div class="display-image-thumb" style="background-image: url('{{url}}')"></div></li>
+                        <li data-target='#carousel-custom' data-slide-to='{{params.idx}}'><div class="display-image-thumb" style="background-image: url('{{params.url}}')"></div></li>
                     {% endif %}
                 {% endif %}
             {% endfor %}

@@ -48,6 +48,7 @@ def image(request, username, category):
     s3 = boto3.client('s3', region_name='eu-west-3')
     urls = {}
     thumbnail_urls = {}
+    medium_urls = {}
     selected = request.GET.get("selected")
     uploader = User.objects.get(username=username)
     if category == "all":
@@ -64,18 +65,22 @@ def image(request, username, category):
                                         Params={'Bucket': S3_BUCKET,
                                                 'Key': image_id + "." + image.ext},
                                         ExpiresIn=86400)
-        urls[url] = {"key": image_id, "idx": i, "title": title}
+        medium_url = s3.generate_presigned_url(ClientMethod="get_object",
+                                               Params={'Bucket': S3_BUCKET,
+                                                       'Key': 'resized_med/' + image_id + "." + image.ext},
+                                               ExpiresIn=86400)
+        urls[i] = {"key": image_id, "idx": i, "title": title, 'url': url, 'medium_url': medium_url}
         thumbnail_url = s3.generate_presigned_url(ClientMethod="get_object",
                                                   Params={'Bucket': S3_BUCKET,
                                                           'Key': 'resized/' + image_id + "." + image.ext},
                                                   ExpiresIn=86400)
-        thumbnail_urls[thumbnail_url] = {"key": image_id, "idx": i, "title": title}
-
+        thumbnail_urls[i] = {"key": image_id, "idx": i, "title": title, 'url': thumbnail_url}
     if selected not in image_ids:
         selected = '0'
     selected_title = Image.objects.get(id=int(selected)).title.upper()
     return render(request, 'profile/img-view.html', {'urls': urls, 'selected': selected,
-                                                     'thumbnail_urls': thumbnail_urls, 'selected_title': selected_title})
+                                                     'thumbnail_urls': thumbnail_urls, 'selected_title': selected_title,
+                                                     'medium_urls': medium_urls})
 
 
 @login_required()
