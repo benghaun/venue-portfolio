@@ -11,13 +11,13 @@
         {% for idx, params in urls.items %}
             {% if selected %}
                 {% if params.key == selected %}
-                    <div class='carousel-item height active' id="{{params.title}}">
+                    <div class='carousel-item height active' id="{{params.title}}" data-img="{{params.key}}">
                         <div class="display-image" style="background-image: url('{{params.medium_url}}' )">
                             <a href="{{params.url}}" data-fancybox class="fancy-click"></a>
                         </div>
                     </div>
                 {% else %}
-                    <div class='carousel-item height' id="{{params.title}}">
+                    <div class='carousel-item height' id="{{params.title}}" data-img="{{params.key}}">
                         <div class="display-image" style="background-image: url('{{params.medium_url}}'">
                             <a href="{{params.url}}" data-fancybox class="fancy-click"></a>
                         </div>
@@ -25,13 +25,13 @@
                 {% endif %}
             {% else %}
                 {% if params.idx == 0 %}
-                    <div class='carousel-item height active' id="{{params.title}}">
+                    <div class='carousel-item height active' id="{{params.title}}" data-img="{{params.key}}">
                         <div class="display-image" style="background-image: url('{{params.medium_url}}')">
                             <a href="{{params.url}}" data-fancybox class="fancy-click"></a>
                         </div>
                     </div>
                 {% else %}
-                    <div class='carousel-item height' id="{{params.title}}">
+                    <div class='carousel-item height' id="{{params.title}}" data-img="{{params.key}}">
                         <div class="display-image" style="background-image: url('{{params.medium_url}}' )">
                             <a href="{{params.url}}" data-fancybox class="fancy-click"></a>
                         </div>
@@ -70,7 +70,7 @@
     </div>
 
 </div>
-
+    <p hidden id="selectedId">{{selected}}</p>
     <div class="container">
         <div class="row">
             <button type="button" id="like" onClick="toggleLike()">Like</button>
@@ -137,6 +137,29 @@
     </button>
     <script src="{% static 'assistant.js' %}"></script>
     <script src="{% static 'img_title_change.js' %}"></script>
+    {% csrf_token %}
+    <script>
+        function toggleLike(){
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/profile/like/");
+            var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+            xhr.setRequestHeader('X-CSRFToken', csrftoken);
+            var postData = new FormData();
+            var imageId = document.getElementById("selectedId").innerHTML
+            postData.append("image_id", imageId)
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState === 4){
+                    if(xhr.status === 200 || xhr.status === 204){
+                        alert(xhr.responseText)
+                    }
+                    else{
+                        alert("Like failed.");
+                    }
+                }
+            };
+            xhr.send(postData);
+        }
+    </script>
 
 </body>
 
