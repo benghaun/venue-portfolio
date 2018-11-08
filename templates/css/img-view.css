@@ -26,10 +26,12 @@ img{
     justify-content: flex-start;
     opacity: 0;
 	z-index: 0;
+    transition: opacity 0.25s ease-in;
 }
 
 #carousel-custom .carousel-indicators:hover {
     opacity: 1;
+    transition: opacity 0.25s ease-in;
 }
 
 #carousel-custom .carousel-indicators li {
@@ -59,6 +61,7 @@ img{
     height: 100%;
     width: 20%;
     opacity: 0;
+    transition: opacity 0.25s ease-in;
 }
 
 .carousel-custom-left:hover{
@@ -67,6 +70,7 @@ img{
 		to left,
       rgba(0, 0, 0, 0),
       rgba(0, 0, 0, 1));
+    transition: opacity 0.25s ease-in;
 }
 
 .carousel-left-icon{
@@ -85,6 +89,7 @@ img{
     height: 100%;
     width: 20%;
     opacity: 0;
+    transition: opacity 0.25s ease-in;
 }
 
 .carousel-custom-right:hover{
@@ -93,6 +98,7 @@ img{
 		to right,
       rgba(0, 0, 0, 0),
       rgba(0, 0, 0, 1));
+    transition: opacity 0.25s ease-in;
 }
 
 .carousel-right-icon{
