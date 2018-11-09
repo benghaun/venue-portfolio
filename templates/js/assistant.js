@@ -1,6 +1,5 @@
 function launchAssistant(args){
 	$('#assistant').fancybox({
-
 		iframe: {
     	// Iframe template
 		    tpl:
@@ -25,7 +24,7 @@ function launchAssistant(args){
 	});
 
 	$.fancybox.open({
-		src  : '/assistant/?action=' + args,
+		src  : '/assistant/?' + encodeQueryData(args) ,
 		type : 'iframe',
 		opts : {
 			afterLoad : function( instance, current ) {
@@ -42,4 +41,11 @@ function launchAssistant(args){
 			}
 		}
 	});
+}
+
+function encodeQueryData(data) {
+   let ret = [];
+   for (let d in data)
+     ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+   return ret.join('&');
 }

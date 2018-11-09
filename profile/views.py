@@ -92,12 +92,13 @@ def toggle_like(request):
     username = request.user.username
     user = User.objects.get(username=username)
     if is_liked(username, image_id):
-        Image.objects.get(id=int(image_id)).update(likes=F('likes') - 1)
-        user.liked_images.append(image_id)
-        response = "Disliked"
-    else:
-        Image.objects.get(id=int(image_id)).update(likes=F('likes') + 1)
+        Image.objects.filter(id=int(image_id)).update(likes=F('likes') - 1)
         user.liked_images.remove(image_id)
+        response = "Unliked"
+    else:
+        Image.objects.filter(id=int(image_id)).update(likes=F('likes') + 1)
+        user.liked_images.append(image_id)
         response = "Liked"
     user.save()
-    return HttpResponse(response)
+    return HttpResponse(content=response, content_type="text/plain")
+

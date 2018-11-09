@@ -129,7 +129,7 @@
         Feel free to take a look </br> around or speak to my assistant!
     </div>
 
-    <button type="button" id="assistant" class="btn btn-default btn-circle no-padding btn-assistant" onClick="launchAssistant()">
+    <button type="button" id="assistant" class="btn btn-default btn-circle no-padding btn-assistant" onClick="launchAssistant({'action': 'profile', 'username': '{{uploader}}'})">
             <img src="{% static 'AssistantThumb.png' %}" alt="assistant">
     </button>
     <script src="{% static 'assistant.js' %}"></script>

@@ -12,7 +12,7 @@ class Image(models.Model):
     likes = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 
 class Tag(models.Model):

@@ -5,14 +5,28 @@
 <link rel="stylesheet" type="text/css" href="{% static 'assistant.css' %}">
 <body>
 <div class="inner-body">
-    <div class="speech-symbol">"</div>
-    <div class="assistant-speech">Hi, I’m the gallery assistant, here to help.</div>
+    <div class="speech-symbol-container">
+        <div class="speech-symbol">"</div>
+    </div>
+    <div class="assistant-speech">{{ header_text }}</div>
     <div class="variable-content">
         <div class="variable-text">{{ text }}</div>
         {% for button_txt, params in buttons.items %}
+        {% autoescape off %}
             <button class="option-btn btn-{{params.type}}" onClick="{{params.onClick}}">{{button_txt}}</button>
+        {% endautoescape %}
             <br>
         {% endfor %}
+        {% if inputs != None %}
+            {% for input_fields, params in inputs.items %}
+                <div>{{input_fields}}:</div>
+                <input type="{{input_fields}}" class="input-field">
+                <br>
+                <br>
+            {% endfor %}
+
+            <button type="submit" class="submit-btn">Login</button>
+        {% endif %}
     </div>
 
 </div>
