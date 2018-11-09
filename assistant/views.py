@@ -1,7 +1,7 @@
 import os
-from django.shortcuts import render, HttpResponse
-import boto3
-from venue.models import Image, Tag
+from django.contrib.auth import logout
+from django.shortcuts import render, HttpResponse, redirect
+from venue.models import Tag
 S3_BUCKET = os.environ.get('S3_BUCKET')
 
 
@@ -55,22 +55,23 @@ def assistant(request):
                        'Logout': {'type': '2', 'onClick': "location.href='/assistant?action=logout'"}}
     elif action == 'login':
         header_text = "Welcome back! Hope things have been well."
-        inputs = {'Username': "",
-                  'Password': ""}
+        inputs = {'Username': {"type": "", "name": "Username"},
+                  'Password': {"type": "password", "name": "Password"}}
         if nxt:
             form = "/accounts/login/?next=" + nxt
         else:
             form = "/accounts/login/"
     elif action == 'register':
         header_text = "So you’re a new user? Looking forward to working with you!"
-        inputs = {'Username': "",
-                  'Password': "",
-                  'Confirm Password': ""}
+        inputs = {'Username': {"type": "", "name": "username"},
+                  'Password': {"type": "password", "name": "password1"},
+                  'Confirm Password': {"type": "password", "name": "password2"}}
         form = "/accounts/register/"
-
-
+    elif action == 'logout':
+        logout(request)
+        return redirect("/assistant/?action=landing")
     if message:
         text = message
 
-    return render(request, 'assistant/assistant.html', {'header_text': header_text, 'text': text, 'buttons': buttons, 'inputs': inputs, 'search': search, 'form': form, 'upload': upload})
+    return render(request, 'assistant/assistant.html', {'header_text': header_text, 'text': text, 'buttons': buttons, 'inputs': inputs, 'search': search, 'form': form, 'upload':upload})
 

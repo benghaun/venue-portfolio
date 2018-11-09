@@ -1,7 +1,7 @@
 import os
 import json
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+from authentication.models import User
 from django.shortcuts import render, HttpResponse
 import boto3
 from venue.models import Image, Tag
