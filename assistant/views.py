@@ -67,11 +67,10 @@ def assistant(request):
                   'Password': "",
                   'Confirm Password': ""}
         form = "/accounts/register/"
-    elif action == 'logout'
 
 
     if message:
         text = message
 
-    return render(request, 'assistant/assistant.html', {'header_text': header_text, 'text': text, 'buttons': buttons, 'inputs': inputs, 'search': search, 'form': form, 'upload':upload})
+    return render(request, 'assistant/assistant.html', {'header_text': header_text, 'text': text, 'buttons': buttons, 'inputs': inputs, 'search': search, 'form': form, 'upload': upload})
 
