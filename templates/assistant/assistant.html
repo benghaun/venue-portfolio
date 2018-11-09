@@ -18,22 +18,22 @@
             <br>
         {% endfor %}
         {% if inputs != None %}
+        <form action="{{ form }}">
             {% for input_fields, params in inputs.items %}
                 <div class="input-header">{{input_fields}}:</div>
                 <input type="{{input_fields}}" class="input-field" placeholder="{{params}}">
                 <br>
                 <br>
             {% endfor %}
-
             <button type="submit" class="submit-btn">Submit</button>
+        </form>
         {% endif %}
         {% if search != None %}
             {% for search_field, params in search.items %}
                 <input type="{{search_field}}" class="input-field" placeholder="{{params}}">
-                <button type="button" class="btn btn-default btn-search no-padding" style="background-image: url('{% static 'search.png' %}')">
-                    <!--<img src="{% static 'search.png' %}" alt="twitter">-->
+                <button type="button" class="btn btn-default btn-search no-padding">
+                    <img src="{% static 'search.png' %}" alt="search" class="search-img">
                 </button>
-                </a>
                 <br>
                 <br>
             {% endfor %}

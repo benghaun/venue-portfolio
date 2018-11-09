@@ -128,6 +128,11 @@ input:-webkit-autofill {
 	background-color: #DF784B;
 }
 
+.search-img{
+	display: inline-block;
+	size: contain;
+}
+
 .btn-search {
     width: 3em;
     height: 3em;

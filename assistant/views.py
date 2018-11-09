@@ -15,6 +15,7 @@ def assistant(request):
     header_text = ""
     text = ""
     search = None
+    form = ""
     if action == 'profile':
         if username != current_user:
             header_text = "Welcome to " + username + "'s gallery!"
@@ -47,12 +48,14 @@ def assistant(request):
         header_text = "Welcome back! Hope things have been well."
         inputs = {'Username': "",
                   'Password': ""}
+        form = "/accounts/login"
     elif action == 'register':
         header_text = "So you’re a new user? Looking forward to working with you!"
         inputs = {'Username': "",
                   'Password': "",
                   'Confirm Password': ""}
+        form = "/accounts/register"
 
 
-    return render(request, 'assistant/assistant.html', {'header_text': header_text, 'text': text, 'buttons': buttons, 'inputs': inputs, 'search': search})
+    return render(request, 'assistant/assistant.html', {'header_text': header_text, 'text': text, 'buttons': buttons, 'inputs': inputs, 'search': search, 'form': form})
 
