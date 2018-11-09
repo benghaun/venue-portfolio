@@ -18,10 +18,11 @@
             <br>
         {% endfor %}
         {% if inputs != None %}
-        <form action="{{ form }}">
+        <form action="{{ form }}" method="post">
+            {% csrf_token %}
             {% for input_fields, params in inputs.items %}
                 <div class="input-header">{{input_fields}}:</div>
-                <input type="{{input_fields}}" class="input-field" placeholder="{{params}}">
+                <input type="{{input_fields}}" name="{{input_fields}}" class="input-field" placeholder="{{params}}">
                 <br>
                 <br>
             {% endfor %}

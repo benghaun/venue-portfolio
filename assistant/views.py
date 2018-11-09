@@ -8,6 +8,8 @@ S3_BUCKET = os.environ.get('S3_BUCKET')
 def assistant(request):
     action = request.GET.get("action")
     username = request.GET.get("username")
+    message = request.GET.get("message")
+    nxt = request.GET.get("next")
     current_user = request.user.username
     tags = Tag.objects.all()
     buttons = {}
@@ -27,7 +29,7 @@ def assistant(request):
             header_text = "Welcome back, " + username + "!"
             text = "What do you need to do today?"
             buttons = {'Upload an image': {'type': '1',
-                                  'onClick': "location.href='/assistant?action=browse&username=" + username + "'"},
+                                           'onClick': "location.href='/assistant?action=browse&username=" + username + "'"},
                        'Manage existing artwork': {'type': '2', 'onClick': ''}}
     elif action == 'browse':
         header_text = "Let me see what artwork " + username + " has..."
@@ -41,21 +43,29 @@ def assistant(request):
     elif action == 'landing':
         header_text = "Hi there, my name is Jeff... lol"
         text = "Welcome to Venue! I can help you around this portfolio site. What would you like to do?"
-        buttons = {'Search': {'type': '1', 'onClick': "location.href='/assistant?action=search'"},
-                   'Login': {'type': '2', 'onClick': "location.href='/assistant?action=login'"},
-                   'Register': {'type': '3', 'onClick': "location.href='/assistant?action=register'"}}
+        if not request.user.username:
+            buttons = {'Search': {'type': '1', 'onClick': "location.href='/assistant?action=search'"},
+                       'Login': {'type': '2', 'onClick': "location.href='/assistant?action=login'"},
+                       'Register': {'type': '3', 'onClick': "location.href='/assistant?action=register'"}}
+        else:
+            buttons = {'Search': {'type': '1', 'onClick': "location.href='/assistant?action=search'"}}
     elif action == 'login':
         header_text = "Welcome back! Hope things have been well."
         inputs = {'Username': "",
                   'Password': ""}
-        form = "/accounts/login"
+        if nxt:
+            form = "/accounts/login/?next=" + nxt
+        else:
+            form = "/accounts/login/"
     elif action == 'register':
         header_text = "So you’re a new user? Looking forward to working with you!"
         inputs = {'Username': "",
                   'Password': "",
                   'Confirm Password': ""}
-        form = "/accounts/register"
+        form = "/accounts/register/"
 
+    if message:
+        text = message
 
     return render(request, 'assistant/assistant.html', {'header_text': header_text, 'text': text, 'buttons': buttons, 'inputs': inputs, 'search': search, 'form': form})
 
