@@ -1,7 +1,7 @@
 import os
-from django.shortcuts import render, HttpResponse
-import boto3
-from venue.models import Image, Tag
+from django.contrib.auth import logout
+from django.shortcuts import render, HttpResponse, redirect
+from venue.models import Tag
 S3_BUCKET = os.environ.get('S3_BUCKET')
 
 
@@ -63,13 +63,13 @@ def assistant(request):
             form = "/accounts/login/"
     elif action == 'register':
         header_text = "So you’re a new user? Looking forward to working with you!"
-        inputs = {'Username': {"type": "", "name": "Username"},
-                  'Password': {"type": "password", "name": "Password"},
-                  'Confirm Password': {"type": "password", "name": "Password2"}}
+        inputs = {'Username': {"type": "", "name": "username"},
+                  'Password': {"type": "password", "name": "password1"},
+                  'Confirm Password': {"type": "password", "name": "password2"}}
         form = "/accounts/register/"
-    elif action == 'logout'
-
-
+    elif action == 'logout':
+        logout(request)
+        return redirect("/assistant/?action=landing")
     if message:
         text = message
 

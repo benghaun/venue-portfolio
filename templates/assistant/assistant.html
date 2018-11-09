@@ -22,7 +22,7 @@
             {% csrf_token %}
             {% for input_fields, params in inputs.items %}
                 <div class="input-header">{{input_fields}}:</div>
-                <input type="{{params.type}}" name="{{params.name}}" class="input-field" placeholder="{{params}}">
+                <input type="{{params.type}}" name="{{params.name}}" class="input-field">
                 <br>
                 <br>
             {% endfor %}

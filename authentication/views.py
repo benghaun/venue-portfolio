@@ -28,12 +28,10 @@ def register(request):
         if f.is_valid():
             f.save()
             messages.success(request, 'Account created successfully')
-            return redirect('/accounts/login')
-
-    else:
-        f = SignUpForm()
-
-    return render(request, 'authentication/register.html', {'form': f})
+            return redirect('/assistant/?action=login&message=Registration was successful, you can login now!')
+        else:
+            print(f.errors)
+    return redirect("/assistant/?action=register&message=Registration failed")
 
 
 def logout_view(request):
