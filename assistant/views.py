@@ -51,7 +51,8 @@ def assistant(request):
                        'Login': {'type': '2', 'onClick': "location.href='/assistant?action=login'"},
                        'Register': {'type': '3', 'onClick': "location.href='/assistant?action=register'"}}
         else:
-            buttons = {'Search': {'type': '1', 'onClick': "location.href='/assistant?action=search'"}}
+            buttons = {'Search': {'type': '1', 'onClick': "location.href='/assistant?action=search'"},
+                       'Logout': {'type': '2', 'onClick': "location.href='/assistant?action=logout'"}}
     elif action == 'login':
         header_text = "Welcome back! Hope things have been well."
         inputs = {'Username': {"type": "", "name": "Username"},
@@ -66,6 +67,8 @@ def assistant(request):
                   'Password': {"type": "password", "name": "Password"},
                   'Confirm Password': {"type": "password", "name": "Password2"}}
         form = "/accounts/register/"
+    elif action == 'logout'
+
 
     if message:
         text = message
