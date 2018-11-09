@@ -70,6 +70,9 @@ def assistant(request):
     elif action == 'logout':
         logout(request)
         return redirect("/assistant/?action=landing")
+    elif action == 'contact':
+        header_text = "Send me a message"
+
     if message:
         text = message
 
