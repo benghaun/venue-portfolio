@@ -19,13 +19,24 @@
         {% endfor %}
         {% if inputs != None %}
             {% for input_fields, params in inputs.items %}
-                <div>{{input_fields}}:</div>
-                <input type="{{input_fields}}" class="input-field">
+                <div class="input-header">{{input_fields}}:</div>
+                <input type="{{input_fields}}" class="input-field" placeholder="{{params}}">
                 <br>
                 <br>
             {% endfor %}
 
-            <button type="submit" class="submit-btn">Login</button>
+            <button type="submit" class="submit-btn">Submit</button>
+        {% endif %}
+        {% if search != None %}
+            {% for search_field, params in search.items %}
+                <input type="{{search_field}}" class="input-field" placeholder="{{params}}">
+                <button type="button" class="btn btn-default btn-search no-padding" style="background-image: url('{% static 'search.png' %}')">
+                    <!--<img src="{% static 'search.png' %}" alt="twitter">-->
+                </button>
+                </a>
+                <br>
+                <br>
+            {% endfor %}
         {% endif %}
     </div>
 

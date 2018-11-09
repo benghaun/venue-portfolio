@@ -14,6 +14,7 @@ def assistant(request):
     inputs = None
     header_text = ""
     text = ""
+    search = None
     if action == 'profile':
         if username != current_user:
             header_text = "Welcome to " + username + "'s gallery!"
@@ -35,12 +36,11 @@ def assistant(request):
     elif action == 'search':
         header_text = "Searching for artwork?"
         text = "Sure, what type of art are you interested in?"
-        for tag in tags:
-            buttons[tag.name] = {'type': '1', 'onClick': "window.top.location.href='/profile/leakyjar/%s'" % tag.name}
+        search = {'Search': "Enter the name or tag you're interested in..."}
     elif action == 'landing':
         header_text = "Hi there, my name is Jeff... lol"
         text = "Welcome to Venue! I can help you around this portfolio site. What would you like to do?"
-        buttons = {'Browse': {'type': '1', 'onClick': "location.href='/assistant?action=search'"},
+        buttons = {'Search': {'type': '1', 'onClick': "location.href='/assistant?action=search'"},
                    'Login': {'type': '2', 'onClick': "location.href='/assistant?action=login'"},
                    'Register': {'type': '3', 'onClick': "location.href='/assistant?action=register'"}}
     elif action == 'login':
@@ -54,5 +54,5 @@ def assistant(request):
                   'Confirm Password': ""}
 
 
-    return render(request, 'assistant/assistant.html', {'header_text': header_text, 'text': text, 'buttons': buttons, 'inputs': inputs})
+    return render(request, 'assistant/assistant.html', {'header_text': header_text, 'text': text, 'buttons': buttons, 'inputs': inputs, 'search': search})
 
