@@ -18,6 +18,7 @@ def assistant(request):
     text = ""
     search = None
     form = ""
+    upload = False
     if action == 'profile':
         if username != current_user:
             header_text = "Welcome to " + username + "'s gallery!"
@@ -29,8 +30,10 @@ def assistant(request):
             header_text = "Welcome back, " + username + "!"
             text = "What do you need to do today?"
             buttons = {'Upload an image': {'type': '1',
-                                           'onClick': "location.href='/assistant?action=browse&username=" + username + "'"},
-                       'Manage existing artwork': {'type': '2', 'onClick': ''}}
+                       'Manage existing artwork': {'type': '2', 'onClick': ''}}}
+    elif action == 'upload':
+        header_text = "What would you like to upload?"
+        upload = True
     elif action == 'browse':
         header_text = "Let me see what artwork " + username + " has..."
         text = "These are the main categories in " + username + "'s gallery"
@@ -67,5 +70,5 @@ def assistant(request):
     if message:
         text = message
 
-    return render(request, 'assistant/assistant.html', {'header_text': header_text, 'text': text, 'buttons': buttons, 'inputs': inputs, 'search': search, 'form': form})
+    return render(request, 'assistant/assistant.html', {'header_text': header_text, 'text': text, 'buttons': buttons, 'inputs': inputs, 'search': search, 'form': form, 'upload':upload})
 
