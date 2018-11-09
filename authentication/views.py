@@ -1,3 +1,4 @@
+import html
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from django.contrib.auth import logout, login, authenticate
@@ -30,8 +31,11 @@ def register(request):
             messages.success(request, 'Account created successfully')
             return redirect('/assistant/?action=login&message=Registration was successful, you can login now!')
         else:
-            print(f.errors)
-    return redirect("/assistant/?action=register&message=Registration failed")
+            error_message = "Registration failed.\n"
+            for error in f.errors:
+                print(str(f.errors[error]))
+                error_message += html.unescape(str(f.errors[error])[26:-10]) + "\n"
+    return redirect("/assistant/?action=register&message=" + error_message)
 
 
 def logout_view(request):
