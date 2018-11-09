@@ -54,17 +54,17 @@ def assistant(request):
             buttons = {'Search': {'type': '1', 'onClick': "location.href='/assistant?action=search'"}}
     elif action == 'login':
         header_text = "Welcome back! Hope things have been well."
-        inputs = {'Username': "",
-                  'Password': ""}
+        inputs = {'Username': {"type": "", "name": "Username"},
+                  'Password': {"type": "password", "name": "Password"}}
         if nxt:
             form = "/accounts/login/?next=" + nxt
         else:
             form = "/accounts/login/"
     elif action == 'register':
         header_text = "So you’re a new user? Looking forward to working with you!"
-        inputs = {'Username': "",
-                  'Password': "",
-                  'Confirm Password': ""}
+        inputs = {'Username': {"type": "", "name": "Username"},
+                  'Password': {"type": "password", "name": "Password"},
+                  'Confirm Password': {"type": "password", "name": "Password2"}}
         form = "/accounts/register/"
 
     if message:
