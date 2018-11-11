@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="/messaging/send/" method="post">
+    {% csrf_token %}
+    <p>Recipient:   </p><input type="text" name="recipient">
+    <p>Subject:   </p><input type="text" name="subject">
+    <p>Content:   </p><input type="text" name="content">
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

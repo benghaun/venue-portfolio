@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ["127.0.0.1"]
 
 INSTALLED_APPS = [
     'authentication.apps.AuthenticationConfig',
+    'messaging.apps.MessagingConfig',
     'venue.apps.VenueConfig',
     'django.contrib.admin',
     'django.contrib.auth',

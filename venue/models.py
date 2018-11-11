@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
+from authentication.models import User
 
 
 class Image(models.Model):
@@ -16,9 +17,13 @@ class Image(models.Model):
 
 
 class Tag(models.Model):
-    name = models.CharField(max_length=13, unique=True)
+    class Meta:
+        unique_together = (('name', 'uploader_id'),)
+    name = models.CharField(max_length=13)
     description = models.TextField()
     uploader_id = models.IntegerField()
 
     def __str__(self):
         return self.name
+
+
