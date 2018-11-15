@@ -54,9 +54,11 @@
     </div>
 
 </div>
-
+{% if assistant_url %}
+<div class="assistant-img" style="background-image: url({{assistant_url}})"></div>
+{% else %}
 <div class="assistant-img" style="background-image: url('{% static 'Assistant1.png' %}')"></div>
-
+{% endif %}
 </body>
 
 {% endblock %}

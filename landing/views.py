@@ -29,17 +29,14 @@ def get_image_page(request):
         return HttpResponse(status=400, content="Invalid size/start provided")
     image_ids = Image.objects.all().values_list('pk', flat=True).order_by("-id")
     images = Image.objects.filter(id__in=image_ids[page_start:page_start + page_size]).order_by("-id")
+    all_filenames = s3.list_objects(Bucket=S3_BUCKET).get('Contents')
     for image in images:
         image_id = str(image.id)
         uploader = User.objects.get(id=int(image.uploader_id)).username
-        url = s3.generate_presigned_url(ClientMethod="get_object",
-                                        Params={'Bucket': S3_BUCKET,
-                                                'Key': 'resized/' + image_id + "." + image.ext}
-                                        )
-        urls.append({"url": url, "id": image_id, "uploader": uploader})
+        if in_bucket('resized/' + image_id + "." + image.ext, s3=s3):
+            url = s3.generate_presigned_url(ClientMethod="get_object",
+                                            Params={'Bucket': S3_BUCKET,
+                                                    'Key': 'resized/' + image_id + "." + image.ext}
+                                            )
+            urls.append({"url": url, "id": image_id, "uploader": uploader})
     return HttpResponse(json.dumps(urls), content_type="application/json")
-
-
-@login_required()
-def edit_profile(request):
-    return HttpResponse(json.dumps('ok'))

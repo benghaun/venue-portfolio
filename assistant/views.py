@@ -1,7 +1,9 @@
 import os
+import boto3
 from django.contrib.auth import logout
 from django.shortcuts import render, HttpResponse, redirect
-from venue.models import Tag
+from authentication.models import User
+from venue.models import Tag, Image
 S3_BUCKET = os.environ.get('S3_BUCKET')
 
 
@@ -19,6 +21,20 @@ def assistant(request):
     search = None
     form = ""
     upload = False
+    if username:
+        user = User.objects.get(username=username)
+        assistant = user.assistant
+        if assistant:
+            assistant_image = Image.objects.get(id=assistant)
+            s3 = boto3.client('s3', region_name='eu-west-3')
+            assistant_url = s3.generate_presigned_url(ClientMethod="get_object",
+                                                      Params={'Bucket': S3_BUCKET,
+                                                              'Key': "resized/" + str(assistant_image.id) + "." + assistant_image.ext},
+                                                      ExpiresIn=86400)
+        else:
+            assistant_url = None
+    else:
+        assistant_url = None
     if action == 'profile':
         if username != current_user:
             header_text = "Welcome to " + username + "'s gallery!"
@@ -76,5 +92,7 @@ def assistant(request):
     if message:
         text = message
 
-    return render(request, 'assistant/assistant.html', {'header_text': header_text, 'text': text, 'buttons': buttons, 'inputs': inputs, 'search': search, 'form': form, 'upload':upload})
+    return render(request, 'assistant/assistant.html',
+                  {'header_text': header_text, 'text': text, 'buttons': buttons, 'inputs': inputs, 'search': search,
+                   'form': form, 'upload': upload, 'assistant_url': assistant_url})
 
