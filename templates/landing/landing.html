@@ -3,16 +3,26 @@
 {% block content %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'landing.css' %}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.core.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.fp.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.fp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/mapping.fp.js"></script>
 <script src="{% static 'freewall.js' %}"></script>
 <script src="{% static 'landing.js' %}"></script>
 <body>
+    <p id="loadCount" hidden>1</p>
     <div class="container" id="container">
 
       </div>
       <script>
+      $(document).scrollTop(0);
         $(function(){
-            imagePopulate();
+            imagePopulate(0, 5);
         });
+        window.addEventListener('scroll', _.throttle(onScroll, 1000));
       </script>
 
     <div class="social-media-block">

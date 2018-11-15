@@ -1,7 +1,7 @@
-function imagePopulate(){
+function imagePopulate(pageStart, pageSize){
     var xhr = new XMLHttpRequest();
 
-    xhr.open("GET", "/landing/getpg/");
+    xhr.open("GET", "/landing/getpg/?page_start=" + pageStart.toString() + "&page_size=" + pageSize.toString());
     xhr.onreadystatechange = function(){
         if(xhr.readyState === 4){
           if(xhr.status === 200){
@@ -27,8 +27,10 @@ function imagePopulate(){
                     </div>`                
                 parent.appendChild(div);
                 console.log(response[i])
+                document.getElementById("loadCount").innerHTML = (parseInt(document.getElementById("loadCount").innerHTML) + 1).toString()
             }
             
+
             $(function() {
               var wall = new Freewall("#container");
               wall.reset({
@@ -43,13 +45,23 @@ function imagePopulate(){
               });
               wall.fitWidth();
             });
-          }
+            
+        }
+            
+          
           else{
-            alert("Could not get signed URL.");
+            alert("Image fetching failed");
           }
         }
     };
     xhr.send();
+}
+
+function onScroll(){
+    if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+               //alert("btm")
+               imagePopulate(parseInt(document.getElementById("loadCount").innerHTML), 5)
+           }
 }
 
 // window.onload = function() {
