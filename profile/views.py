@@ -102,3 +102,6 @@ def toggle_like(request):
     user.save()
     return HttpResponse(content=response, content_type="text/plain")
 
+def about(request, username):
+    return render(request, 'profile/about.html', {'uploader': username})
+
