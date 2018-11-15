@@ -183,6 +183,27 @@ input:-webkit-autofill {
 	bottom: 0;
 }
 
+#holder{
+	border-radius: 2rem;
+	border: 0.2rem dashed #EA7272;
+	width: 25rem;
+	min-height: 200px;
+	margin: 20px auto;
+	background-color: rgba(255, 255, 255, 0.8);
+}
+
+#holder.hover{
+	border: 0.2rem dashed #0c0;
+}
+#holder img {
+	display: block;
+	margin: 10px auto;
+}
+#holder p {
+	margin: 10px;
+	font-size: 14px;
+}
+
 ::-webkit-scrollbar{
 	height:0.7rem;
 }
