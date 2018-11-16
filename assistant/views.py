@@ -1,4 +1,5 @@
 import os
+import json
 import boto3
 from django.contrib.auth import logout
 from django.shortcuts import render, HttpResponse, redirect
@@ -21,6 +22,8 @@ def assistant(request):
     search = None
     form = ""
     upload = False
+    tagging = False
+    rec_tags = []
     if username:
         user = User.objects.get(username=username)
         assistant = user.assistant
@@ -50,6 +53,13 @@ def assistant(request):
     elif action == 'upload':
         header_text = "What would you like to upload?"
         upload = True
+    elif action == 'tagging':
+        header_text = "Are these image tags correct?"
+        tagging = True
+        rec_tags = request.GET.get("tags")
+        print(rec_tags)
+        rec_tags = json.loads(rec_tags)
+        print(rec_tags)
     elif action == 'browse':
         header_text = "Let me see what artwork " + username + " has..."
         text = "These are the main categories in " + username + "'s gallery"
@@ -94,5 +104,5 @@ def assistant(request):
 
     return render(request, 'assistant/assistant.html',
                   {'header_text': header_text, 'text': text, 'buttons': buttons, 'inputs': inputs, 'search': search,
-                   'form': form, 'upload': upload, 'assistant_url': assistant_url})
+                   'form': form, 'upload': upload, 'assistant_url': assistant_url, 'tagging': tagging, 'rec_tags': rec_tags})
 

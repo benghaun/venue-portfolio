@@ -4,12 +4,26 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'assistant.css' %}">
 <body>
+{% csrf_token %}
 <div class="inner-body">
+    <div class="speech-symbol">"</div>
     <div class="speech-symbol-container">
-        <div class="speech-symbol">"</div>
     </div>
-    <div class="assistant-speech">{{ header_text }}</div>
-    <div class="variable-content">
+    <div class="assistant-speech" id="assistant-speech">{{ header_text }}</div>
+
+    {% if upload == True %}
+        <article id="article">
+            <div id="holder">
+                <p class="add">+</p>
+                <p class="upload-text">Drag your png or jpeg file here</p>
+            </div>
+            <input type="file" id="my_image" style="display: none;">
+            <!--<p>Upload progress: <progress id="uploadprogress" max="100" value="0">0</progress></p>-->
+        </article>
+        <script src="{% static 'assistant-content.js' %}"></script>
+    {% endif %}
+
+    <div class="variable-content" id="variable-content">
         <div class="variable-text">{{ text }}</div>
         {% for button_txt, params in buttons.items %}
         {% autoescape off %}
@@ -40,14 +54,6 @@
             {% endfor %}
         {% endif %}
     </div>
-
-        {% if upload == True %}
-        <article>
-            <div id="holder"></div>
-        </article>
-
-        <script src="{% static 'assistant-content.js' %}"></script>
-        {% endif %}
 
 </div>
 {% if assistant_url %}
