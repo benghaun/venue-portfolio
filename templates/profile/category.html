@@ -4,6 +4,7 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'category.css' %}">
 <body>
+    <script src="{% static 'category.js' %}"></script>
     <div class="container">
         <div class="row">
             <div class="col-md-6">
@@ -44,9 +45,17 @@
                 </div>
                 <div class="cat-intro">
                     {{ description }}
+                    {% if current_user == uploader %}
+                        <div class="edit" style="background-image: url('{% static 'edit.png' %}')" onclick=""></div>
+                    {% endif %}
                 </div>
             </div>
         </div>
+
+        {% if current_user == uploader %}
+            <div class="edit" style="background-image: url('{% static 'edit.png' %}')"></div>
+        {% endif %}
+
         <div class="row">
             {% for url, params in urls.items %}
             <div class="col-md-4">

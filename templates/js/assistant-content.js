@@ -92,6 +92,7 @@ function readfiles(files) {
 	      if(xhr.status === 200 || xhr.status === 204){
 	        //alert(xhr.responseText);
 	        cont = document.createElement("button");
+	        cont.className = "submit-btn";
 	        cont.innerHTML = "Continue";
 	        cont.onclick = function(){
 	        	var article = document.getElementById("article");
@@ -107,7 +108,7 @@ function readfiles(files) {
                 <label for="` + tags[i] + `">` + tags[i] + `</label><br>`;
 
 	        	}
-	        	parent.innerHTML += `<div style="font-weight: bold; position: absolute; bottom: 27%">Others:<div>`;
+	        	parent.innerHTML += `<div style="font-weight: bold; position: absolute; bottom: 35%">Others:<div>`;
 	        	var add_tags = document.createElement("input");
 	        	add_tags.type = "text";
 	        	add_tags.id = "extra_tags";

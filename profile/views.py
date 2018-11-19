@@ -17,6 +17,7 @@ def profile(request, username):
 
 def category_view(request, username, category):
     uploader = User.objects.get(username=username)
+    current_user = request.user.username
     if category == "all":
         images = Image.objects.filter(uploader_id=uploader.id)
     else:
@@ -43,7 +44,7 @@ def category_view(request, username, category):
         tag_description = ""
 
     return render(request, 'profile/category.html', {'urls': urls, 'category': category,
-                                                     'description': tag_description, 'uploader': username})
+                                                     'description': tag_description, 'uploader': username, 'current_user': current_user})
 
 
 def image(request, username, category):
