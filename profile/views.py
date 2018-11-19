@@ -83,7 +83,7 @@ def image(request, username, category):
     selected_title = Image.objects.get(id=int(selected)).title.upper()
     return render(request, 'profile/img-view.html', {'urls': urls, 'selected': selected,
                                                      'thumbnail_urls': thumbnail_urls, 'selected_title': selected_title,
-                                                     'medium_urls': medium_urls})
+                                                     'medium_urls': medium_urls, 'uploader': username})
 
 
 @login_required()

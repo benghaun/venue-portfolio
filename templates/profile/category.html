@@ -43,7 +43,7 @@
                 <div class="cat-head">
                     - {{ category | upper }} -
                 </div>
-                <div class="cat-intro">
+                <div class="cat-intro" id="cat-intro">
                     {{ description }}
                     {% if current_user == uploader %}
                         <div class="edit" style="background-image: url('{% static 'edit.png' %}')" onclick=""></div>
@@ -120,7 +120,7 @@
     </div>
 
     <div>
-        <a href="/" class="profile-name">LEAKYJAR</a>
+        <a href="/profile/{{ uploader }}" class="profile-name">{{ uploader | upper }}</a>
     </div>
 
     <div class="user-description">
