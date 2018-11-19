@@ -4,7 +4,6 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'category.css' %}">
 <body>
-    <script src="{% static 'category.js' %}"></script>
     <div class="container">
         <div class="row">
             <div class="col-md-6">
@@ -46,7 +45,7 @@
                 <div class="cat-intro" id="cat-intro">
                     {{ description }}
                     {% if current_user == uploader %}
-                        <div class="edit" style="background-image: url('{% static 'edit.png' %}')" onclick=""></div>
+                        <div class="edit" style="background-image: url('{% static 'edit.png' %}')" onclick="editDescription({{ description }})"></div>
                     {% endif %}
                 </div>
             </div>
@@ -132,6 +131,7 @@
             <img src="{% static 'AssistantThumb.png' %}" alt="assistant">
     </button>
     <script src="{% static 'assistant.js' %}"></script>
+    <script src="{% static 'category.js' %}"></script>
 
 </body>
 
