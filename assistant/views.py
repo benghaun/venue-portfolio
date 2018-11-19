@@ -49,7 +49,8 @@ def assistant(request):
             header_text = "Welcome back, " + username + "!"
             text = "What do you need to do today?"
             buttons = {'Upload an image': {'type': '1', 'onClick': "location.href='/assistant?action=upload'"},
-                       'Manage existing artwork': {'type': '2', 'onClick': "window.top.location.href='/profile/leakyjar/all'"}}
+                       'Manage existing artwork': {'type': '2', 'onClick': "window.top.location.href='/profile/leakyjar/all'"},
+                       'Logout': {'type': '3', 'onClick': "location.href='/assistant?action=logout'"}}
     elif action == 'upload':
         header_text = "What would you like to upload?"
         upload = True
@@ -70,7 +71,7 @@ def assistant(request):
         text = "Sure, what type of art are you interested in?"
         search = {'Search': "Enter the name or tag you're interested in..."}
     elif action == 'landing':
-        header_text = "Hi there, my name is Jeff... lol"
+        header_text = "Hi there! Ven here, at your service."
         text = "Welcome to Venue! I can help you around this portfolio site. What would you like to do?"
         if not request.user.username:
             buttons = {'Search': {'type': '1', 'onClick': "location.href='/assistant?action=search'"},
