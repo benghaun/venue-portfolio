@@ -1,4 +1,134 @@
-body {
+.container {
+	max-width: 80%;
+	margin: auto;
+}
+
+.navbar {
+	bottom:0;
+	position:fixed;
+	width: 100%;
+	background-color: black;
+	height: 9rem;
+	border-top: 3px solid white;
+	z-index: 1;
+}
+
+.navbar-button{
+	color: white;
+	font-family: Quattrocento;
+	font-style: normal;
+	font-size: 1rem;
+	line-height: 20px;
+	text-align: center;
+	letter-spacing: 0.5em !important;
+	-webkit-transition: -webkit-stroke-width 1s;
+	transition: font-size 0.3s, text-shadow 0.3s 
+
+}
+
+.navbar-button:hover{
+	font-size: 1.05rem;
+	color: white;
+	text-decoration: none;
+	-webkit-stroke-width: 5.3rem !important;
+    -webkit-stroke-color: #FFFFFF !important;
+    -webkit-fill-color: #FFFFFF !important;
+    text-shadow: 0rem 0rem 1rem white, 0rem 0rem 1rem white, 0rem 0rem 1rem white, 0rem 0rem 1rem white;
+    transition: font-size 0.7s, text-shadow 0.7s 
+}
+
+.no-padding{
+	padding: 0em !important;
+}
+
+.nav-image{
+	background-repeat: no-repeat !important;
+	background-size: cover !important;
+	background-position: 0% 72% !important;
+}
+
+
+body {	
 	margin-top: 2rem !important;
 	background-color: #DAD3CE;
 }
+
+img{
+	max-height: 100%;
+	max-width: 100%;
+}
+
+.social-media-block{
+	position: fixed;
+	right: 0;
+	top: 0;
+	margin-top: 2em;
+	margin-right: 2em;
+	height: 20em;
+	width: 3em;
+}
+
+.btn-circle {
+    width: 3em;
+    height: 3em;
+    padding: 1em 0em;
+    border-radius: 5em;
+    text-align: center;
+    font-size: 1em;
+    line-height: 1.42857;
+    margin-bottom: 1rem;
+}
+
+.btn-circle:hover {
+	background: linear-gradient(
+      rgba(0, 123, 255, 1),
+      rgba(0, 123, 255, 1))
+}
+
+.profile-name{
+	color: white;
+	font-family: Quattrocento;
+	font-style: normal;
+	font-size: 2vw;
+	line-height: 20px;
+	text-align: center;
+	letter-spacing: 0.8em !important;
+	-webkit-transition: -webkit-stroke-width 1s;
+	bottom: 0em;
+	left: 0em;
+	margin: 2rem;
+	position: fixed;
+	z-index: 2;
+}	
+
+.profile-name:hover{
+	color: white;
+	text-decoration: none;	
+}
+
+.btn-assistant{
+    width: 4em;
+    height: 4em;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	margin-right: 2rem;
+	margin-bottom: 1rem;
+	overflow: hidden;
+	z-index: 2;
+	box-shadow: 0rem 0rem .5rem 0.1rem rgba(0, 0, 0, 0.5);
+}
+
+.btn-assistant:hover{
+	background: linear-gradient(
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 1));
+	box-shadow: 0rem 0rem .5rem .2rem white;
+}
+
+
+
+
+
+
+

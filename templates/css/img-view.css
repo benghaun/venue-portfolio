@@ -188,7 +188,6 @@ img{
     bottom: 0%;
 }
 
-
 .navbar-button{
 	color: white;
 	font-family: Quattrocento;
@@ -198,16 +197,19 @@ img{
 	text-align: center;
 	letter-spacing: 0.5em !important;
 	-webkit-transition: -webkit-stroke-width 1s;
+	transition: font-size 0.3s, text-shadow 0.3s 
+
 }
 
 .navbar-button:hover{
-	font-size: 1.1rem;
+	font-size: 1.05rem;
 	color: white;
 	text-decoration: none;
 	-webkit-stroke-width: 5.3rem !important;
     -webkit-stroke-color: #FFFFFF !important;
     -webkit-fill-color: #FFFFFF !important;
     text-shadow: 0rem 0rem 1rem white, 0rem 0rem 1rem white, 0rem 0rem 1rem white, 0rem 0rem 1rem white;
+    transition: font-size 0.7s, text-shadow 0.7s 
 }
 
 .navbar {
