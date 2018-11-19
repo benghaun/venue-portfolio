@@ -45,14 +45,14 @@
                 <div class="cat-intro" id="cat-intro">
                     {{ description }}
                     {% if current_user == uploader %}
-                        <div class="edit" style="background-image: url('{% static 'edit.png' %}')" onclick="editDescription({{ description }})"></div>
+                        <div class="edit" id="edit-desc" style="background-image: url('{% static 'edit.png' %}')" onclick="editDescription({{ description }})"></div>
                     {% endif %}
                 </div>
             </div>
         </div>
 
         {% if current_user == uploader %}
-            <div class="edit" style="background-image: url('{% static 'edit.png' %}')"></div>
+            <div class="edit" style="background-image: url('{% static 'edit.png' %}')" id="edit-img" onclick="editImages()"></div>
         {% endif %}
 
         <div class="row">
@@ -91,7 +91,7 @@
                     <br>
                 </div>
             <div class="nav navbar-nav mx-auto">
-                    <li><a href="#" class="navbar-button">About</a></li>
+                    <li><a href="#" class="navbar-button">Profile</a></li>
                     <br>
                     <br>
                     <br>
@@ -120,11 +120,6 @@
 
     <div>
         <a href="/profile/{{ uploader }}" class="profile-name">{{ uploader | upper }}</a>
-    </div>
-
-    <div class="user-description">
-        Welcome to my portfolio! I am a concept artist and illustrator <br> working primarily on digital mediums.
-        Feel free to take a look </br> around or speak to my assistant!
     </div>
 
     <button type="button" id="assistant" class="btn btn-default btn-circle no-padding btn-assistant" onClick="launchAssistant({'action': 'profile', 'username': '{{uploader}}'})">

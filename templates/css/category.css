@@ -378,11 +378,56 @@ img{
 
 .edit:hover{
 	box-shadow: inset 0 0 100rem 100rem rgba(255, 255, 255, 0.3);
+    cursor: pointer;
 }
 
 .desc-input{
-	width: 90%
+	width: 90%;
+	height: 100%;
 }
+
+.del{
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.3);
+	z-index: 1;
+}
+
+.del-img{
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	position: absolute;
+	left: 50%;
+	bottom: 50%;
+	transform: translate(-50%, 50%);
+	width: 4rem;
+	height: 4rem;
+	opacity: 0.5;
+}
+
+.del:hover .del-img{
+	opacity: 1;
+	cursor: pointer;
+}
+
+.del-text{
+	position: absolute;
+	font-size: 2rem;
+	top: 60%;
+	left: 50%;
+	transform: translate(-50%,0);
+	display: none;
+	color: white;
+}
+
+.del:hover .del-text{
+	display: block;
+	cursor: pointer;
+}
+
 
 .scroll-left-icon{
 	color: white;

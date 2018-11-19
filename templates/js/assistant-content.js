@@ -38,6 +38,12 @@ $("#my_image").change(function() {
     readfiles(file);
 });
 function previewfile(file) {
+	//Remove text and signs in upload box	
+    var sign = document.getElementById("upload-sign");
+    var text = document.getElementById("upload-text");
+    sign.parentNode.removeChild(sign);
+    text.parentNode.removeChild(text);
+    //display file
   if (tests.filereader === true && acceptedTypes[file.type] === true) {
     var reader = new FileReader();
     reader.onload = function (event) {
@@ -108,7 +114,7 @@ function readfiles(files) {
                 <label for="` + tags[i] + `">` + tags[i] + `</label><br>`;
 
 	        	}
-	        	parent.innerHTML += `<div style="font-weight: bold; position: absolute; bottom: 35%">Others:<div>`;
+	        	parent.innerHTML += `<div style="font-weight: bold; position: absolute; bottom: 40%">Others:<div>`;
 	        	var add_tags = document.createElement("input");
 	        	add_tags.type = "text";
 	        	add_tags.id = "extra_tags";
