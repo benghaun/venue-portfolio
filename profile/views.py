@@ -40,11 +40,14 @@ def category_view(request, username, category):
 
     try:
         tag_description = Tag.objects.get(name=category.lower()).description
+        escaped_amp_description = tag_description.replace("&", "&amp;")
     except Tag.DoesNotExist:
         tag_description = ""
+        escaped_amp_description = ""
 
     return render(request, 'profile/category.html', {'urls': urls, 'category': category,
-                                                     'description': tag_description, 'uploader': username, 'current_user': current_user})
+                                                     'description': tag_description, 'uploader': username,
+                                                     'current_user': current_user, 'escaped_amp_description': escaped_amp_description})
 
 
 def image(request, username, category):
@@ -102,6 +105,21 @@ def toggle_like(request):
         response = "Liked"
     user.save()
     return HttpResponse(content=response, content_type="text/plain")
+
+
+@login_required()
+def edit_description(request):
+    if request.method != "POST":
+        return HttpResponse(status=405)
+    tag_name = request.POST.get("tag").lower()
+    try:
+        tag = Tag.objects.get(name=tag_name, uploader_id=request.user.id)
+    except Tag.DoesNotExist:
+        return HttpResponse(status=400, content="tag not found")
+    tag.description = request.POST.get("description")
+    tag.save()
+    return HttpResponse(status=200)
+
 
 def about(request, username):
     return render(request, 'profile/about.html', {'uploader': username})
