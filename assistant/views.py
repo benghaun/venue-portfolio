@@ -1,4 +1,5 @@
 import os
+import json
 import boto3
 from django.contrib.auth import logout
 from django.shortcuts import render, HttpResponse, redirect
@@ -21,6 +22,8 @@ def assistant(request):
     search = None
     form = ""
     upload = False
+    tagging = False
+    rec_tags = []
     if username:
         user = User.objects.get(username=username)
         assistant = user.assistant
@@ -46,10 +49,18 @@ def assistant(request):
             header_text = "Welcome back, " + username + "!"
             text = "What do you need to do today?"
             buttons = {'Upload an image': {'type': '1', 'onClick': "location.href='/assistant?action=upload'"},
-                       'Manage existing artwork': {'type': '2', 'onClick': ''}}
+                       'Manage existing artwork': {'type': '2', 'onClick': "window.top.location.href='/profile/leakyjar/all'"},
+                       'Logout': {'type': '3', 'onClick': "location.href='/assistant?action=logout'"}}
     elif action == 'upload':
         header_text = "What would you like to upload?"
         upload = True
+    elif action == 'tagging':
+        header_text = "Are these image tags correct?"
+        tagging = True
+        rec_tags = request.GET.get("tags")
+        print(rec_tags)
+        rec_tags = json.loads(rec_tags)
+        print(rec_tags)
     elif action == 'browse':
         header_text = "Let me see what artwork " + username + " has..."
         text = "These are the main categories in " + username + "'s gallery"
@@ -60,7 +71,7 @@ def assistant(request):
         text = "Sure, what type of art are you interested in?"
         search = {'Search': "Enter the name or tag you're interested in..."}
     elif action == 'landing':
-        header_text = "Hi there, my name is Jeff... lol"
+        header_text = "Hi there! Ven here, at your service."
         text = "Welcome to Venue! I can help you around this portfolio site. What would you like to do?"
         if not request.user.username:
             buttons = {'Search': {'type': '1', 'onClick': "location.href='/assistant?action=search'"},
@@ -68,7 +79,8 @@ def assistant(request):
                        'Register': {'type': '3', 'onClick': "location.href='/assistant?action=register'"}}
         else:
             buttons = {'Search': {'type': '1', 'onClick': "location.href='/assistant?action=search'"},
-                       'Logout': {'type': '2', 'onClick': "location.href='/assistant?action=logout'"}}
+                       'Profile': {'type': '2', 'onClick': "window.top.location.href='/profile/leakyjar/'"},
+                       'Logout': {'type': '3', 'onClick': "location.href='/assistant?action=logout'"}}
     elif action == 'login':
         header_text = "Welcome back! Hope things have been well."
         inputs = {'Username': {"type": "", "name": "Username"},
@@ -94,5 +106,5 @@ def assistant(request):
 
     return render(request, 'assistant/assistant.html',
                   {'header_text': header_text, 'text': text, 'buttons': buttons, 'inputs': inputs, 'search': search,
-                   'form': form, 'upload': upload, 'assistant_url': assistant_url})
+                   'form': form, 'upload': upload, 'assistant_url': assistant_url, 'tagging': tagging, 'rec_tags': rec_tags})
 

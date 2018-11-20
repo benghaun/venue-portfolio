@@ -96,7 +96,7 @@
                     <br>
                 </div>
             <div class="nav navbar-nav mx-auto">
-                    <li><a href="#" class="navbar-button">About</a></li>
+                    <li><a href="/profile/{{uploader}}/about/" class="navbar-button">Profile</a></li>
                     <br>
                     <br>
                     <br>
@@ -124,12 +124,7 @@
     </div>
 
     <div>
-        <a href="/" class="profile-name">LEAKYJAR</a>
-    </div>
-
-    <div class="user-description">
-        Welcome to my portfolio! I am a concept artist and illustrator <br> working primarily on digital mediums.
-        Feel free to take a look </br> around or speak to my assistant!
+        <a href="/profile/{{ uploader }}" class="profile-name">{{ uploader | upper }}</a>
     </div>
 
     <button type="button" id="assistant" class="btn btn-default btn-circle no-padding btn-assistant" onClick="launchAssistant()">
