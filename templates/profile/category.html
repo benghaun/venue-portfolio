@@ -12,13 +12,13 @@
     <div class='carousel-inner carousel-shape'>
         {% for url, params in urls.items %}
                 {% if params.idx == 0 %}
-                    <div class='carousel-item height active'>
+                    <div class='carousel-item height active' id='{{"carousel-"|add:params.key}}'>
                         <div class="display-image" style="background-image: url('{{url}}')">
                             <a href="{{url}}" data-fancybox class="fancy-click"></a>
                         </div>
                     </div>
                 {% else %}
-                    <div class='carousel-item height'>
+                    <div class='carousel-item height' id='{{"carousel-"|add:params.key}}'>
                         <div class="display-image" style="background-image: url('{{url}}' )">
                             <a href="{{url}}" data-fancybox class="fancy-click"></a>
                         </div>
@@ -45,7 +45,7 @@
                 <div class="cat-intro" id="cat-intro">
                     {{ description }}
                     {% if current_user == uploader %}
-                        <div class="edit" id="edit-desc" style="background-image: url('{% static 'edit.png' %}')" onclick="editDescription({{ description }})"></div>
+                        <div class="edit" id="edit-desc" style="background-image: url('{% static 'edit.png' %}')" onclick="editDescription('{{ description | force_escape | force_escape}}', '{{ category }}')"></div>
                     {% endif %}
                 </div>
             </div>
@@ -57,9 +57,9 @@
 
         <div class="row">
             {% for url, params in urls.items %}
-            <div class="col-md-4">
+            <div class="col-md-4" id="{{params.key}}">
                 <a href="#">
-                    <div class="fit-img small-thumb">
+                    <div class="fit-img small-thumb" >
                         <div class="content">
                             <a href="/profile/{{uploader}}/{{category}}/img-view?selected={{params.key}}">
                                 <div class="small-thumb-cover" style="background-image: url('{{url}}')"></div>
@@ -125,6 +125,7 @@
     <button type="button" id="assistant" class="btn btn-default btn-circle no-padding btn-assistant" onClick="launchAssistant({'action': 'profile', 'username': '{{uploader}}'})">
             <img src="{% static 'AssistantThumb.png' %}" alt="assistant">
     </button>
+    {% csrf_token %}
     <script src="{% static 'assistant.js' %}"></script>
     <script src="{% static 'category.js' %}"></script>
 
