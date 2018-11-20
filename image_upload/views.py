@@ -32,9 +32,14 @@ def sign_s3(request):
     tags = request.GET.get('tags').lower().split(",")
     # remove empty strings, undefined, and repeats
     tags = list(set([x for x in tags if (x and x != 'null')]))
-    # remove leading and trailing whitespaces in tags
     for i in range(len(tags)):
+        # remove leading and trailing whitespaces in tags
         tags[i] = tags[i].strip()
+        # create tag if does not yet exist for this user
+        if Tag.objects.filter(name=tags[i].lower(), uploader_id=request.user.id).count() == 0:
+            new_tag = Tag(name=tags[i].lower(), uploader_id=request.user.id)
+            new_tag.save()
+    # file extension
     ext = file_name.split('.')[-1]
     s3 = boto3.client('s3', region_name='eu-west-3')
     image = Image(name=file_name, tags=tags, description=description, title=title, ext=ext, uploader_id=request.user.id)

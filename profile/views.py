@@ -1,5 +1,5 @@
 import os
-import json
+import html
 from django.contrib.auth.decorators import login_required
 from authentication.models import User
 from django.db.models import F
@@ -12,7 +12,8 @@ S3_BUCKET = os.environ.get('S3_BUCKET')
 
 
 def profile(request, username):
-    return render(request, 'profile/profile.html', {'uploader': username})
+    about_text = html.escape(User.objects.get(username=username).about_text).replace("\n", "<br>")
+    return render(request, 'profile/profile.html', {'uploader': username, 'about_text': about_text})
 
 
 def category_view(request, username, category):
@@ -112,13 +113,21 @@ def edit_description(request):
     if request.method != "POST":
         return HttpResponse(status=405)
     tag_name = request.POST.get("tag").lower()
-    try:
-        tag = Tag.objects.get(name=tag_name, uploader_id=request.user.id)
-    except Tag.DoesNotExist:
-        return HttpResponse(status=400, content="tag not found")
-    tag.description = request.POST.get("description")
-    tag.save()
-    return HttpResponse(status=200)
+    if tag_name:
+        Tag.objects.filter(name=tag_name, uploader_id=request.user.id).update(description=request.POST.get("description"))
+        return HttpResponse(status=200)
+    else:
+        return HttpResponse(status=400, content="tag not provided")
+
+
+@login_required()
+def edit_about_text(request):
+    new_text = request.POST.get("about_text")
+    if new_text:
+        User.objects.filter(id=request.user.id).update(about_text=new_text)
+        return HttpResponse(status=200)
+    else:
+        return HttpResponse(status=400, content="new text not provided")
 
 
 def about(request, username):
