@@ -42,7 +42,7 @@ body{
 .speech-symbol-container{	
 	margin-left: : 2rem;
 	margin-right: 1rem;
-	display: inline-block;
+	/*display: inline-block;*/
 	width: 4.5rem;
 	height: 1rem;
 	position: relative;
@@ -56,6 +56,7 @@ body{
 	color: #A40A0A;
 	display: inline-block;
 	margin-top: 2rem;
+	margin-left: 6rem;
 }
 
 .variable-content{
