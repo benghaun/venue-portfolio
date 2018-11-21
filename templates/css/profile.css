@@ -4,8 +4,11 @@ html{
 
 .container {
 	max-width: 80%;
-	margin: auto;
 	position: relative;
+}
+
+.main-content{
+    margin-bottom: 12rem;
 }
 
 .navbar {
@@ -91,8 +94,7 @@ img{
 	text-align: center;
 	letter-spacing: 0.5em !important;
 	-webkit-transition: -webkit-stroke-width 1s;
-	transition: font-size 0.3s, text-shadow 0.3s 
-
+	transition: font-size 0.3s, text-shadow 0.3s;
 }
 
 .navbar-button:hover{
@@ -104,6 +106,27 @@ img{
     -webkit-fill-color: #FFFFFF !important;
     text-shadow: 0rem 0rem 1rem white, 0rem 0rem 1rem white, 0rem 0rem 1rem white, 0rem 0rem 1rem white;
     transition: font-size 0.7s, text-shadow 0.7s 
+}
+
+.btn-gal{
+    position: absolute;
+    left: 25%;
+    transform: translate(-50%,0);
+    bottom: 4rem;
+}
+
+.btn-pro{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,0);
+    bottom: 4rem;
+}
+
+.btn-con{
+    position: absolute;
+    left: 75%;
+    transform: translate(-50%,0);
+    bottom: 4rem;
 }
 
 .no-padding{
