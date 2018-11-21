@@ -13,7 +13,8 @@ S3_BUCKET = os.environ.get('S3_BUCKET')
 
 def profile(request, username):
     about_text = html.escape(User.objects.get(username=username).about_text).replace("\n", "<br>")
-    return render(request, 'profile/profile.html', {'uploader': username, 'about_text': about_text})
+    current_user = request.user.username
+    return render(request, 'profile/profile.html', {'uploader': username, 'about_text': about_text, 'current_user': current_user})
 
 
 def category_view(request, username, category):
