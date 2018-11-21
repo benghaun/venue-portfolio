@@ -189,6 +189,7 @@ function getSignedRequest(file){
 }
 
 function uploadFile(file, s3Data, url){
+    //TODO: post-upload display
     var xhr = new XMLHttpRequest();
     xhr.open("POST", s3Data.url);
     var postData = new FormData();

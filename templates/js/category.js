@@ -103,8 +103,10 @@ function deleteImage(image){
             if(xhr.status === 200 || xhr.status === 204){
                 var carouselId = "carousel-".concat(toRemove.id)
                 toRemove.parentNode.removeChild(toRemove);
-                console.log(carouselId);
                 var toRemoveCarousel = document.getElementById(carouselId);
+                if (toRemoveCarousel.getAttribute("class") === "carousel-item height active"){
+                    $('.carousel').carousel('next')
+                }
                 toRemoveCarousel.parentNode.removeChild(toRemoveCarousel);
             }
             else{
