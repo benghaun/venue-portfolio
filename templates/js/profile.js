@@ -57,17 +57,32 @@ function editLayout(){
     };
     //change category names
     var cat_names = document.getElementsByClassName('cat-name');
+    var cat_names = Array.prototype.slice.call(cat_names);
+    var vert_cat_names = document.getElementsByClassName('cat-name-vert');
+    var vert_cat_names = Array.prototype.slice.call(vert_cat_names);
+    cat_names.push.apply(cat_names, vert_cat_names);
     for(var i=0; i<cat_names.length; i++){
         // currentCat = jQuery('<textarea/>').html(currentCat).text();
         currentCat = cat_names[i].innerHTML;
         cat_names[i].innerHTML = '';
-        var new_cat = document.createElement('input');
-        new_cat.type = "text";
-        new_cat.value = currentCat;
-        new_cat.maxLength = 30;
-        new_cat.className = "cat-input";
-        cat_names[i].appendChild(new_cat);
-        new_cat.select();
+        if(cat_names[i].className === 'cat-name-vert'){
+            var new_cat = document.createElement('textarea');
+            new_cat.type = "text";
+            new_cat.value = currentCat;
+            new_cat.maxLength = 30;
+            new_cat.className = "cat-input-vert";
+            cat_names[i].appendChild(new_cat);
+            new_cat.select();
+        }
+        else{
+            var new_cat = document.createElement('input');
+            new_cat.type = "text";
+            new_cat.value = currentCat;
+            new_cat.maxLength = 30;
+            new_cat.className = "cat-input";
+            cat_names[i].appendChild(new_cat);
+            new_cat.select();
+        }
     }
 
 

@@ -1,3 +1,7 @@
+html{
+	font-size: 100%;
+}
+
 .container {
 	max-width: 80%;
 	margin: auto;
@@ -244,7 +248,7 @@ img{
 }
 
 .user-description{
-	width: 50rem;
+	width: 30rem;
 	left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
@@ -256,7 +260,7 @@ img{
 	font-style: normal;
 	font-size: calc(0.5em + 1vmin);
 	line-height: 20px;
-	text-align: left;
+	text-align: center;
 	text-shadow: 0rem 0rem 1rem white;
 	z-index: 2;
 }
@@ -290,4 +294,9 @@ img{
 
 .cat-input{
 	text-align: center;
+}
+
+.cat-input-vert{	
+	width: 1.5rem;
+	height: 200%;
 }
