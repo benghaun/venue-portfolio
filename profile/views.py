@@ -51,6 +51,7 @@ def category_view(request, username, category):
 
 
 def image(request, username, category):
+    current_user = request.user.username
     s3 = boto3.client('s3', region_name='eu-west-3')
     urls = {}
     thumbnail_urls = {}
@@ -86,7 +87,7 @@ def image(request, username, category):
     selected_title = Image.objects.get(id=int(selected)).title.upper()
     return render(request, 'profile/img-view.html', {'urls': urls, 'selected': selected,
                                                      'thumbnail_urls': thumbnail_urls, 'selected_title': selected_title,
-                                                     'medium_urls': medium_urls, 'uploader': username})
+                                                     'medium_urls': medium_urls, 'uploader': username, 'current_user': current_user})
 
 
 @login_required()

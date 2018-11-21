@@ -73,15 +73,41 @@
     <p hidden id="selectedId">{{selected}}</p>
     <div class="container">
         <div class="row">
-            <button type="button" id="like" onClick="toggleLike()">Like</button>
+            <button type="button" data-toggle="button" id="like" onClick="toggleLike()" class="like-btn">
+                <span style="background-image: url('{% static 'like.png' %}')" class="like-img" id="like-img"></span>
+                <span style="margin-right: 0.5rem" id="like-text">Like</span>
+            </button>
         </div>
         <div class="row">
             <div class="col-12 mx-auto">
                 <div class="title" id="img-title">- {{selected_title}} -</div>
+            {% if current_user == uploader %}
+                <div class="edit" style="background-image: url('{% static 'edit.png' %}')" id="edit-title" onclick="editTitle('{{selected_title | force_escape}}')"></div>
+            {% endif %}
+            </div>
+            <div class="col-12 mx-auto">
+                <div class="img-desc" id="img-desc">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam aliquam diam lectus. Donec auctor, ante id dictum commodo, arcu risus tempus dui, nec dignissim purus enim nec nisl.
+                    In sed odio et purus sollicitudin tristique. Maecenas posuere eget velit sed convallis. Suspendisse eros est, gravida porta vestibulum id, imperdiet sit amet turpis. Sed eu molestie ante.
+                </div>
+                {% if current_user == uploader %}
+                <div class="edit" style="background-image: url('{% static 'edit.png' %}')" id="edit-desc" onclick="editDescription('{{selected_title | force_escape}}')"></div>
+                {% endif %}
             </div>
         </div>
 
     </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
         <nav class="navbar-default nav-image navbar" style="background: linear-gradient(
       rgba(0, 0, 0, 0.5),
@@ -131,30 +157,9 @@
             <img src="{% static 'AssistantThumb.png' %}" alt="assistant">
     </button>
     <script src="{% static 'assistant.js' %}"></script>
-    <script src="{% static 'img_title_change.js' %}"></script>
+    <script src="{% static 'img_view.js' %}"></script>
     {% csrf_token %}
-    <script>
-        function toggleLike(){
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/profile/like/");
-            var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
-            xhr.setRequestHeader('X-CSRFToken', csrftoken);
-            var postData = new FormData();
-            var imageId = document.getElementById("selectedId").innerHTML
-            postData.append("image_id", imageId)
-            xhr.onreadystatechange = function() {
-                if(xhr.readyState === 4){
-                    if(xhr.status === 200 || xhr.status === 204){
-                        alert(xhr.responseText)
-                    }
-                    else{
-                        alert("Like failed.");
-                    }
-                }
-            };
-            xhr.send(postData);
-        }
-    </script>
+    <script src="{% static 'like.js' %}"></script>
 
 </body>
 
