@@ -244,7 +244,7 @@ img{
 }
 
 .user-description{
-	width: auto;
+	width: 50rem;
 	left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
