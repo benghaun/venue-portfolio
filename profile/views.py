@@ -1,5 +1,6 @@
 import os
 import html
+import json
 from django.contrib.auth.decorators import login_required
 from authentication.models import User
 from django.db.models import F
@@ -68,6 +69,8 @@ def image(request, username, category):
         image_id = str(image.id)
         image_ids.append(image_id)
         title = image.title
+        description = image.description
+        liked = image_id in User.objects.get(username=current_user).liked_images
         url = s3.generate_presigned_url(ClientMethod="get_object",
                                         Params={'Bucket': S3_BUCKET,
                                                 'Key': image_id + "." + image.ext},
@@ -76,18 +79,24 @@ def image(request, username, category):
                                                Params={'Bucket': S3_BUCKET,
                                                        'Key': 'resized_med/' + image_id + "." + image.ext},
                                                ExpiresIn=86400)
-        urls[i] = {"key": image_id, "idx": i, "title": title, 'url': url, 'medium_url': medium_url}
+        urls[i] = {"key": image_id, "idx": i, "title": title, 'url': url, 'medium_url': medium_url,
+                   'description': description, 'liked': liked}
         thumbnail_url = s3.generate_presigned_url(ClientMethod="get_object",
                                                   Params={'Bucket': S3_BUCKET,
                                                           'Key': 'resized/' + image_id + "." + image.ext},
                                                   ExpiresIn=86400)
-        thumbnail_urls[i] = {"key": image_id, "idx": i, "title": title, 'url': thumbnail_url}
+        thumbnail_urls[i] = {"key": image_id, "idx": i, "title": title, 'url': thumbnail_url,
+                             'description': description, 'liked': liked}
     if selected not in image_ids:
         selected = '0'
-    selected_title = Image.objects.get(id=int(selected)).title.upper()
+    selected_title = Image.objects.get(id=int(selected)).title
+    selected_description = Image.objects.get(id=int(selected)).description
+    selected_liked = selected in User.objects.get(username=current_user).liked_images
     return render(request, 'profile/img-view.html', {'urls': urls, 'selected': selected,
                                                      'thumbnail_urls': thumbnail_urls, 'selected_title': selected_title,
-                                                     'medium_urls': medium_urls, 'uploader': username, 'current_user': current_user})
+                                                     'medium_urls': medium_urls, 'uploader': username,
+                                                     'current_user': current_user, 'selected_liked': selected_liked,
+                                                     'selected_description': selected_description})
 
 
 @login_required()
@@ -128,6 +137,21 @@ def edit_about_text(request):
         return HttpResponse(status=200)
     else:
         return HttpResponse(status=400, content="new text not provided")
+
+
+def get_metadata(request):
+    image_id = request.GET.get("imageid")
+    try:
+        image_id_int = int(image_id)
+    except ValueError:
+        return HttpResponse(status=400, content="Invalid image id")
+    try:
+        liked = image_id in User.objects.get(id=request.user.id).liked_images
+        description = Image.objects.get(id=image_id_int).description
+    except Image.DoesNotExist:
+        return HttpResponse(status=400, content="Invalid image id")
+    return HttpResponse(status=200, content=json.dumps({"liked": liked, "description": description}),
+                        content_type="application/json")
 
 
 def about(request, username):

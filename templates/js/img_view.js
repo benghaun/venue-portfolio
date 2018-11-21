@@ -1,7 +1,57 @@
 $('#carousel-custom').on('slid.bs.carousel', function (e) {
     var index = $(e.target).find(".active").html();
-    document.getElementById('img-title').innerHTML = "- " + e.relatedTarget.id.toUpperCase() + " -"
+
     document.getElementById('selectedId').innerHTML = e.relatedTarget.getAttribute("data-img")
+    document.getElementById('selectedTitle').innerHTML = e.relatedTarget.id
+    document.getElementById('img-desc').innerHTML = e.relatedTarget.getAttribute("data-desc")
+    document.getElementById('img-title').innerHTML = "- " + e.relatedTarget.id.toUpperCase() + " -"
+    liked = e.relatedTarget.getAttribute("data-liked") === "True"
+    var like_btn = document.getElementById('like');
+    var like_text = document.getElementById('like-text');
+    var like_img = document.getElementById('like-img');
+    if (!liked){
+        like_btn.className = 'like-btn';
+        like_text.innerHTML = 'Like';
+        like_img.style = `background-image: url('/static/like.png')`;
+    }
+    else{
+        like_btn.className = 'liked-btn';
+        like_text.innerHTML = 'Liked';
+        like_img.style = `background-image: url('/static/tick_boxless.png')`;
+    }
+//    var xhr = new XMLHttpRequest();
+//    xhr.open("GET", "/profile/get_meta?imageid=" + e.relatedTarget.getAttribute("data-img"));
+//    xhr.onreadystatechange = function() {
+//        if(xhr.readyState === 4){
+//            if(xhr.status === 200 || xhr.status === 204){
+//                console.log(xhr.responseText);
+//                var metadata = JSON.parse(xhr.responseText);
+//                liked = metadata.liked
+//                var like_btn = document.getElementById('like');
+//                var like_text = document.getElementById('like-text');
+//                var like_img = document.getElementById('like-img');
+//                if (!liked){
+//                    console.log(like_btn.className);
+//                    like_btn.className = 'like-btn';
+//                    like_text.innerHTML = 'Like';
+//                    like_img.style = `background-image: url('/static/like.png')`;
+//                }
+//                else{
+//                    console.log(like_btn.className);
+//                    like_btn.className = 'liked-btn';
+//                    like_text.innerHTML = 'Liked';
+//                    like_img.style = `background-image: url('/static/tick_boxless.png')`;
+//                }
+//                desc = metadata.description
+//                document.getElementById('img-desc').innerHTML = desc
+//                document.getElementById('img-title').innerHTML = "- " + e.relatedTarget.id.toUpperCase() + " -"
+//            }
+//            else{
+//                console.error("Image data fetching failed")
+//            }
+//        }
+//    }
+//    xhr.send()
 });
 
 var title = document.getElementById('img-title');

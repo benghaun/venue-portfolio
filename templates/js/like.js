@@ -28,6 +28,14 @@ function toggleLike(){
         if(xhr.readyState === 4){
             if(xhr.status === 200 || xhr.status === 204){
                 alert(xhr.responseText)
+                var selectedTitle = document.getElementById("selectedTitle").innerHTML;
+                console.log(selectedTitle)
+                if (xhr.responseText === "Liked"){
+                    document.getElementById(selectedTitle).setAttribute('data-liked', 'True')
+                }
+                else{
+                    document.getElementById(selectedTitle).setAttribute('data-liked', 'False')
+                }
             }
             else{
                 alert("Like failed.");
