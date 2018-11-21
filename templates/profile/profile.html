@@ -129,17 +129,19 @@
     </div>
 
     <div class="user-description" id="user-desc">
+
         {% autoescape off %}
         {{about_text}}
         {% endautoescape %}
         {% if current_user == uploader %}
-            <div class="edit brighten" style="background-image: url('{% static 'edit.png' %}')" id="edit-user-desc" onclick="editDescription('{{about_text}}')"></div>
+            <div class="edit brighten" style="background-image: url('{% static 'edit.png' %}')" id="edit-user-desc" onclick="editDescription('{{about_text | force_escape}}')"></div>
         {% endif %}
     </div>
 
     <button type="button" id="assistant" class="btn btn-default btn-circle no-padding btn-assistant" onClick="launchAssistant({'action': 'profile', 'username': '{{uploader}}'})">
             <img src="{% static 'AssistantThumb.png' %}" alt="assistant">
     </button>
+    {% csrf_token %}
     <script src="{% static 'profile.js' %}"></script>
     <script src="{% static 'assistant.js' %}"></script>
 

@@ -1,6 +1,9 @@
 var description = document.getElementById('cat-intro');
 // var selected_img = document.createElement("div");
-
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.split(search).join(replacement);
+};
 function editDescription(currentDesc, tag){
     currentDesc = jQuery('<textarea/>').html(currentDesc).text();
 	var edit = document.getElementById('edit-desc');
@@ -23,7 +26,7 @@ function editDescription(currentDesc, tag){
             xhr.setRequestHeader('X-CSRFToken', csrftoken);
             var postData = new FormData();
             new_desc_value = new_desc.value
-            escaped_new_desc_value = jQuery('<div/>').text(new_desc.value).html().replace("'", "&#39;");
+            escaped_new_desc_value = jQuery('<div/>').text(new_desc.value).html().replaceAll("'", "&#39;");
             escaped_amp_value = escaped_new_desc_value.replace("&", "&amp;")
             postData.append('description', new_desc_value);
             postData.append('tag', tag);

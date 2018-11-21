@@ -12,7 +12,7 @@ S3_BUCKET = os.environ.get('S3_BUCKET')
 
 
 def profile(request, username):
-    about_text = html.escape(User.objects.get(username=username).about_text).replace("\n", "<br>")
+    about_text = html.escape(User.objects.get(username=username).about_text)
     current_user = request.user.username
     return render(request, 'profile/profile.html', {'uploader': username, 'about_text': about_text, 'current_user': current_user})
 
@@ -42,14 +42,12 @@ def category_view(request, username, category):
 
     try:
         tag_description = Tag.objects.get(name=category.lower()).description
-        escaped_amp_description = tag_description.replace("&", "&amp;")
     except Tag.DoesNotExist:
         tag_description = ""
-        escaped_amp_description = ""
 
     return render(request, 'profile/category.html', {'urls': urls, 'category': category,
                                                      'description': tag_description, 'uploader': username,
-                                                     'current_user': current_user, 'escaped_amp_description': escaped_amp_description})
+                                                     'current_user': current_user})
 
 
 def image(request, username, category):
