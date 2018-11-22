@@ -12,6 +12,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/mapping.fp.js"></script>
 <script src="{% static 'freewall.js' %}"></script>
 <script src="{% static 'landing.js' %}"></script>
+{% if first_timer %}
+<script>
+    window.onload = function() {launchAssistant({'action': 'landing'})}
+</script>
+{% endif %}
 <body style="background-image: url('{% static 'BG1.png' %}')">
     <div id="loading-items">
         <!--<div class="screen-overlay"></div>-->

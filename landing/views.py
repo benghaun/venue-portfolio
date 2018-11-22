@@ -9,7 +9,7 @@ from venue.utils import in_bucket
 S3_BUCKET = os.environ.get('S3_BUCKET')
 
 
-def landing(request, username):
+def landing(request):
     return render(request, 'landing/landing.html')
 
 
