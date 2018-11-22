@@ -27,15 +27,17 @@ def image_search_page(request):
     results = Image.objects.filter(tags__contains=[query.lower()])\
                            .union(Image.objects.filter(title__icontains=query))
     count = results.count()
+    if count == 0:
+        for tag in all_tags:
+            if levenshtein_distance(tag, query) <= 2:
+                results = Image.objects.filter(tags__contains=[tag.lower()])
+                count = results.count()
+                break
     if page_size + page_start > count:
         end = count
     else:
         end = page_size + page_start
     results = results.order_by("-id")[page_start:end]
-    if results.count() == 0:
-        for tag in all_tags:
-            if levenshtein_distance(tag, query) <= 2:
-                results = Image.objects.filter(tags__contains=[tag.lower()]).order_by("-id")[page_start:end]
     s3 = boto3.client('s3', region_name='eu-west-3')
     urls = []
     for image in results:
