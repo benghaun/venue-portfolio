@@ -1,6 +1,71 @@
+body {	
+	margin-top: 2rem !important;
+	background-color: #DAD3CE;
+}
+
+img{
+	max-height: 100%;
+	max-width: 100%;
+}
+
 .container {
 	max-width: 80%;
 	margin: auto;
+}
+
+.place-holder{
+	width: 20vw;
+	height: 20vw;
+	display: block;
+    margin: 0 auto;
+	background-color: grey;
+	border-radius: 20rem;
+}
+
+.profile-description{
+	width: auto;
+    color: black;
+	font-family: Lato;
+	letter-spacing: 0.05rem;
+	font-style: normal;
+	font-size: calc(0.5em + 1vmin);
+	line-height: 20px;
+	text-align: left;
+	z-index: 2;
+}
+
+.total-likes{
+	height: 1.7rem;
+	width: 1.7rem;	
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	margin-top: 2rem;
+/*	position: absolute;
+	left: 50%;
+	transform: translate(50%.0);*/
+}
+
+.center-text {
+	text-align: center;
+
+}
+
+.add-facebook-url {
+	width: wrap;
+
+}
+
+.cat-head{
+	width: 100%;
+	position: relative;
+	font-family: Quattrocento;
+	font-style: normal;
+	font-size: 1.5rem;
+	line-height: 20px;
+	text-align: center;
+	letter-spacing: 0.5em !important;
+	padding-bottom: 1rem;
 }
 
 .navbar {
@@ -45,17 +110,6 @@
 	background-repeat: no-repeat !important;
 	background-size: cover !important;
 	background-position: 0% 72% !important;
-}
-
-
-body {	
-	margin-top: 2rem !important;
-	background-color: #DAD3CE;
-}
-
-img{
-	max-height: 100%;
-	max-width: 100%;
 }
 
 .social-media-block{
@@ -125,6 +179,8 @@ img{
       rgba(255, 255, 255, 1));
 	box-shadow: 0rem 0rem .5rem .2rem white;
 }
+
+
 
 
 
