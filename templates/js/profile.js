@@ -11,7 +11,7 @@ function editDescription(currentDesc){
 	description.innerHTML = '';
 	var new_desc = document.createElement('textarea');
 	new_desc.type = "textarea";
-    new_desc.maxLength = 300;
+    new_desc.maxLength = 200;
 	new_desc.className = "desc-input";
 	new_desc.value = currentDesc;
 	description.appendChild(new_desc);
