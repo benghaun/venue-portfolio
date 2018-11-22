@@ -4,6 +4,7 @@ import json
 from django.contrib.auth.decorators import login_required
 from authentication.models import User
 from django.db.models import F
+from django_postgres_extensions.models.functions import ArrayRemove, ArrayAppend
 from django.shortcuts import render, HttpResponse
 import boto3
 from profile.utils import is_liked
@@ -151,7 +152,7 @@ def toggle_like(request):
 
 
 @login_required()
-def edit_description(request):
+def edit_tag_description(request):
     if request.method != "POST":
         return HttpResponse(status=405)
     tag_name = request.POST.get("tag").lower()
@@ -173,19 +174,31 @@ def edit_about_text(request):
         return HttpResponse(status=400, content="new text not provided")
 
 
-def get_metadata(request):
-    image_id = request.GET.get("imageid")
+@login_required()
+def delete_tag(request):
+    image_id = request.POST.get('imageid')
+    tag = request.POST.get('tag')
     try:
-        image_id_int = int(image_id)
+        image_id = int(image_id)
     except ValueError:
-        return HttpResponse(status=400, content="Invalid image id")
+        return HttpResponse(status=400, content="Invalid image id provided")
+    Image.objects.filter(id=image_id).update(tags=ArrayRemove('tags', tag))
+    return HttpResponse(200)
+
+
+@login_required()
+def add_tag(request):
+    tag = request.POST.get('tag')
+    image_id = request.POST.get('imageid')
+    if Tag.objects.filter(name=tag.lower(), uploader_id=request.user.id).count() == 0:
+        new_tag = Tag(name=tag.lower(), uploader_id=request.user.id)
+        new_tag.save()
     try:
-        liked = image_id in User.objects.get(id=request.user.id).liked_images
-        description = Image.objects.get(id=image_id_int).description
-    except Image.DoesNotExist:
-        return HttpResponse(status=400, content="Invalid image id")
-    return HttpResponse(status=200, content=json.dumps({"liked": liked, "description": description}),
-                        content_type="application/json")
+        image_id = int(image_id)
+    except ValueError:
+        return HttpResponse(status=400, content="Invalid image id provided")
+    Image.objects.filter(id=image_id).update(tags=ArrayAppend('tags', tag))
+    return HttpResponse(200)
 
 
 def about(request, username):

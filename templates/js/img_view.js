@@ -19,39 +19,6 @@ $('#carousel-custom').on('slid.bs.carousel', function (e) {
         like_text.innerHTML = 'Liked';
         like_img.style = `background-image: url('/static/tick_boxless.png')`;
     }
-//    var xhr = new XMLHttpRequest();
-//    xhr.open("GET", "/profile/get_meta?imageid=" + e.relatedTarget.getAttribute("data-img"));
-//    xhr.onreadystatechange = function() {
-//        if(xhr.readyState === 4){
-//            if(xhr.status === 200 || xhr.status === 204){
-//                console.log(xhr.responseText);
-//                var metadata = JSON.parse(xhr.responseText);
-//                liked = metadata.liked
-//                var like_btn = document.getElementById('like');
-//                var like_text = document.getElementById('like-text');
-//                var like_img = document.getElementById('like-img');
-//                if (!liked){
-//                    console.log(like_btn.className);
-//                    like_btn.className = 'like-btn';
-//                    like_text.innerHTML = 'Like';
-//                    like_img.style = `background-image: url('/static/like.png')`;
-//                }
-//                else{
-//                    console.log(like_btn.className);
-//                    like_btn.className = 'liked-btn';
-//                    like_text.innerHTML = 'Liked';
-//                    like_img.style = `background-image: url('/static/tick_boxless.png')`;
-//                }
-//                desc = metadata.description
-//                document.getElementById('img-desc').innerHTML = desc
-//                document.getElementById('img-title').innerHTML = "- " + e.relatedTarget.id.toUpperCase() + " -"
-//            }
-//            else{
-//                console.error("Image data fetching failed")
-//            }
-//        }
-//    }
-//    xhr.send()
 });
 
 var title = document.getElementById('img-title');
@@ -146,6 +113,24 @@ function editDescription(currentDesc, tag){
 function removeTag(tag){
 	var tag_element = document.getElementById(tag);
 	tag_element.parentNode.removeChild(tag_element);
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "/profile/del_tag/");
+    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+    xhr.setRequestHeader('X-CSRFToken', csrftoken);
+    var postData = new FormData();
+    postData.append("imageid", document.getElementById('selectedId').innerHTML)
+    postData.append('tag', tag)
+    xhr.onreadystatechange = function() {
+        if(xhr.readyState === 4){
+            if(xhr.status === 200 || xhr.status === 204){
+
+            }
+            else{
+                alert("Delete failed");
+            }
+        }
+    };
+    xhr.send(postData);
 }
 
 function addTag(){
@@ -159,8 +144,8 @@ function addTag(){
     tag_input.id = "tag-input";
     tag_input.type = "text";
     tag_input.className = "tag-input";
-    tag_input.select();
     parent.appendChild(tag_input);
+    tag_input.select();
     var submit_tag = document.createElement("div");
     submit_tag.id = 'enter';
     submit_tag.className = "enter";
@@ -202,4 +187,22 @@ function submitTag(){
     plus.style = `background-image: url('/static/plus.png')`;
     parent.appendChild(add_tag);
     add_tag.appendChild(plus);
+    var xhr = new XMLHttpRequest();
+	xhr.open("POST", "/profile/add_tag/");
+    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+    xhr.setRequestHeader('X-CSRFToken', csrftoken);
+    var postData = new FormData();
+    postData.append("imageid", document.getElementById('selectedId').innerHTML)
+    postData.append('tag', tag_input.value)
+    xhr.onreadystatechange = function() {
+        if(xhr.readyState === 4){
+            if(xhr.status === 200 || xhr.status === 204){
+
+            }
+            else{
+                alert("Add failed");
+            }
+        }
+    };
+    xhr.send(postData);
 }
