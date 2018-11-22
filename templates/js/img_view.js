@@ -1,3 +1,7 @@
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.split(search).join(replacement);
+};
 $('#carousel-custom').on('slid.bs.carousel', function (e) {
     var index = $(e.target).find(".active").html();
 
@@ -5,6 +9,12 @@ $('#carousel-custom').on('slid.bs.carousel', function (e) {
     document.getElementById('selectedTitle').innerHTML = e.relatedTarget.id
     document.getElementById('img-desc').innerHTML = e.relatedTarget.getAttribute("data-desc")
     document.getElementById('img-title').innerHTML = "- " + e.relatedTarget.id.toUpperCase() + " -"
+    document.getElementById('edit-title').onclick = function(){
+        editTitle(e.relatedTarget.id);
+    }
+    document.getElementById('edit-desc').onclick = function(){
+        editImageDescription(e.relatedTarget.getAttribute("data-desc"));
+    }
     liked = e.relatedTarget.getAttribute("data-liked") === "True"
     var like_btn = document.getElementById('like');
     var like_text = document.getElementById('like-text');
@@ -29,48 +39,50 @@ function editTitle(currentTitle){
 	var edit = document.getElementById('edit-title');
 	edit.style.display = 'none';
 	title.innerHTML = '';
-	var new_desc = document.createElement('input');
-	new_desc.type = "text";
-	new_desc.value = currentTitle;
-	new_desc.className = "title-input";
-	title.appendChild(new_desc);
-	new_desc.select();
-	// new_desc.onkeypress = function(e){
- //        if (!e) e = window.event;
- //        var keyCode = e.keyCode || e.which;
- //        if (keyCode == '13'){
- //            // Enter pressed
- //            var xhr = new XMLHttpRequest();
- //            xhr.open("POST", "/profile/edit_desc/");
- //            var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
- //            xhr.setRequestHeader('X-CSRFToken', csrftoken);
- //            var postData = new FormData();
- //            new_desc_value = new_desc.value
- //            escaped_new_desc_value = jQuery('<div/>').text(new_desc.value).html().replaceAll("'", "&#39;");
- //            escaped_amp_value = escaped_new_desc_value.replace("&", "&amp;")
- //            postData.append('description', new_desc_value);
- //            postData.append('tag', tag);
- //            xhr.onreadystatechange = function() {
- //                if(xhr.readyState === 4){
- //                    if(xhr.status === 200 || xhr.status === 204){
- //                        title.innerHTML = escaped_new_desc_value + `<div class="edit" id="edit-desc" style="background-image: url('/static/edit.png')" onclick="editDescription('` + escaped_amp_value + `', '` + tag + `')"></div>`;
- //                        edit.style.display = 'block';
- //                    }
- //                    else{
- //                        alert("Description update failed");
- //                    }
- //                }
- //            };
- //            xhr.send(postData);
- //            return false;
- //        }
- //  }
+	var new_title = document.createElement('input');
+	new_title.type = "text";
+	new_title.value = currentTitle;
+	new_title.className = "title-input";
+	title.appendChild(new_title);
+	new_title.select();
+    new_title.onkeypress = function(e){
+        if (!e) e = window.event;
+        var keyCode = e.keyCode || e.which;
+        if (keyCode == '13'){
+            // Enter pressed
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/profile/edit_img_title/");
+            var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+            xhr.setRequestHeader('X-CSRFToken', csrftoken);
+            var postData = new FormData();
+            new_title_value = new_title.value
+            escaped_new_title_value = jQuery('<div/>').text(new_title.value).html().replaceAll("'", "&#39;");
+            escaped_amp_value = escaped_new_title_value.replace("&", "&amp;")
+            postData.append('title', new_title_value);
+            postData.append('imageid', document.getElementById("selectedId").innerHTML);
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState === 4){
+                    if(xhr.status === 200 || xhr.status === 204){
+                       title.innerHTML = "- " + escaped_new_title_value.toUpperCase() + " -";
+                       edit.style.display = 'block';
+                       edit.onclick = function(){editTitle(new_title_value)};
+                    }
+                    else{
+                       alert("Title update failed");
+                    }
+             }
+         };
+         xhr.send(postData);
+         return false;
+        }
+   }
 }
 
-function editDescription(currentDesc, tag){
+function editImageDescription(currentDesc){
     currentDesc = jQuery('<textarea/>').html(currentDesc).text();
 	var edit = document.getElementById('edit-desc');
 	edit.style.display = 'none';
+	description = document.getElementById('img-desc');
 	description.innerHTML = '';
 	var new_desc = document.createElement('textarea');
 	new_desc.type = "textarea";
@@ -84,7 +96,7 @@ function editDescription(currentDesc, tag){
         if (keyCode == '13'){
             // Enter pressed
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/profile/edit_desc/");
+            xhr.open("POST", "/profile/edit_img_desc/");
             var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
             xhr.setRequestHeader('X-CSRFToken', csrftoken);
             var postData = new FormData();
@@ -92,12 +104,13 @@ function editDescription(currentDesc, tag){
             escaped_new_desc_value = jQuery('<div/>').text(new_desc.value).html().replaceAll("'", "&#39;");
             escaped_amp_value = escaped_new_desc_value.replace("&", "&amp;")
             postData.append('description', new_desc_value);
-            postData.append('tag', tag);
+            postData.append('imageid', document.getElementById('selectedId').innerHTML);
             xhr.onreadystatechange = function() {
                 if(xhr.readyState === 4){
                     if(xhr.status === 200 || xhr.status === 204){
-                        description.innerHTML = escaped_new_desc_value + `<div class="edit" id="edit-desc" style="background-image: url('/static/edit.png')" onclick="editDescription('` + escaped_amp_value + `', '` + tag + `')"></div>`;
+                        description.innerHTML = escaped_new_desc_value;
                         edit.style.display = 'block';
+                        edit.onclick = function(){editImageDescription(new_desc_value)};
                     }
                     else{
                         alert("Description update failed");
@@ -173,7 +186,7 @@ function submitTag(){
     var new_tag = document.createElement("li");
     new_tag.className = "img-tag";
     new_tag.id = tag_input.value;
-    new_tag.innerHTML = `<span onclick="" style="cursor: pointer;" class="tag-text">` 
+    new_tag.innerHTML = `<span onclick="javascript:window.location.href='/search/?query=` + tag_input.value + `'" style="cursor: pointer;" class="tag-text">`
     + tag_input.value + `</span>
     <div class="cross" style="background-image: url('/static/cross.png')" id="remove-tag" onclick="removeTag('`
     + tag_input.value + `')"></div>`;

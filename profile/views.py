@@ -166,6 +166,8 @@ def edit_tag_description(request):
 
 @login_required()
 def edit_about_text(request):
+    if request.method != "POST":
+        return HttpResponse(status=405)
     new_text = request.POST.get("about_text")
     if new_text:
         User.objects.filter(id=request.user.id).update(about_text=new_text)
@@ -175,7 +177,37 @@ def edit_about_text(request):
 
 
 @login_required()
+def edit_image_description(request):
+    if request.method != "POST":
+        return HttpResponse(status=405)
+    new_desc = request.POST.get("description")
+    image_id = request.POST.get('imageid')
+    try:
+        image_id = int(image_id)
+    except ValueError:
+        return HttpResponse(status=400, content="Invalid image id")
+    Image.objects.filter(id=image_id).update(description=new_desc)
+    return HttpResponse(status=200)
+
+
+@login_required()
+def edit_image_title(request):
+    if request.method != "POST":
+        return HttpResponse(status=405)
+    new_title = request.POST.get("title")
+    image_id = request.POST.get('imageid')
+    try:
+        image_id = int(image_id)
+    except ValueError:
+        return HttpResponse(status=400, content="Invalid image id")
+    Image.objects.filter(id=image_id).update(title=new_title)
+    return HttpResponse(status=200)
+
+
+@login_required()
 def delete_tag(request):
+    if request.method != "POST":
+        return HttpResponse(status=405)
     image_id = request.POST.get('imageid')
     tag = request.POST.get('tag')
     try:
@@ -183,11 +215,13 @@ def delete_tag(request):
     except ValueError:
         return HttpResponse(status=400, content="Invalid image id provided")
     Image.objects.filter(id=image_id).update(tags=ArrayRemove('tags', tag))
-    return HttpResponse(200)
+    return HttpResponse(status=200)
 
 
 @login_required()
 def add_tag(request):
+    if request.method != "POST":
+        return HttpResponse(status=405)
     tag = request.POST.get('tag')
     image_id = request.POST.get('imageid')
     if Tag.objects.filter(name=tag.lower(), uploader_id=request.user.id).count() == 0:
@@ -198,7 +232,7 @@ def add_tag(request):
     except ValueError:
         return HttpResponse(status=400, content="Invalid image id provided")
     Image.objects.filter(id=image_id).update(tags=ArrayAppend('tags', tag))
-    return HttpResponse(200)
+    return HttpResponse(status=200)
 
 
 def about(request, username):

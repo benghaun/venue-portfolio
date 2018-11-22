@@ -3,6 +3,8 @@ from . import views
 
 urlpatterns = [
     url(r'^edit_tag_desc/', views.edit_tag_description),
+    url(r'^edit_img_desc/', views.edit_image_description),
+    url(r'^edit_img_title/', views.edit_image_title),
     url(r'^edit_about/', views.edit_about_text),
     url(r'^del_tag/', views.delete_tag),
     url(r'^add_tag/', views.add_tag),
