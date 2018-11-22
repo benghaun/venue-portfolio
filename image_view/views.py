@@ -2,7 +2,6 @@ import os
 from django.shortcuts import render, HttpResponse
 import boto3
 from venue.models import Image, Tag
-from .utils import levenshtein_distance
 
 S3_BUCKET = os.environ.get('S3_BUCKET')
 
@@ -45,32 +44,3 @@ def delete_image(request):
     return HttpResponse(status=200)
 
 
-def image_search(request):
-    query = request.GET.get("query")
-    all_tags = Tag.objects.order_by().values_list("name", flat=True).distinct()
-    results = Image.objects.filter(tags__contains=[query.lower()]).union(Image.objects.filter(title__contains=query))
-    if results.count() == 0:
-        for tag in all_tags:
-            if levenshtein_distance(tag, query) <= 2:
-                results = Image.objects.filter(tags__contains=[tag.lower()])
-    s3 = boto3.client('s3', region_name='eu-west-3')
-    urls = {}
-    for image in results:
-        filename = str(image.id) + "." + str(image.ext)
-        if 'resized' not in filename:
-            url = s3.generate_presigned_url(ClientMethod="get_object",
-                                            Params={'Bucket': S3_BUCKET,
-                                                    'Key': filename},
-                                            ExpiresIn=86400)
-            tags = ""
-            try:
-                img_id = filename.split('.')[0]
-                image = Image.objects.get(id=img_id)
-                tags = image.tags
-                tags = ", ".join(tags)
-                title = image.title
-            except Image.DoesNotExist:
-                title = ""
-                pass
-            urls[url] = {"key": filename, "tags": tags, "title": title}
-    return render(request, 'image_view/image_view.html', {'urls': urls})

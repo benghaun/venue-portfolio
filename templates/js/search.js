@@ -1,7 +1,7 @@
-function imagePopulate(pageStart, pageSize){
+function searchResultsPopulate(pageStart, pageSize){
     var xhr = new XMLHttpRequest();
-
-    xhr.open("GET", "/landing/getpg/?page_start=" + pageStart.toString() + "&page_size=" + pageSize.toString());
+    var query = document.getElementById('query').innerHTML;
+    xhr.open("GET", "/search/getpg/?page_start=" + pageStart.toString() + "&page_size=" + pageSize.toString() + "&query=" + query);
     xhr.onreadystatechange = function(){
         if(xhr.readyState === 4){
           if(xhr.status === 200){
@@ -10,25 +10,25 @@ function imagePopulate(pageStart, pageSize){
             var i;
             for (i = 0; i < response.length; i++){
                 var div = document.createElement('div');
-                if(Math.random() > 0.5){                    
+                if(Math.random() > 0.5){
                     div.classList.add("cus-col-2");
                 }
                 else{
                     div.classList.add("cus-col-1");
-                }                
+                }
                 div.classList.add("brick");
-                div.innerHTML = 
+                div.innerHTML =
                     `<div class="fit-img">
                         <div class="content">
                             <a href="/profile/` + response[i].uploader + `/all/img-view?selected=` + response[i].id + `">
                                 <div class="small-thumb-cover" style="background-image: url(` + response[i].url + `)"></div>
                             </a>
                         </div>
-                    </div>`                
+                    </div>`
                 parent.appendChild(div);
                 document.getElementById("loadCount").innerHTML = (parseInt(document.getElementById("loadCount").innerHTML) + 1).toString()
             }
-            
+
 
             $(function() {
               var wall = new Freewall("#container");
@@ -44,10 +44,10 @@ function imagePopulate(pageStart, pageSize){
               });
               wall.fitWidth();
             });
-            
+
         }
-            
-          
+
+
           else{
             alert("Image fetching failed");
           }
@@ -57,9 +57,9 @@ function imagePopulate(pageStart, pageSize){
 }
 
 function onScroll(){
+    var query = document.getElementById('query').innerHTML;
     if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-               //alert("btm")
-               imagePopulate(parseInt(document.getElementById("loadCount").innerHTML), 50)
+               imagePopulate(parseInt(document.getElementById("loadCount").innerHTML), 50, query)
            }
 }
 
