@@ -75,7 +75,6 @@
             </div>
         </div>
         {% if current_user == uploader %}
-        <!-- TODO: Implement cat name change backend on profile page -->
             <div class="edit" style="background-image: url('{% static 'edit.png' %}')" id="edit-layout" onclick="editLayout('{{uploader}}')"></div>
         {% endif %}
     </div>

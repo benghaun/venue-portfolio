@@ -22,6 +22,15 @@ holder.onclick = function() {
     document.getElementById('my_image').click();
 };
 
+function searchKeyPress(e){
+    if (!e) e = window.event;
+    var keyCode = e.keyCode || e.which;
+    console.log(keyCode)
+    if (keyCode == '13'){
+    document.getElementById("searchBtn").click();
+    }
+}
+
 // "filereader formdata progress".split(' ').forEach(function (api) {
 //   if (tests[api] === false) {
 //     support[api].className = 'fail';
