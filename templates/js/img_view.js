@@ -2,19 +2,61 @@ String.prototype.replaceAll = function(search, replacement) {
     var target = this;
     return target.split(search).join(replacement);
 };
+
+// is called whenever carousel slides
 $('#carousel-custom').on('slid.bs.carousel', function (e) {
     var index = $(e.target).find(".active").html();
 
+    // update titles and descriptions
     document.getElementById('selectedId').innerHTML = e.relatedTarget.getAttribute("data-img")
     document.getElementById('selectedTitle').innerHTML = e.relatedTarget.id
     document.getElementById('img-desc').innerHTML = e.relatedTarget.getAttribute("data-desc")
     document.getElementById('img-title').innerHTML = "- " + e.relatedTarget.id.toUpperCase() + " -"
+
+    // update tags
+    var tags = e.relatedTarget.getAttribute("data-tags").split(',')
+    console.log(tags);
+    var parent = document.getElementById("img-tags");
+    parent.innerHTML = "Tags:"
+    for (var i = 0; i<tags.length; i++){
+        tag = tags[i]
+        if (tag !== ""){
+            var new_tag = document.createElement("li");
+            new_tag.className = "img-tag";
+            new_tag.id = tag;
+            new_tag.innerHTML = `<span onclick="javascript:window.location.href='/search/?query=` + tag + `'" style="cursor: pointer;" class="tag-text">`
+            + tag + `</span>
+            <div class="cross" style="background-image: url('/static/cross.png')" id="remove-tag" onclick="removeTag('`
+            + tag + `')"></div>`;
+            parent.appendChild(new_tag);
+        }
+    }
+    // add button to add new tags
+    var add_tag = document.createElement('div');
+    add_tag.id = "add-tag";
+    add_tag.className = "add-tag";
+    add_tag.onclick = function(){addTag();};
+    var plus = document.createElement('div');
+    plus.className = "plus";
+    plus.style = `background-image: url('/static/plus.png')`;
+    parent.appendChild(add_tag);
+    add_tag.appendChild(plus);
+
+
+    //update onclick methods of edit buttons
     document.getElementById('edit-title').onclick = function(){
         editTitle(e.relatedTarget.id);
     }
     document.getElementById('edit-desc').onclick = function(){
         editImageDescription(e.relatedTarget.getAttribute("data-desc"));
     }
+
+    // ensure edit buttons are visible
+    document.getElementById('edit-desc').style.display = 'block';
+    document.getElementById('edit-title').style.display = 'block';
+
+
+    // set correct status of like button
     liked = e.relatedTarget.getAttribute("data-liked") === "True"
     var like_btn = document.getElementById('like');
     var like_text = document.getElementById('like-text');

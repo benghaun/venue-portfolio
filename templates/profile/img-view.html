@@ -11,13 +11,13 @@
         {% for idx, params in urls.items %}
             {% if selected %}
                 {% if params.key == selected %}
-                    <div class='carousel-item height active' id="{{params.title}}" data-img="{{params.key}}" data-desc="{{params.description}}" data-liked="{{params.liked}}">
+                    <div class='carousel-item height active' id="{{params.title}}" data-img="{{params.key}}" data-desc="{{params.description}}" data-liked="{{params.liked}}" data-tags="{{params.tags}}">
                         <div class="display-image" style="background-image: url('{{params.medium_url}}' )">
                             <a href="{{params.url}}" data-fancybox class="fancy-click"></a>
                         </div>
                     </div>
                 {% else %}
-                    <div class='carousel-item height' id="{{params.title}}" data-img="{{params.key}}" data-desc="{{params.description}}" data-liked="{{params.liked}}">
+                    <div class='carousel-item height' id="{{params.title}}" data-img="{{params.key}}" data-desc="{{params.description}}" data-liked="{{params.liked}}" data-tags="{{params.tags}}">
                         <div class="display-image" style="background-image: url('{{params.medium_url}}'">
                             <a href="{{params.url}}" data-fancybox class="fancy-click"></a>
                         </div>
@@ -25,13 +25,13 @@
                 {% endif %}
             {% else %}
                 {% if params.idx == 0 %}
-                    <div class='carousel-item height active' id="{{params.title}}" data-img="{{params.key}}" data-desc="{{params.description}}" data-liked="{{params.liked}}">
+                    <div class='carousel-item height active' id="{{params.title}}" data-img="{{params.key}}" data-desc="{{params.description}}" data-liked="{{params.liked}}" data-tags="{{params.tags}}">
                         <div class="display-image" style="background-image: url('{{params.medium_url}}')">
                             <a href="{{params.url}}" data-fancybox class="fancy-click"></a>
                         </div>
                     </div>
                 {% else %}
-                    <div class='carousel-item height' id="{{params.title}}" data-img="{{params.key}}" data-desc="{{params.description}}" data-liked="{{params.liked}}">
+                    <div class='carousel-item height' id="{{params.title}}" data-img="{{params.key}}" data-desc="{{params.description}}" data-liked="{{params.liked}}" data-tags="{{params.tags}}">
                         <div class="display-image" style="background-image: url('{{params.medium_url}}' )">
                             <a href="{{params.url}}" data-fancybox class="fancy-click"></a>
                         </div>

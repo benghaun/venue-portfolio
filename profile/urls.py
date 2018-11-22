@@ -6,6 +6,7 @@ urlpatterns = [
     url(r'^edit_img_desc/', views.edit_image_description),
     url(r'^edit_img_title/', views.edit_image_title),
     url(r'^edit_about/', views.edit_about_text),
+    url(r'^edit_featured/', views.edit_featured_tags),
     url(r'^del_tag/', views.delete_tag),
     url(r'^add_tag/', views.add_tag),
     url(r'^like/', views.toggle_like),

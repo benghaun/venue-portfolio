@@ -24,7 +24,10 @@ def profile(request, username):
     for idx in featured_tags:
         tag = featured_tags[idx]['tag']
         i = 0
-        images = Image.objects.filter(uploader_id=uploader.id, tags__contains=[tag.lower()]).order_by("-likes")
+        if tag == "all":
+            images = Image.objects.all()
+        else:
+            images = Image.objects.filter(uploader_id=uploader.id, tags__contains=[tag.lower().replace(" ", "")]).order_by("-likes")
         most_liked = None
         if images.first() is not None:
             most_liked = images[i]
@@ -85,7 +88,6 @@ def image(request, username, category):
     s3 = boto3.client('s3', region_name='eu-west-3')
     urls = {}
     thumbnail_urls = {}
-    medium_urls = {}
     selected = request.GET.get("selected")
     uploader = User.objects.get(username=username)
     try:
@@ -102,6 +104,7 @@ def image(request, username, category):
         image = images[i]
         image_id = str(image.id)
         image_ids.append(image_id)
+        tags = ",".join(image.tags)
         title = image.title
         description = image.description
         liked = image_id in User.objects.get(username=current_user).liked_images
@@ -114,13 +117,13 @@ def image(request, username, category):
                                                        'Key': 'resized_med/' + image_id + "." + image.ext},
                                                ExpiresIn=86400)
         urls[i] = {"key": image_id, "idx": i, "title": title, 'url': url, 'medium_url': medium_url,
-                   'description': description, 'liked': liked}
+                   'description': description, 'liked': liked, 'tags': tags}
         thumbnail_url = s3.generate_presigned_url(ClientMethod="get_object",
                                                   Params={'Bucket': S3_BUCKET,
                                                           'Key': 'resized/' + image_id + "." + image.ext},
                                                   ExpiresIn=86400)
         thumbnail_urls[i] = {"key": image_id, "idx": i, "title": title, 'url': thumbnail_url,
-                             'description': description, 'liked': liked}
+                             'description': description, 'liked': liked, 'tags': tags}
     if selected not in image_ids:
         selected = '0'
     selected_title = Image.objects.get(id=int(selected)).title
@@ -128,9 +131,10 @@ def image(request, username, category):
     selected_liked = selected in User.objects.get(username=current_user).liked_images
     return render(request, 'profile/img-view.html', {'urls': urls, 'selected': selected,
                                                      'thumbnail_urls': thumbnail_urls, 'selected_title': selected_title,
-                                                     'medium_urls': medium_urls, 'uploader': username,
-                                                     'current_user': current_user, 'selected_liked': selected_liked,
-                                                     'selected_description': selected_description, 'tags': selected_image_tags})
+                                                     'uploader': username, 'current_user': current_user,
+                                                     'selected_liked': selected_liked,
+                                                     'selected_description': selected_description,
+                                                     'tags': selected_image_tags})
 
 
 @login_required()
@@ -205,6 +209,15 @@ def edit_image_title(request):
 
 
 @login_required()
+def edit_featured_tags(request):
+    if request.method != "POST":
+        return HttpResponse(status=405)
+    new_featured_tags = request.POST.get("data")
+    User.objects.filter(id=request.user.id).update(featured_tags=new_featured_tags)
+    return HttpResponse(status=200)
+
+
+@login_required()
 def delete_tag(request):
     if request.method != "POST":
         return HttpResponse(status=405)
@@ -224,8 +237,8 @@ def add_tag(request):
         return HttpResponse(status=405)
     tag = request.POST.get('tag')
     image_id = request.POST.get('imageid')
-    if Tag.objects.filter(name=tag.lower(), uploader_id=request.user.id).count() == 0:
-        new_tag = Tag(name=tag.lower(), uploader_id=request.user.id)
+    if Tag.objects.filter(name=tag.lower().replace(" ", ""), uploader_id=request.user.id).count() == 0:
+        new_tag = Tag(name=tag.lower().replace(" ", ""), uploader_id=request.user.id)
         new_tag.save()
     try:
         image_id = int(image_id)
