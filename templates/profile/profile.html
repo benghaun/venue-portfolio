@@ -3,7 +3,7 @@
 {% block content %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'profile.css' %}">
-<body>
+<body style="background-image: url('{% static 'BG1.png' %}')">
     <div class="container main-content">
         <div>
             <div class="row">
@@ -74,7 +74,8 @@
             </div>
         </div>
         {% if current_user == uploader %}
-            <div class="edit" style="background-image: url('{% static 'edit.png' %}');margin-bottom: 20rem;" id="edit-layout" onclick="editLayout()"></div>
+        <!-- TODO: Implement cat name change backend on profile page -->
+            <div class="edit" style="background-image: url('{% static 'edit.png' %}')" id="edit-layout" onclick="editLayout()"></div>
         {% endif %}
     </div>
     

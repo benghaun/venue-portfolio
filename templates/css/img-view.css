@@ -1,6 +1,9 @@
 body {
 	margin-top: 2rem !important;
 	background-color: #DAD3CE;
+	background-size: cover;
+	background-position: center;
+	background-opacity: 0.2;
 }
 
 img{
@@ -357,12 +360,13 @@ button:focus{
 }
 
 .desc-input{
-	text-align: left;
+	text-align: center;
 	width: 100%;
 }
 
 .img-desc{
 	margin-bottom: 1rem;
+	text-align: center;
 }
 
 .like-btn{
@@ -373,6 +377,7 @@ button:focus{
 	background-color: #DF784B;
 	border: none;
 	color: white;
+    transform: translate(-50%);
 }
 
 .like-btn:hover{
@@ -390,6 +395,7 @@ button:focus{
 	border-style: solid;
 	border-width: 0.1rem;
 	border-color: grey;
+    transform: translate(-50%);
 }
 
 .liked-btn:hover{

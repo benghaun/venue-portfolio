@@ -1,6 +1,9 @@
 body {
 	margin-top: 2rem !important;
 	background-color: #DAD3CE;
+	background-size: cover;
+	background-position: center;
+	background-opacity: 0.2;
 }
 
 img{
