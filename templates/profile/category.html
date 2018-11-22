@@ -83,26 +83,14 @@
       rgba(0, 0, 0, 0.5)
     ),url('{% static 'AttackOfMiku.jpg' %}')">
         <div class="container">
-            <div class="nav navbar-nav ml-auto">
+            <div class="nav navbar-nav ml-auto btn-gal">
                     <li><a href="/" class="navbar-button">Gallery</a></li>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
                 </div>
-            <div class="nav navbar-nav mx-auto">
-                    <li><a href="#" class="navbar-button">Profile</a></li>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
+            <div class="nav navbar-nav mx-auto btn-pro">
+                    <li><a href="/profile/{{uploader}}/about/" class="navbar-button">Profile</a></li>
                 </div>
-            <div class="nav navbar-nav mr-auto">
+            <div class="nav navbar-nav mr-auto btn-con">
                     <li><a href="#" class="navbar-button" onClick="launchAssistant({'action': 'contact'})">Contact</a></li>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
                 </div>
         </div>
     </nav>

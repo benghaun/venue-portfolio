@@ -142,3 +142,64 @@ function editDescription(currentDesc, tag){
         }
   }
 }
+
+function removeTag(tag){
+	var tag_element = document.getElementById(tag);
+	tag_element.parentNode.removeChild(tag_element);
+}
+
+function addTag(){
+    //adds tag
+    var add_tag = document.getElementById("add-tag");
+    parent = add_tag.parentNode;
+
+    //remove edit input
+    parent.removeChild(add_tag);
+    var tag_input = document.createElement("input");
+    tag_input.id = "tag-input";
+    tag_input.type = "text";
+    tag_input.className = "tag-input";
+    tag_input.select();
+    parent.appendChild(tag_input);
+    var submit_tag = document.createElement("div");
+    submit_tag.id = 'enter';
+    submit_tag.className = "enter";
+    submit_tag.style = `background-image: url('/static/enter.png')`;
+    submit_tag.onclick = function(){submitTag();};
+    parent.appendChild(submit_tag);
+    tag_input.onkeypress = function(e){
+        if (!e) e = window.event;
+        var keyCode = e.keyCode || e.which;
+        if (keyCode == '13'){
+            // Enter pressed
+            submitTag();
+        }
+    }
+}
+
+function submitTag(){
+    var tag_input = document.getElementById("tag-input");
+    var parent = tag_input.parentNode;
+    //remove edit input
+    parent.removeChild(tag_input);
+    var enter = document.getElementById("enter");
+    parent.removeChild(enter);
+    //add new tag
+    var new_tag = document.createElement("li");
+    new_tag.className = "img-tag";
+    new_tag.id = tag_input.value;
+    new_tag.innerHTML = `<span onclick="" style="cursor: pointer;" class="tag-text">` 
+    + tag_input.value + `</span>
+    <div class="cross" style="background-image: url('/static/cross.png')" id="remove-tag" onclick="removeTag('`
+    + tag_input.value + `')"></div>`;
+    parent.appendChild(new_tag);
+    var add_tag = document.createElement('div');
+    add_tag.id = "add-tag";
+    add_tag.className = "add-tag";
+    add_tag.onclick = function(){addTag();};
+    var plus = document.createElement('div');
+    plus.className = "plus";
+    plus.style = `background-image: url('/static/plus.png')`;
+    parent.appendChild(add_tag);
+    add_tag.appendChild(plus);
+}

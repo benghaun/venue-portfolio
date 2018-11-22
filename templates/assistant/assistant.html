@@ -64,6 +64,9 @@
 {% else %}
 <div class="assistant-img" style="background-image: url('{% static 'Assistant1.png' %}')"></div>
 {% endif %}
+{% if current_user == uploader %}
+    <div class="edit" style="background-image: url('{% static 'edit.png' %}')" id="edit-assist" onclick="editAssistant()"></div>
+{% endif %}
 <script src="{% static 'assistant-content.js' %}"></script>
 </body>
 

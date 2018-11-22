@@ -117,6 +117,27 @@ img{
     transition: font-size 0.7s, text-shadow 0.7s 
 }
 
+.btn-gal{
+    position: absolute;
+    left: 25%;
+    transform: translate(-50%,0);
+    bottom: 2rem;
+}
+
+.btn-pro{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,0);
+    bottom: 2rem;
+}
+
+.btn-con{
+    position: absolute;
+    left: 75%;
+    transform: translate(-50%,0);
+    bottom: 2rem;
+}
+
 .navbar {
 	bottom:0;
 	position:fixed;

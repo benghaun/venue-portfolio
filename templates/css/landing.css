@@ -118,8 +118,8 @@ img{
 }
 
 .loading{
-	height: 7rem;
-    width: 7rem;
+	height: 5rem;
+    width: 5rem;
 	position: fixed;
 	bottom: 50%;
 	left: 50%;
@@ -130,12 +130,12 @@ img{
 }
 
 .loading-text{
-	font-size: 3rem; 
+	font-size: 2rem; 
 	position: fixed;
 	bottom: 50%;
 	left: 50%;
 	transform: translate(-50%,50%);
-	color: white;
+	color: black;
 }
 
 .screen-overlay{

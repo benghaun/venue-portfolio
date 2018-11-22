@@ -106,5 +106,5 @@ def assistant(request):
 
     return render(request, 'assistant/assistant.html',
                   {'header_text': header_text, 'text': text, 'buttons': buttons, 'inputs': inputs, 'search': search,
-                   'form': form, 'upload': upload, 'assistant_url': assistant_url, 'tagging': tagging, 'rec_tags': rec_tags})
+                   'form': form, 'upload': upload, 'assistant_url': assistant_url, 'tagging': tagging, 'rec_tags': rec_tags, 'current_user': current_user})
 

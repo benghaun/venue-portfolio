@@ -59,6 +59,11 @@ def image(request, username, category):
     medium_urls = {}
     selected = request.GET.get("selected")
     uploader = User.objects.get(username=username)
+    try:
+        selected_image = Image.objects.get(id=int(selected))
+    except Image.DoesNotExist:
+        return HttpResponse(404)
+    selected_image_tags = selected_image.tags
     if category == "all":
         images = Image.objects.filter(uploader_id=uploader.id)
     else:
@@ -96,7 +101,7 @@ def image(request, username, category):
                                                      'thumbnail_urls': thumbnail_urls, 'selected_title': selected_title,
                                                      'medium_urls': medium_urls, 'uploader': username,
                                                      'current_user': current_user, 'selected_liked': selected_liked,
-                                                     'selected_description': selected_description})
+                                                     'selected_description': selected_description, 'tags': selected_image_tags})
 
 
 @login_required()
