@@ -5,6 +5,7 @@ from django.contrib.auth import logout
 from django.shortcuts import render, HttpResponse, redirect
 from authentication.models import User
 from venue.models import Tag, Image
+from venue.utils import in_bucket
 S3_BUCKET = os.environ.get('S3_BUCKET')
 
 
@@ -30,9 +31,13 @@ def assistant(request):
         if assistant:
             assistant_image = Image.objects.get(id=assistant)
             s3 = boto3.client('s3', region_name='eu-west-3')
+            if in_bucket("resized/" + str(assistant_image.id) + "." + assistant_image.ext):
+                key = "resized/" + str(assistant_image.id) + "." + assistant_image.ext
+            else:
+                key = str(assistant_image.id) + "." + assistant_image.ext
             assistant_url = s3.generate_presigned_url(ClientMethod="get_object",
                                                       Params={'Bucket': S3_BUCKET,
-                                                              'Key': "resized/" + str(assistant_image.id) + "." + assistant_image.ext},
+                                                              'Key': key},
                                                       ExpiresIn=86400)
         else:
             assistant_url = None

@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'authentication.apps.AuthenticationConfig',
     'messaging.apps.MessagingConfig',
     'venue.apps.VenueConfig',
+    'templatetags.apps.TemplatetagsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

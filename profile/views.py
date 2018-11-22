@@ -9,13 +9,41 @@ import boto3
 from profile.utils import is_liked
 from venue.models import Image, Tag
 from venue.utils import in_bucket
+
 S3_BUCKET = os.environ.get('S3_BUCKET')
 
 
 def profile(request, username):
     about_text = html.escape(User.objects.get(username=username).about_text)
     current_user = request.user.username
-    return render(request, 'profile/profile.html', {'uploader': username, 'about_text': about_text, 'current_user': current_user})
+    uploader = User.objects.get(username=username)
+    featured_tags = json.loads(uploader.featured_tags)
+    s3 = boto3.client('s3', region_name='eu-west-3')
+    featured_image_ids = []
+    for idx in featured_tags:
+        tag = featured_tags[idx]['tag']
+        i = 0
+        images = Image.objects.filter(uploader_id=uploader.id, tags__contains=[tag.lower()]).order_by("-likes")
+        most_liked = None
+        if images.first() is not None:
+            most_liked = images[i]
+            while most_liked.id in featured_image_ids:
+                i += 1
+                if i < images.count():
+                    most_liked = images[i]
+                else:
+                    most_liked = images[0]
+            featured_image_ids.append(most_liked.id)
+        if most_liked is not None:
+            s3_key = "resized/" + str(most_liked.id) + "." + most_liked.ext
+        else:
+            s3_key = "placeholder"
+        featured_tags[idx]['url'] = s3.generate_presigned_url(ClientMethod="get_object",
+                                                              Params={'Bucket': S3_BUCKET,
+                                                                      'Key': s3_key},
+                                                              ExpiresIn=86400)
+    return render(request, 'profile/profile.html', {'uploader': username, 'about_text': about_text,
+                                                    'current_user': current_user, 'featured_tags': featured_tags})
 
 
 def category_view(request, username, category):
@@ -123,7 +151,8 @@ def edit_description(request):
         return HttpResponse(status=405)
     tag_name = request.POST.get("tag").lower()
     if tag_name:
-        Tag.objects.filter(name=tag_name, uploader_id=request.user.id).update(description=request.POST.get("description"))
+        Tag.objects.filter(name=tag_name, uploader_id=request.user.id).update(
+            description=request.POST.get("description"))
         return HttpResponse(status=200)
     else:
         return HttpResponse(status=400, content="tag not provided")
@@ -156,4 +185,3 @@ def get_metadata(request):
 
 def about(request, username):
     return render(request, 'profile/about.html', {'uploader': username})
-
