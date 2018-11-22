@@ -29,7 +29,6 @@ def get_image_page(request):
         return HttpResponse(status=400, content="Invalid size/start provided")
     image_ids = Image.objects.all().values_list('pk', flat=True).order_by("-id")
     images = Image.objects.filter(id__in=image_ids[page_start:page_start + page_size]).order_by("-id")
-    print(image_ids[page_start:page_start + page_size])
     for image in images:
         image_id = str(image.id)
         uploader = User.objects.get(id=int(image.uploader_id)).username

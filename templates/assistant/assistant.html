@@ -37,8 +37,9 @@
         {% endif %}
         {% if search != None %}
             {% for search_field, params in search.items %}
-                <input type="{{search_field}}" class="input-field" placeholder="{{params}}">
-                <button type="button" class="btn btn-default btn-search no-padding">
+                <!--TODO: pressing enter doesnt click the button-->
+                <input type="{{search_field}}" class="input-field" placeholder="{{params}}" id="searchBox">
+                <button type="button" class="btn btn-default btn-search no-padding" onClick="search()">
                     <img src="{% static 'search.png' %}" alt="search" class="search-img">
                 </button>
                 <br>
@@ -54,7 +55,6 @@
             <input type="file" id="my_image" style="display: none;">
             <!--<p>Upload progress: <progress id="uploadprogress" max="100" value="0">0</progress></p>-->
         </article>
-        <script src="{% static 'assistant-content.js' %}"></script>
     {% endif %}
     </div>
 
@@ -64,7 +64,7 @@
 {% else %}
 <div class="assistant-img" style="background-image: url('{% static 'Assistant1.png' %}')"></div>
 {% endif %}
-
+<script src="{% static 'assistant-content.js' %}"></script>
 </body>
 
 {% endblock %}

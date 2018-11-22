@@ -49,3 +49,4 @@ function encodeQueryData(data) {
      ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
    return ret.join('&');
 }
+

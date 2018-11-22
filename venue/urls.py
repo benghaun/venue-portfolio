@@ -29,4 +29,5 @@ urlpatterns = [
     path('accounts/', include('authentication.urls')),
     path('landing/', include('landing.urls')),
     path('messaging/', include('messaging.urls')),
+    path('search/', include('search.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

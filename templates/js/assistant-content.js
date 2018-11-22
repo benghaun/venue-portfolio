@@ -210,3 +210,7 @@ function uploadFile(file, s3Data, url){
     };
     xhr.send(postData);
 }
+
+function search(){
+    window.top.location.href = "/search/?query=" + document.getElementById("searchBox").value
+}
