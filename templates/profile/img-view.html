@@ -72,7 +72,7 @@
 </div>
     <p hidden id="selectedId">{{selected}}</p>
     <p hidden id="selectedTitle">{{selected_title}}</p>
-    <div class="container">
+    <div class="container main-content">
         <div class="row">
             {% if selected_liked %}
             <button type="button" data-toggle="button" id="like" onClick="toggleLike()" class="liked-btn">
@@ -101,46 +101,41 @@
                 <div class="edit" style="background-image: url('{% static 'edit.png' %}')" id="edit-desc" onclick="editDescription('{{selected_title | force_escape}}')"></div>
                 {% endif %}
             </div>
+            <div class="col-12 mx-auto">
+                <ul class="img-tags" id="img-tags">
+                    Tags:
+                    {% for tag in tags %}
+                    <li class="img-tag" id="{{tag}}">
+                        <span onclick="" style="cursor: pointer;" class="tag-text">{{ tag }}</span>
+                        {% if current_user == uploader %}
+                            <div class="cross" style="background-image: url('{% static 'cross.png' %}')" id="remove-tag" onclick="removeTag('{{tag | force_escape}}')"></div>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                    {% if current_user == uploader %}
+                        <div class="add-tag" id="add-tag" onclick="addTag()">
+                            <div class="plus" style="background-image: url('{% static 'plus.png' %}')"></div>
+                        </div>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
 
     </div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 
         <nav class="navbar-default nav-image navbar" style="background: linear-gradient(
       rgba(0, 0, 0, 0.5),
       rgba(0, 0, 0, 0.5)
     ),url('{% static 'AttackOfMiku.jpg' %}')">
         <div class="container">
-            <div class="nav navbar-nav ml-auto">
+            <div class="nav navbar-nav ml-auto btn-gal">
                     <li><a href="/" class="navbar-button">Gallery</a></li>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
                 </div>
-            <div class="nav navbar-nav mx-auto">
+            <div class="nav navbar-nav mx-auto btn-pro">
                     <li><a href="/profile/{{uploader}}/about/" class="navbar-button">Profile</a></li>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
                 </div>
-            <div class="nav navbar-nav mr-auto">
+            <div class="nav navbar-nav mr-auto btn-con">
                     <li><a href="#" class="navbar-button" onClick="launchAssistant({'action': 'contact'})">Contact</a></li>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
                 </div>
         </div>
     </nav>
