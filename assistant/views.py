@@ -25,21 +25,30 @@ def assistant(request):
     upload = False
     tagging = False
     choose_assistant = False
+    upload_assistant = False
     rec_tags = []
+    all_assistant_icons = []
     if username:
         user = User.objects.get(username=username)
         assistant = user.assistant
+        print(assistant)
         if assistant:
             assistant_image = Image.objects.get(id=assistant)
             s3 = boto3.client('s3', region_name='eu-west-3')
             if in_bucket("resized/" + str(assistant_image.id) + "." + assistant_image.ext):
                 key = "resized/" + str(assistant_image.id) + "." + assistant_image.ext
-            else:
+                assistant_url = s3.generate_presigned_url(ClientMethod="get_object",
+                                                          Params={'Bucket': S3_BUCKET,
+                                                                  'Key': key},
+                                                          ExpiresIn=86400)
+            elif in_bucket(str(assistant_image.id)):
                 key = str(assistant_image.id) + "." + assistant_image.ext
-            assistant_url = s3.generate_presigned_url(ClientMethod="get_object",
-                                                      Params={'Bucket': S3_BUCKET,
-                                                              'Key': key},
-                                                      ExpiresIn=86400)
+                assistant_url = s3.generate_presigned_url(ClientMethod="get_object",
+                                                          Params={'Bucket': S3_BUCKET,
+                                                                  'Key': key},
+                                                          ExpiresIn=86400)
+            else:
+                assistant_url = None
         else:
             assistant_url = None
         tags = Tag.objects.filter(uploader_id=user.id)
@@ -57,7 +66,7 @@ def assistant(request):
         else:
             header_text = "Welcome back, " + username + "! It's good to see you again."
             text = "What do you need to do today?"
-            buttons = {'Upload an image': {'type': '1', 'onClick': "location.href='/assistant?action=upload'"},
+            buttons = {'Upload an image': {'type': '1', 'onClick': "location.href='/assistant?action=upload&username=%s'" % username},
                        'Manage existing artwork': {'type': '2', 'onClick': "window.top.location.href='/profile/leakyjar/all'"},
                        'Logout': {'type': '3', 'onClick': "location.href='/assistant?action=logout'"}}
     elif action == 'upload':
@@ -66,7 +75,7 @@ def assistant(request):
     elif action == 'uploadSuccess':
         header_text = "I got it! Looks interesting as always," + current_user + "!"
         text = "You can check it out in your gallery!"
-        buttons = {'Upload another image': {'type': '1', 'onClick': "location.href='/assistant?action=upload'"},
+        buttons = {'Upload another image': {'type': '1', 'onClick': "location.href='/assistant?action=upload&username=%s'" % username},
                    'Manage existing artwork': {'type': '2',
                                                'onClick': "window.top.location.href='/profile/leakyjar/all'"},
                    'Logout': {'type': '3', 'onClick': "location.href='/assistant?action=logout'"}}
@@ -125,19 +134,21 @@ def assistant(request):
     elif action == 'editAssistant':
         header_text = 'Cool, I get to take a break?'
         text = "Who's taking over my shift?"
-        buttons = {'Upload a new assistant': {'type': '1', 'onClick': "location.href='/assistant?action=uploadAssistant'"},
-                   'Choose an existing assistant': {'type': '2', 'onClick': "location.href='/assistant?action=chooseAssistant'"}}
+        buttons = {'Upload a new assistant': {'type': '1', 'onClick': "location.href='/assistant?action=uploadAssistant&username=%s'" % username},
+                   'Choose an existing assistant': {'type': '2', 'onClick': "location.href='/assistant?action=chooseAssistant&username=%s'" % username}}
     elif action == 'uploadAssistant':
         header_text = "A new friend to help us out... Not that I'll slack off of course!"
+        upload_assistant = True
         upload = True
     elif action == 'chooseAssistant':
         header_text = "I wonder if Jeff still wants to work with us..."
         text = 'These are the assistants currently available at the moment:'
+        assistants = Image.objects.filter(uploader_id=request.user.id, tags__contains=['assistant'])
         choose_assistant = True
     elif action == 'changedAssistant':
         header_text = "Ven told me to take over, it's a pleasure to see you again, " + current_user + ":)"
         text = "I can't wait to start, what shall we do today?"
-        buttons = {'Upload an image': {'type': '1', 'onClick': "location.href='/assistant?action=upload'"},
+        buttons = {'Upload an image': {'type': '1', 'onClick': "location.href='/assistant?action=upload&username=%s'" % username},
                    'Manage existing artwork': {'type': '2',
                                                'onClick': "window.top.location.href='/profile/leakyjar/all'"},
                    'Logout': {'type': '3', 'onClick': "location.href='/assistant?action=logout'"}}
@@ -145,9 +156,22 @@ def assistant(request):
         text = message
     print(username)
     print(current_user)
+    print(upload_assistant)
     return render(request, 'assistant/assistant.html',
                   {'header_text': header_text, 'text': text, 'buttons': buttons, 'inputs': inputs, 'search': search,
                    'form': form, 'upload': upload, 'assistant_url': assistant_url, 'tagging': tagging, 'rec_tags': rec_tags,
-                   'current_user': current_user, 'uploader': username, 'chooseAssistant': choose_assistant})
+                   'current_user': current_user, 'uploader': username, 'chooseAssistant': choose_assistant,
+                   'upload_assistant': upload_assistant})
 
-#<!--TODO: login redirect page, currently redirects wrongly-->
+# TODO: login redirect page, currently redirects wrongly
+
+
+def change_assistant(request):
+    new_assistant = request.POST.get("assistant")
+    try:
+        new_assistant = int(new_assistant)
+    except ValueError:
+        return HttpResponse(status=400, content="invalid id provided")
+    request.user.assistant = new_assistant
+    request.user.save()
+    return HttpResponse(status=200)

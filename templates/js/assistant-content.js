@@ -1,3 +1,4 @@
+var uploader = document.getElementById('uploader').innerHTML;
 var holder = document.getElementById('holder'),
     tests = {
       filereader: typeof FileReader != 'undefined',
@@ -80,9 +81,9 @@ function readfiles(files) {
       if (tests.formdata) formData.append('file', files[i]);
       previewfile(files[i]);
     }
-
+    var uploadingAssistant = document.getElementById("uploadAssistant").innerHTML === "true"
     // now post a new XHR request
-    if (tests.formdata) {
+    if (tests.formdata && !uploadingAssistant) {
       var xhr = new XMLHttpRequest();
       xhr.open('POST', '/upload/getTags/');
 
@@ -118,7 +119,7 @@ function readfiles(files) {
 	        	parent.innerHTML = '';
 	        	var tags = JSON.parse(xhr.responseText);
 	        	for (var i=0; i<tags.length; i++){
-	        			parent.innerHTML += `<input type="checkbox" class="checkbox" name="tag" 
+	        			parent.innerHTML += `<input type="checkbox" class="checkbox" name="tag"
 	        			 id="` + tags[i] + `" checked>
                 <label for="` + tags[i] + `">` + tags[i] + `</label><br>`;
 
@@ -146,6 +147,13 @@ function readfiles(files) {
 
       xhr.send(formData);
     }
+    else {
+        cont = document.createElement("button");
+        cont.className = "submit-btn";
+        cont.innerHTML = "Upload";
+        cont.onclick = function(){getSignedRequest(files[0])};
+        document.getElementById("variable-content").appendChild(cont);
+    }
 }
 
 if (tests.dnd) { 
@@ -169,20 +177,25 @@ function getSignedRequest(file){
     var description = ""
     var title = "title"
     tags = ""
-    
-    $('input[type=checkbox]').each(function(){
-        if(this.checked){
-        	tags+=($(this).attr("id") + ",")
-        }
-    });
+    var uploadingAssistant = document.getElementById("uploadAssistant").innerHTML === "true"
+    if (uploadingAssistant){
+        tags = "assistant";
+    }
+    else{
+        $('input[type=checkbox]').each(function(){
+            if(this.checked){
+                tags+=($(this).attr("id") + ",")
+            }
+        });
+        tags = tags + document.getElementById("extra_tags").value;
+    }
 
-    tags = tags + document.getElementById("extra_tags").value;
 
     if (!file){
         return alert("No file selected.")
     }
 
-    xhr.open("GET", "/upload/sign_s3?file_name="+file.name+"&file_type="+file.type+"&tags="+tags+"&description="+description+"&title="+title);
+    xhr.open("GET", "/upload/sign_s3?file_name="+file.name+"&file_type="+file.type+"&tags="+tags+"&description="+description+"&title="+title+"&assistant=" + document.getElementById("uploadAssistant").innerHTML);
     xhr.onreadystatechange = function(){
     if(xhr.readyState === 4){
       if(xhr.status === 200){
@@ -198,6 +211,7 @@ function getSignedRequest(file){
 }
 
 function uploadFile(file, s3Data, url){
+    var uploadingAssistant = document.getElementById("uploadAssistant").innerHTML === "true"
     var xhr = new XMLHttpRequest();
     xhr.open("POST", s3Data.url);
     var postData = new FormData();
@@ -209,7 +223,12 @@ function uploadFile(file, s3Data, url){
     xhr.onreadystatechange = function() {
     if(xhr.readyState === 4){
       if(xhr.status === 200 || xhr.status === 204){
-        window.location.href = '/assistant?action=uploadSuccess';
+          if (uploadingAssistant){
+            window.location.href = '/assistant?action=changedAssistant&username=' + uploader;
+          }
+          else{
+            window.location.href = '/assistant?action=uploadSuccess&username=' + uploader;
+          }
       }
       else{
         alert("Could not upload file.");

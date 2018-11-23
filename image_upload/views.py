@@ -28,6 +28,7 @@ def sign_s3(request):
     file_name = request.GET.get('file_name')
     file_type = request.GET.get('file_type')
     description = request.GET.get('description')
+    assistant = request.GET.get('assistant')  # flag to see if assistant or normal image is being uploaded
     title = request.GET.get('title')
     tags = request.GET.get('tags').lower().split(",")
     # remove empty strings, undefined, and repeats
@@ -45,6 +46,9 @@ def sign_s3(request):
     image = Image(name=file_name, tags=tags, description=description, title=title, ext=ext, uploader_id=request.user.id)
     image.save()
     image_id = str(image.id)
+    if assistant == "true":
+        request.user.assistant = image.id
+        request.user.save()
     presigned_post = s3.generate_presigned_post(
                         Bucket=S3_BUCKET,
                         Key=image_id + ".%s" % ext,
