@@ -44,7 +44,8 @@ def assistant(request):
             text = "I can show you what's on display, or help you get in touch with him."
             buttons = {'Browse': {'type': '1',
                                   'onClick': "location.href='/assistant?action=browse&username=" + username + "'"},
-                       'Leave a message': {'type': '2', 'onClick': ''}}
+                       'Leave a message': {'type': '2', 'onClick': ''},
+                       'Login': {'type': '3', 'onClick': "location.href='/assistant?action=login'"}}
         else:
             header_text = "Welcome back, " + username + "!"
             text = "What do you need to do today?"
@@ -103,8 +104,11 @@ def assistant(request):
 
     if message:
         text = message
-
+    print(username)
+    print(current_user)
     return render(request, 'assistant/assistant.html',
                   {'header_text': header_text, 'text': text, 'buttons': buttons, 'inputs': inputs, 'search': search,
-                   'form': form, 'upload': upload, 'assistant_url': assistant_url, 'tagging': tagging, 'rec_tags': rec_tags, 'current_user': current_user})
+                   'form': form, 'upload': upload, 'assistant_url': assistant_url, 'tagging': tagging, 'rec_tags': rec_tags,
+                   'current_user': current_user, 'uploader': username})
 
+# <!--TODO: login redirect page, currently redirects wrongly-->

@@ -300,8 +300,8 @@ input:focus{
 
 .btn-circle:hover {
 	background: linear-gradient(
-      rgba(0, 123, 255, 1),
-      rgba(0, 123, 255, 1))
+      #DF784B,
+      #DF784B);
 }
 
 .profile-name{

@@ -3,7 +3,7 @@
 {% block content %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'img-view.css' %}">
-
+<!--TODO: like count-->
 <body style="background-image: url('{% static 'BG1.png' %}')">
 <div id='carousel-custom' class='carousel slide carousel-wrapper' data-ride='carousel' data-interval="false">
     <!-- Wrapper for slides -->
@@ -155,7 +155,7 @@
         <a href="/profile/{{ uploader }}" class="profile-name">{{ uploader | upper }}</a>
     </div>
 
-    <button type="button" id="assistant" class="btn btn-default btn-circle no-padding btn-assistant" onClick="launchAssistant()">
+    <button type="button" id="assistant" class="btn btn-default btn-circle no-padding btn-assistant" onClick="launchAssistant({'action': 'profile', 'username': '{{uploader}}'})">
             <img src="{% static 'AssistantThumb.png' %}" alt="assistant">
     </button>
     <script src="{% static 'assistant.js' %}"></script>

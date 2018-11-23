@@ -35,12 +35,12 @@ img{
 }
 
 .total-likes{
-	height: 1.7rem;
-	width: 1.7rem;	
+	height: 3rem;
+	width: 3rem;	
 	background-position: center;
 	background-size: contain;
 	background-repeat: no-repeat;
-	margin-top: 2rem;
+	margin-top: 4rem;
 /*	position: absolute;
 	left: 50%;
 	transform: translate(50%.0);*/
@@ -48,12 +48,29 @@ img{
 
 .center-text {
 	text-align: center;
-
+    width: 9rem;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
 }
 
-.add-facebook-url {
-	width: wrap;
+.link-content {
+	text-align: center;
+    width: 30rem;
+}
 
+.link-text{
+	display: inline-block;
+	color: grey;
+}
+
+.link-img{
+	height: 3rem;
+	width: 3rem;	
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	display: inline-block;
+	transform: translate(0, 40%);
 }
 
 .cat-head{
@@ -135,8 +152,8 @@ img{
 
 .btn-circle:hover {
 	background: linear-gradient(
-      rgba(0, 123, 255, 1),
-      rgba(0, 123, 255, 1))
+      #DF784B,
+      #DF784B);
 }
 
 .profile-name{

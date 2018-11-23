@@ -18,10 +18,10 @@
 
     <div class="variable-content" id="variable-content">
         {% for button_txt, params in buttons.items %}
+            <br>
         {% autoescape off %}
             <button class="option-btn btn-{{params.type}}" onClick="{{params.onClick}}">{{button_txt}}</button>
         {% endautoescape %}
-            <br>
         {% endfor %}
         {% if inputs != None %}
         <form action="{{ form }}" method="post">
@@ -64,6 +64,8 @@
 {% else %}
 <div class="assistant-img" style="background-image: url('{% static 'Assistant1.png' %}')"></div>
 {% endif %}
+
+    <!--<div class="edit" style="background-image: url('{% static 'edit.png' %}')" id="edit-assist" onclick="editAssistant()"></div>-->
 {% if current_user == uploader %}
     <div class="edit" style="background-image: url('{% static 'edit.png' %}')" id="edit-assist" onclick="editAssistant()"></div>
 {% endif %}

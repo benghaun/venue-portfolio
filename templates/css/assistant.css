@@ -68,13 +68,13 @@ body{
 	margin-left: 6rem;
 	overflow: auto;
 	max-width: 80rem;
-	max-height: 13rem;
+	max-height: 15rem;
 	min-height: 10rem;
 	position: relative;
 }
 
 .variable-text{
-	margin-bottom: 2rem;
+	/*margin-bottom: 2rem;*/
 	margin-left: 6rem;
 	width: calc(10rem + 25vw);
 }
@@ -82,7 +82,7 @@ body{
 .option-btn{
 	border-radius: 1rem;
 	width: 80%;
-	height: 5rem;
+	height: 4rem;
 	border: none;
 	font-weight: bold;
 	color: white;
@@ -157,8 +157,8 @@ input:-webkit-autofill {
     margin-bottom: 1rem;
 	background-color: #DF784B;
 	position: absolute;
-	left: 58%;
-	top: 44.3%;
+	left: 89%;
+    top: 0.3%;
 }
 
 .btn-search:hover {
@@ -285,6 +285,23 @@ label{
 	background-color: grey;
 	box-shadow: inset 0 0 0.2rem rgba(0, 0, 0, 0.3);
 
+}
+
+.edit{
+	height: 1rem;
+	width: 1rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+    display: inline-block;
+    position: absolute;
+    right: 2%;
+    top: 5%;
+}
+
+.edit:hover{
+	box-shadow: inset 0 0 100rem 100rem rgba(255, 255, 255, 0.3);
+    cursor: pointer;
 }
 
 button:focus {outline:0;}
