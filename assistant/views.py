@@ -31,17 +31,24 @@ def assistant(request):
     if username:
         user = User.objects.get(username=username)
         assistant = user.assistant
+        print(assistant)
         if assistant:
             assistant_image = Image.objects.get(id=assistant)
             s3 = boto3.client('s3', region_name='eu-west-3')
             if in_bucket("resized/" + str(assistant_image.id) + "." + assistant_image.ext):
                 key = "resized/" + str(assistant_image.id) + "." + assistant_image.ext
-            else:
+                assistant_url = s3.generate_presigned_url(ClientMethod="get_object",
+                                                          Params={'Bucket': S3_BUCKET,
+                                                                  'Key': key},
+                                                          ExpiresIn=86400)
+            elif in_bucket(str(assistant_image.id)):
                 key = str(assistant_image.id) + "." + assistant_image.ext
-            assistant_url = s3.generate_presigned_url(ClientMethod="get_object",
-                                                      Params={'Bucket': S3_BUCKET,
-                                                              'Key': key},
-                                                      ExpiresIn=86400)
+                assistant_url = s3.generate_presigned_url(ClientMethod="get_object",
+                                                          Params={'Bucket': S3_BUCKET,
+                                                                  'Key': key},
+                                                          ExpiresIn=86400)
+            else:
+                assistant_url = None
         else:
             assistant_url = None
         tags = Tag.objects.filter(uploader_id=user.id)
