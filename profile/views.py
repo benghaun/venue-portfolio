@@ -1,15 +1,18 @@
 import os
 import html
 import json
+from urllib.parse import urlparse
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum
 from authentication.models import User
 from django.db.models import F
 from django_postgres_extensions.models.functions import ArrayRemove, ArrayAppend
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, get_object_or_404
 import boto3
 from profile.utils import is_liked
 from venue.models import Image, Tag
 from venue.utils import in_bucket
+from urllib.parse import urlparse
 
 S3_BUCKET = os.environ.get('S3_BUCKET')
 
@@ -39,7 +42,7 @@ def profile(request, username):
                     most_liked = images[0]
             featured_image_ids.append(most_liked.id)
         if most_liked is not None:
-            s3_key = "resized/" + str(most_liked.id) + "." + most_liked.ext
+            s3_key = "resized_med/" + str(most_liked.id) + "." + most_liked.ext
         else:
             s3_key = "placeholder"
         featured_tags[idx]['url'] = s3.generate_presigned_url(ClientMethod="get_object",
@@ -256,6 +259,133 @@ def add_tag(request):
 
 def about(request, username):
     current_user = request.user.username
-    print(current_user)
-    print(username)
-    return render(request, 'profile/about.html', {'uploader': username, 'current_user': current_user})
+    user = get_object_or_404(User, username=username)
+    skillset = user.skillset
+    mediums = user.software_and_mediums
+    description = user.profile_txt_1
+    work_exp = user.profile_txt_2
+    total_likes = Image.objects.filter(uploader_id=user.id).aggregate(Sum('likes'))['likes__sum']
+    fb = user.fb
+    insta = user.insta
+    if total_likes is None:
+        total_likes = 0
+    s3 = boto3.client('s3', region_name='eu-west-3')
+    if in_bucket(key='profile_pic/%s' % user.id, s3=s3):
+        profile_pic = s3.generate_presigned_url(ClientMethod="get_object",
+                                                Params={'Bucket': S3_BUCKET,
+                                                        'Key': 'profile_pic/%s' % user.id},
+                                                ExpiresIn=86400)
+    else:
+        profile_pic = None
+
+    return render(request, 'profile/about.html', {'uploader': username, 'current_user': current_user,
+                                                  'skillset': skillset, 'mediums': mediums, 'profile_txt_1': description,
+                                                  'work_exp': work_exp, 'total_likes': total_likes, 'fb': fb,
+                                                  'insta': insta, 'profile_pic': profile_pic})
+
+
+@login_required()
+def add_skill(request):
+    if request.method != "POST":
+        return HttpResponse(status=405)
+    skill = request.POST.get("skill")
+    if skill and len(skill) > 0:
+        request.user.skillset.append(skill)
+        request.user.save()
+        return HttpResponse(status=200)
+    else:
+        return HttpResponse(status=400, content="Please enter a valid skillset")
+
+
+@login_required()
+def del_skill(request):
+    if request.method != "POST":
+        return HttpResponse(status=405)
+    skill = request.POST.get("skill")
+    if skill and len(skill) > 0:
+        request.user.skillset.remove(skill)
+        request.user.save()
+    return HttpResponse(status=200)
+
+
+@login_required()
+def add_medium(request):
+    if request.method != "POST":
+        return HttpResponse(status=405)
+    medium = request.POST.get("medium")
+    if medium and len(medium) > 0:
+        request.user.software_and_mediums.append(medium)
+        request.user.save()
+        return HttpResponse(status=200)
+    else:
+        return HttpResponse(status=400, content="Please enter a valid software or medium")
+
+
+@login_required()
+def del_medium(request):
+    if request.method != "POST":
+        return HttpResponse(status=405)
+    medium = request.POST.get("medium")
+    if medium and len(medium) > 0:
+        request.user.software_and_mediums.remove(medium)
+        request.user.save()
+    return HttpResponse(status=200)
+
+
+@login_required()
+def edit_profile_text(request):
+    if request.method != "POST":
+        return HttpResponse(status=405)
+    description = request.POST.get("description")
+    if description and len(description) > 0:
+        request.user.profile_txt_1 = description
+        request.user.save()
+        return HttpResponse(status=200)
+    else:
+        return HttpResponse(status=400, content="Please enter a valid description")
+
+
+@login_required()
+def edit_work_exp(request):
+    if request.method != "POST":
+        return HttpResponse(status=405)
+    work_exp = request.POST.get("workexp")
+    if work_exp and len(work_exp) > 0:
+        request.user.profile_txt_2 = work_exp
+        request.user.save()
+        return HttpResponse(status=200)
+    else:
+        return HttpResponse(status=400, content="Please enter a valid description")
+
+
+@login_required()
+def edit_fb(request):
+    if request.method != "POST":
+        return HttpResponse(status=405)
+    fb = request.POST.get("fb")
+    if not (fb.startswith("http://")) and not (fb.startswith("https://")):
+        fb = "https://" + fb
+    parsed = urlparse(fb)
+    if parsed.netloc.replace("www.", "") != "fb.com" and parsed.netloc.replace("www.", "") != "facebook.com" not in parsed.netloc:
+        return HttpResponse(status=400, content="Please enter a valid Facebook link")
+    request.user.fb = fb
+    request.user.save()
+    return HttpResponse(200)
+
+
+@login_required()
+def edit_insta(request):
+    if request.method != "POST":
+        return HttpResponse(status=405)
+    insta = request.POST.get("insta")
+    if not (insta.startswith("http://")) and not (insta.startswith("https://")):
+        insta = "https://" + insta
+    parsed = urlparse(insta)
+    if parsed.netloc != "instagram.com":
+        return HttpResponse(status=400, content="Please enter a valid Instagram link")
+    request.user.insta = insta
+    request.user.save()
+    return HttpResponse(200)
+
+
+

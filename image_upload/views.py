@@ -7,6 +7,8 @@ import boto3
 from venue.models import Image, Tag
 from .utils import get_tags
 
+S3_BUCKET = os.environ.get('S3_BUCKET')
+
 
 @login_required()
 def upload_view(request):
@@ -24,7 +26,6 @@ def get_tag_view(request):
 
 @login_required()
 def sign_s3(request):
-    S3_BUCKET = os.environ.get('S3_BUCKET')
     file_name = request.GET.get('file_name')
     file_type = request.GET.get('file_type')
     description = request.GET.get('description')
@@ -75,3 +76,24 @@ def add_tag(request):
     except ValidationError:
         return redirect('/upload?message=tag%20too%long')
     return redirect('/upload?message=tag%20created')
+
+
+@login_required()
+def upload_profile_pic(request):
+    file_type = request.GET.get('file_type')
+    s3 = boto3.client('s3', region_name='eu-west-3')
+    key = "profile_pic/" + str(request.user.id)
+    presigned_post = s3.generate_presigned_post(
+        Bucket=S3_BUCKET,
+        Key=key,
+        Fields={"acl": "public-read", "Content-Type": file_type},
+        Conditions=[
+            {"acl": "public-read"},
+            {"Content-Type": file_type}
+        ],
+        ExpiresIn=60
+    )
+    return HttpResponse(json.dumps({
+        'data': presigned_post,
+        'url': 'https://%s.s3.amazonaws.com/%s' % (S3_BUCKET, key),
+    }), content_type="application/json")

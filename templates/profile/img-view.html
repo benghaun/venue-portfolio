@@ -3,7 +3,6 @@
 {% block content %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'img-view.css' %}">
-<!--TODO: like count-->
 <body style="background-image: url('{% static 'BG1.png' %}')">
 <div id='carousel-custom' class='carousel slide carousel-wrapper' data-ride='carousel' data-interval="false">
     <!-- Wrapper for slides -->
@@ -74,7 +73,6 @@
     <p hidden id="selectedTitle">{{selected_title}}</p>
     <div class="container main-content">
         <div class="row">
-            <!--TODO: shift like count to left if liked button shown-->
             <span class="ml-auto" style="text-align: right; transform:translate(-100%, 10%)" id="likeTxt">{{selected_like_count}} liked this</span>
             {% if selected_liked %}
             <button type="button" data-toggle="button" id="like" onClick="toggleLike()" class="liked-btn">

@@ -265,7 +265,7 @@ img{
 
 .skill-tag:hover{
 	box-shadow: inset 0 0 100rem 100rem rgba(0, 0, 0, 0.2);
-    /*cursor: pointer;*/	
+    cursor: pointer;
     transition: box-shadow 0.5s;
 }
 
@@ -398,6 +398,7 @@ img{
     left: 50%;
     transform: translate(-50%);
 	cursor: pointer;
+	overflow: hidden;
 }
 
 #holder.hover{
@@ -406,6 +407,14 @@ img{
 #holder img {
 	display: block;
 	margin: 10px auto;
+}
+
+img {
+    object-fit: cover;
+    max-height: 100%;
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 .upload-text{
