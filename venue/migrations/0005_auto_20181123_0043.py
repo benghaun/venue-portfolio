@@ -14,6 +14,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='image',
             name='tags',
-            field=django_postgres_extensions.models.fields.ArrayField(base_field=models.CharField(max_length=200), blank=True, form_size=None, size=None),
+            # field=django_postgres_extensions.models.fields.ArrayField(base_field=models.CharField(max_length=200), blank=True, form_size=None, size=None),
+            field=django_postgres_extensions.models.fields.ArrayField(base_field=models.CharField(max_length=200),
+                                                                      blank=True, size=None),
         ),
     ]

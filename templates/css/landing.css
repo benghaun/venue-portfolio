@@ -8,6 +8,7 @@ body {
 	background-color: #DAD3CE;
 	background-size: cover;
 	background-position: center;
+	background-repeat: no-repeat;
 	background-opacity: 0.2;
 }
 
@@ -144,4 +145,26 @@ img{
     background-color: rgba(0, 0, 0, 0.3);
     position: fixed;
     transform: translate(0, -10%);
+}
+
+.logo{
+	height: 4rem;
+	width: 4rem;
+	position: fixed;
+	right: 0;
+	top: 50%;
+	margin-right: 2rem;
+	transform: translate(0, -50%);
+	background-position: center;
+	background-size: cover;
+	border-radius: 20rem;
+	background-color: transparent;	
+	box-shadow: 0rem 0rem .5rem 0.1rem rgba(0, 0, 0, 0.5);
+	transition: box-shadow 0.5s;
+}
+
+.logo:hover{
+	box-shadow: 0rem 0rem .5rem .2rem white;
+	transition: box-shadow 0.5s;
+	cursor: pointer;
 }

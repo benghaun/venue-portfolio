@@ -24,6 +24,7 @@ def assistant(request):
     form = ""
     upload = False
     tagging = False
+    choose_assistant = False
     rec_tags = []
     if username:
         user = User.objects.get(username=username)
@@ -54,7 +55,7 @@ def assistant(request):
                        'Leave a message': {'type': '2', 'onClick': ''},
                        'Login': {'type': '3', 'onClick': "location.href='/assistant?action=login'"}}
         else:
-            header_text = "Welcome back, " + username + "!"
+            header_text = "Welcome back, " + username + "! It's good to see you again."
             text = "What do you need to do today?"
             buttons = {'Upload an image': {'type': '1', 'onClick': "location.href='/assistant?action=upload'"},
                        'Manage existing artwork': {'type': '2', 'onClick': "window.top.location.href='/profile/leakyjar/all'"},
@@ -62,6 +63,13 @@ def assistant(request):
     elif action == 'upload':
         header_text = "What would you like to upload?"
         upload = True
+    elif action == 'uploadSuccess':
+        header_text = "I got it! Looks interesting as always," + current_user + "!"
+        text = "You can check it out in your gallery!"
+        buttons = {'Upload another image': {'type': '1', 'onClick': "location.href='/assistant?action=upload'"},
+                   'Manage existing artwork': {'type': '2',
+                                               'onClick': "window.top.location.href='/profile/leakyjar/all'"},
+                   'Logout': {'type': '3', 'onClick': "location.href='/assistant?action=logout'"}}
     elif action == 'tagging':
         header_text = "Are these image tags correct?"
         tagging = True
@@ -114,7 +122,25 @@ def assistant(request):
         return redirect("/assistant/?action=landing")
     elif action == 'contact':
         header_text = "Send me a message"
-
+    elif action == 'editAssistant':
+        header_text = 'Cool, I get to take a break?'
+        text = "Who's taking over my shift?"
+        buttons = {'Upload a new assistant': {'type': '1', 'onClick': "location.href='/assistant?action=uploadAssistant'"},
+                   'Choose an existing assistant': {'type': '2', 'onClick': "location.href='/assistant?action=chooseAssistant'"}}
+    elif action == 'uploadAssistant':
+        header_text = "A new friend to help us out... Not that I'll slack off of course!"
+        upload = True
+    elif action == 'chooseAssistant':
+        header_text = "I wonder if Jeff still wants to work with us..."
+        text = 'These are the assistants currently available at the moment:'
+        choose_assistant = True
+    elif action == 'changedAssistant':
+        header_text = "Ven told me to take over, it's a pleasure to see you again, " + current_user + ":)"
+        text = "I can't wait to start, what shall we do today?"
+        buttons = {'Upload an image': {'type': '1', 'onClick': "location.href='/assistant?action=upload'"},
+                   'Manage existing artwork': {'type': '2',
+                                               'onClick': "window.top.location.href='/profile/leakyjar/all'"},
+                   'Logout': {'type': '3', 'onClick': "location.href='/assistant?action=logout'"}}
     if message:
         text = message
     print(username)
@@ -122,6 +148,6 @@ def assistant(request):
     return render(request, 'assistant/assistant.html',
                   {'header_text': header_text, 'text': text, 'buttons': buttons, 'inputs': inputs, 'search': search,
                    'form': form, 'upload': upload, 'assistant_url': assistant_url, 'tagging': tagging, 'rec_tags': rec_tags,
-                   'current_user': current_user, 'uploader': username})
+                   'current_user': current_user, 'uploader': username, 'chooseAssistant': choose_assistant})
 
-# <!--TODO: login redirect page, currently redirects wrongly-->
+#<!--TODO: login redirect page, currently redirects wrongly-->

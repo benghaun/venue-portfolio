@@ -39,7 +39,6 @@
             {% for search_field, params in search.items %}
                 <input type="{{search_field}}" class="input-field" placeholder="{{params}}" id="searchBox" onkeypress="searchKeyPress(event)">
                 <button type="button" id="searchBtn" class="btn btn-default btn-search no-padding" onClick="search()">
-                    <!--TODO: fix search button alignment-->
                     <img src="{% static 'search.png' %}" alt="search" class="search-img">
                 </button>
                 <br>
@@ -55,7 +54,10 @@
             <input type="file" id="my_image" style="display: none;">
             <!--<p>Upload progress: <progress id="uploadprogress" max="100" value="0">0</progress></p>-->
         </article>
-    {% endif %}
+        {% endif %}
+        {% if chooseAssistant == True %}
+            <div class="assistant-icon" style="background-image: url('{% static 'AssistantThumb.png' %}')" onclick="changedAssistant()"></div>
+        {% endif %}
     </div>
 
 </div>
@@ -70,6 +72,20 @@
     <div class="edit" style="background-image: url('{% static 'edit.png' %}')" id="edit-assist" onclick="editAssistant()"></div>
 {% endif %}
 <script src="{% static 'assistant-content.js' %}"></script>
+<script type="text/javascript">
+function editAssistant(){
+    location.href='/assistant?action=editAssistant';
+
+return true;
+}
+
+function changedAssistant(){
+    location.href='/assistant?action=changedAssistant';
+
+return true;
+}
+</script>
+
 </body>
 
 {% endblock %}

@@ -198,7 +198,6 @@ function getSignedRequest(file){
 }
 
 function uploadFile(file, s3Data, url){
-    //TODO: post-upload display
     var xhr = new XMLHttpRequest();
     xhr.open("POST", s3Data.url);
     var postData = new FormData();
@@ -210,7 +209,7 @@ function uploadFile(file, s3Data, url){
     xhr.onreadystatechange = function() {
     if(xhr.readyState === 4){
       if(xhr.status === 200 || xhr.status === 204){
-        alert("Upload successful");
+        window.location.href = '/assistant?action=uploadSuccess';
       }
       else{
         alert("Could not upload file.");

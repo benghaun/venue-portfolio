@@ -14,6 +14,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='user',
             name='liked_images',
-            field=django_postgres_extensions.models.fields.ArrayField(base_field=models.CharField(max_length=200), blank=True, default=list, form_size=None, size=None),
+            # field=django_postgres_extensions.models.fields.ArrayField(base_field=models.CharField(max_length=200), blank=True, default=list, form_size=None, size=None),
+            field=django_postgres_extensions.models.fields.ArrayField(base_field=models.CharField(max_length=200),
+                                                                      blank=True, default=list,
+                                                                      size=None)
         ),
     ]

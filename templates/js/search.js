@@ -5,6 +5,8 @@ function searchResultsPopulate(pageStart, pageSize){
     xhr.onreadystatechange = function(){
         if(xhr.readyState === 4){
           if(xhr.status === 200){
+            var loading = document.getElementById('loading-items');
+            loading.parentNode.removeChild(loading);
             var response = JSON.parse(xhr.responseText);
             var parent = document.getElementById('container')
             var i;

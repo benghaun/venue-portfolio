@@ -5,7 +5,7 @@
 <!-- Profile picture and the intro -->
 
 <link rel="stylesheet" type="text/css" href="{% static 'about.css' %}">
-<body>
+<body style="background-image: url('{% static 'BG1.png' %}')">
 
     <div class="container">
         <div class="row">
@@ -52,31 +52,18 @@
       rgba(0, 0, 0, 0.5)
     ),url('{% static 'AttackOfMiku.jpg' %}')">
         <div class="container">
-            <div class="nav navbar-nav ml-auto">
-                    <li><a href="/" class="navbar-button">Gallery</a></li>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
+            <div class="nav navbar-nav ml-auto btn-gal">
+                    <li><a href="/profile/{{uploader}}/" class="navbar-button">Gallery</a></li>
                 </div>
-            <div class="nav navbar-nav mx-auto">
-                    <li><a href="#" class="navbar-button">Profile</a></li>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
+            <div class="nav navbar-nav mx-auto btn-pro">
+                    <li><a href="/profile/{{uploader}}/about/" class="navbar-button">Profile</a></li>
                 </div>
-            <div class="nav navbar-nav mr-auto">
+            <div class="nav navbar-nav mr-auto btn-con">
                     <li><a href="#" class="navbar-button" onClick="launchAssistant({'action': 'contact'})">Contact</a></li>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
                 </div>
         </div>
-
-<!-- Social media buttons -->
     </nav>
+<!-- Social media buttons -->
     <div class="social-media-block">
         <button type="button" class="btn btn-default btn-circle no-padding" >
             <img src="{% static 'twitter.png' %}" alt="twitter">
@@ -97,6 +84,9 @@
     <button type="button" id="assistant" class="btn btn-default btn-circle no-padding btn-assistant" onClick="launchAssistant({'action': 'profile', 'username': '{{uploader}}'})">
             <img src="{% static 'AssistantThumb.png' %}" alt="assistant">
     </button>
+    <div class="logo" style="background-image: url('{% static 'VenueLogo.png' %}')">
+        <a href="/" style="position:absolute; left: 0;right: 0; top: 0; bottom: 0;"></a>
+    </div>
     <script src="{% static 'assistant.js' %}"></script>
 
 </body>

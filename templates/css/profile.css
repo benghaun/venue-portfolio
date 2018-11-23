@@ -8,7 +8,7 @@ html{
 }
 
 .main-content{
-    margin-bottom: 12rem;
+    margin-bottom: 14rem;
 }
 
 .navbar {
@@ -45,22 +45,22 @@ img{
 }
 
 .portrait{
-	height: 45em;
+	height: 40rem;
 	width: 100%;
 	overflow: hidden;
     background-position: center;
-    border-radius: 1em;
+    border-radius: 1rem;
     background-size: cover;
     position: relative;
     margin-bottom: .5rem;
 }
 
 .landscape{
-	height: 25em;
+	height: 20rem;
 	width: auto;
 	overflow: hidden;
     background-position: center;
-    border-radius: 1em;
+    border-radius: 1rem;
     background-size: cover;
     position: relative;
     margin-bottom: .5rem;
@@ -325,4 +325,26 @@ img{
 .cat-input-vert{	
 	width: 1.5rem;
 	height: 200%;
+}
+
+.logo{
+	height: 4rem;
+	width: 4rem;
+	position: fixed;
+	right: 0;
+	top: 50%;
+	margin-right: 2rem;
+	transform: translate(0, -50%);
+	background-position: center;
+	background-size: cover;
+	border-radius: 20rem;
+	background-color: transparent;	
+	box-shadow: 0rem 0rem .5rem 0.1rem rgba(0, 0, 0, 0.5);
+	transition: box-shadow 0.5s;
+}
+
+.logo:hover{
+	box-shadow: 0rem 0rem .5rem .2rem white;
+	transition: box-shadow 0.5s;
+	cursor: pointer;
 }

@@ -84,7 +84,7 @@
     ),url('{% static 'AttackOfMiku.jpg' %}')">
         <div class="container">
             <div class="nav navbar-nav ml-auto btn-gal">
-                    <li><a href="/" class="navbar-button">Gallery</a></li>
+                    <li><a href="/profile/{{uploader}}/" class="navbar-button">Gallery</a></li>
                 </div>
             <div class="nav navbar-nav mx-auto btn-pro">
                     <li><a href="/profile/{{uploader}}/about/" class="navbar-button">Profile</a></li>
@@ -113,6 +113,9 @@
     <button type="button" id="assistant" class="btn btn-default btn-circle no-padding btn-assistant" onClick="launchAssistant({'action': 'profile', 'username': '{{uploader}}'})">
             <img src="{% static 'AssistantThumb.png' %}" alt="assistant">
     </button>
+    <div class="logo" style="background-image: url('{% static 'VenueLogo.png' %}')">
+        <a href="/" style="position:absolute; left: 0;right: 0; top: 0; bottom: 0;"></a>
+    </div>
     {% csrf_token %}
     <script src="{% static 'assistant.js' %}"></script>
     <script src="{% static 'category.js' %}"></script>
