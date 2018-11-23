@@ -53,6 +53,9 @@
             </div>
             <input type="file" id="my_image" style="display: none;">
             <!--<p>Upload progress: <progress id="uploadprogress" max="100" value="0">0</progress></p>-->
+            <!--<script>-->
+                <!--$('.my-image').croppie();-->
+            <!--</script>-->
         </article>
         {% endif %}
         {% if chooseAssistant == True %}
@@ -116,6 +119,9 @@
 {% if uploader %}
     <p id="uploader" hidden>{{uploader}}</p>
 {% endif %}
+
+<link rel="stylesheet" href="{% static 'croppie.css' %}" />
+<script src="{% static 'croppie.js' %}"></script>
 <script src="{% static 'assistant-content.js' %}"></script>
 <script type="text/javascript">
 function editAssistant(){

@@ -60,6 +60,8 @@ function previewfile(file) {
       var image = new Image();
       image.src = event.target.result;
       image.width = 250; // a fake resize
+      image.className = "my-image";
+      image.id = "my-image";
       holder.appendChild(image);
     };
 
