@@ -10,6 +10,7 @@ def login_view(request):
     if request.method == 'POST':
         username = request.POST.get("Username")
         password = request.POST.get("Password")
+        print('next:' + nxt)
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
@@ -20,7 +21,7 @@ def login_view(request):
         else:
             return redirect("/assistant/?action=login&message=Incorrect username or password.")
     else:
-        return redirect("/assistant/?action=login&next=" + nxt)
+        return redirect("/assistant/?action=login&next=" + html.escape(nxt))
 
 
 def register(request):
@@ -39,6 +40,8 @@ def register(request):
 
 
 def logout_view(request):
+    nxt = '/assistant?action=' + request.GET.get('next_action')
     logout(request)
-    return redirect('/')
+    print(nxt)
+    return redirect(nxt)
 
