@@ -10,23 +10,35 @@
     <div class="container">
         <div class="row">
         	<div class="col-6">
-        		<div class="place-holder">
-        		</div>
+        		<article id="article mx-auto">
+                    <div id="holder">
+                        <p class="add" id="upload-sign">+</p>
+                        <p class="upload-text" id="upload-text">Drag your profile picture here</p>
+                    </div>
+                    <input type="file" id="my_image" style="display: none;">
+                    <!--<p>Upload progress: <progress id="uploadprogress" max="100" value="0">0</progress></p>-->
+                </article>
                 <div style="background-image: url('{% static 'thumb_up.png' %}')" class="total-likes mx-auto"></div>
                 <div class="center-text mx-auto">
-                    Like button here
+                    Total likes:
                 </div>
                 <div class="mx-auto link-content">
                     <div style="background-image: url('{% static 'instagram.png' %}')" class="link-img"></div>
                     <div class="link-text">
                         Link your Instagram account on your profile...
                     </div>
+                    {% if current_user == uploader %}
+                        <div class="edit" style="background-image: url('{% static 'edit.png' %}')" id="edit-social" onclick="editTitle('{{selected_title | force_escape | force_escape}}')"></div>
+                    {% endif %}
                 </div>
                 <div class="mx-auto link-content">
                     <div style="background-image: url('{% static 'facebook.png' %}')" class="link-img"></div>
                     <div class="link-text">
                         Link your Facebook account in your profile...
                     </div>
+                    {% if current_user == uploader %}
+                        <div class="edit" style="background-image: url('{% static 'edit.png' %}')" id="edit-social" onclick="editTitle('{{selected_title | force_escape | force_escape}}')"></div>
+                    {% endif %}
                 </div>
         	</div>
             <div class="col-6 mx-auto">
@@ -34,12 +46,50 @@
                     Profile
                 </div>
                     <div class="profile-description">
-	                This is short description who I am and what kind of art I am interested about
-	                <br>
-	                </br>Skillset (tools):
-				    </br>Experience with mediums:
-					</br>Work Experience:
+	                    This is a short description about who I am and what kind of art I am interested in.
+                    {% if current_user == uploader %}
+                        <div class="edit" style="background-image: url('{% static 'edit.png' %}')" id="edit-social" onclick="editTitle('{{selected_title | force_escape | force_escape}}')"></div>
+                    {% endif %}
 					</div>
+                <div class="skills">
+                    Skillset:
+                    <li class="skill-tag" id="{{skill}}">
+                        <span style="cursor: pointer;" class="skill-text">Illustration</span>
+                        {% if current_user == uploader %}
+                            <div class="cross" style="background-image: url('{% static 'cross.png' %}')" id="remove-tag" onclick="removeTag('Illustration')"></div>
+                        {% endif %}
+                    </li>
+                    {% if current_user == uploader %}
+                        <div class="add-tag" id="add-tag" onclick="addTag()">
+                            <div class="plus" style="background-image: url('{% static 'plus.png' %}')"></div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="mediums">
+                    Software and mediums:
+                    <li class="medium-tag" id="{{medium}}">
+                        <span style="cursor: pointer;" class="medium-text">Photoshop</span>
+                        {% if current_user == uploader %}
+                            <div class="cross" style="background-image: url('{% static 'cross.png' %}')" id="remove-tag" onclick="removeTag('Illustration')"></div>
+                        {% endif %}
+                    </li>
+                    {% if current_user == uploader %}
+                        <div class="add-tag" id="add-tag" onclick="addTag()">
+                            <div class="plus" style="background-image: url('{% static 'plus.png' %}')"></div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div>
+                    Work Experience:
+                </div>
+                <br>
+                <div class="profile-description" id="work-experience">
+                    I have worked with software startups as part of their UX/UI design team, with an additional focus on conversational UX flow for bot-handled websites.
+
+                {% if current_user == uploader %}
+                        <div class="edit" style="background-image: url('{% static 'edit.png' %}')" id="edit-social" onclick="editTitle('{{selected_title | force_escape | force_escape}}')"></div>
+                {% endif %}
+                </div>
             </div>
         </div>
     </div>
@@ -88,6 +138,7 @@
         <a href="/" style="position:absolute; left: 0;right: 0; top: 0; bottom: 0;"></a>
     </div>
     <script src="{% static 'assistant.js' %}"></script>
+    <script src="{% static 'about.js' %}"></script>
 
 </body>
 

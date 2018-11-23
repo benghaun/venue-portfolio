@@ -249,4 +249,7 @@ def add_tag(request):
 
 
 def about(request, username):
-    return render(request, 'profile/about.html', {'uploader': username})
+    current_user = request.user.username
+    print(current_user)
+    print(username)
+    return render(request, 'profile/about.html', {'uploader': username, 'current_user': current_user})
