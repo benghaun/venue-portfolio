@@ -28,6 +28,7 @@ img{
     font-size: 1em;
     line-height: 1.42857;
     margin-bottom: 1rem;
+    background-color: grey;
 }
 
 .btn-circle:hover {
