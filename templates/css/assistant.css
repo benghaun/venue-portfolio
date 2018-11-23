@@ -69,7 +69,7 @@ body{
 	overflow: auto;
 	max-width: 80rem;
 	max-height: 14rem;
-	min-height: 10rem;
+	min-height: 0rem;
 	position: relative;
 }
 
@@ -99,6 +99,10 @@ body{
 
 .btn-3{
 	background-color: #3EC1D3;
+}
+
+.btn-4{
+	background-color: grey;
 }
 
 .option-btn:hover{

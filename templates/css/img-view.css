@@ -515,8 +515,10 @@ input:focus{
 }*/
 
 .like-btn{
-	position: absolute;
-	right: 0;
+/*	position: absolute;
+	right: 0;*/
+	margin-right: 2rem;
+	margin-left: 1rem;
 	z-index: 1;
 	border-radius: 0.2rem;
 	background-color: #DF784B;
@@ -532,8 +534,9 @@ input:focus{
 }
 
 .liked-btn{
-	position: absolute;
-	right: 0;
+/*	position: absolute;
+	right: 0;*/
+	margin-right: 2rem;
 	z-index: 1;
 	border-radius: 0.2rem;
 	background: none;
