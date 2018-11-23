@@ -65,12 +65,12 @@ def assistant(request):
             text = "I can show you what's on display, or help you get in touch with him."
             buttons = {'Browse': {'type': '1',
                                   'onClick': "location.href='/assistant?action=browse&username=" + username + "'"},
-                       'Leave a message': {'type': '2', 'onClick': ''}}
+                       'Leave a message': {'type': '2', 'onClick': "location.href='/assistant?action=contact&username=" + username + "'"}}
         else:
             header_text = "Welcome back, " + username + "! It's good to see you again."
             text = "What do you need to do today?"
             buttons = {'Upload an image': {'type': '1', 'onClick': "location.href='/assistant?action=upload&username=%s'" % username},
-                       'Manage existing artwork': {'type': '2', 'onClick': "window.top.location.href='/profile/leakyjar/all'"},
+                       'Manage existing artwork': {'type': '2', 'onClick': "window.top.location.href='/profile/%s/all'" % current_user},
                        'Inbox': {'type': '3',
                                  'onClick': "location.href='/assistant?action=inbox'"},
                        'Logout': {'type': '4', 'onClick': "location.href='/assistant?action=logout&next_action=%s'" % action}}
@@ -85,7 +85,7 @@ def assistant(request):
         text = "You can check it out and manage the details in your gallery."
         buttons = {'Upload another image': {'type': '1', 'onClick': "location.href='/assistant?action=upload&username=%s'" % username},
                    'Manage existing artwork': {'type': '2',
-                                               'onClick': "window.top.location.href='/profile/leakyjar/all'"},
+                                               'onClick': "window.top.location.href='/profile/%s/all'" % current_user},
                    'Inbox': {'type': '3',
                               'onClick': "location.href='/assistant?action=inbox'"},
                    'Logout': {'type': '4', 'onClick': "location.href='/assistant?action=logout&next_action=%s'" % action}
@@ -107,7 +107,7 @@ def assistant(request):
             if tag not in ordered_tags:
                 ordered_tags.append(tag.name)
         for tag in ordered_tags:
-            buttons[tag] = {'type': '1', 'onClick': "window.top.location.href='/profile/leakyjar/%s'" % tag}
+            buttons[tag] = {'type': '1', 'onClick': "window.top.location.href='/profile/%s/%s'" % (current_user, tag)}
     elif action == 'search':
         header_text = "Searching for artwork?"
         text = "Sure, what type of art are you interested in?"
@@ -121,7 +121,7 @@ def assistant(request):
                        'Register': {'type': '3', 'onClick': "location.href='/assistant?action=register'"}}
         else:
             buttons = {'Search': {'type': '1', 'onClick': "location.href='/assistant?action=search'"},
-                       'Profile': {'type': '2', 'onClick': "window.top.location.href='/profile/leakyjar/'"},
+                       'Profile': {'type': '2', 'onClick': "window.top.location.href='/profile/%s/'" % current_user},
                        'Logout': {'type': '4', 'onClick': "location.href='/assistant?action=logout&next_action=%s'" % action}}
     elif action == 'login':
         header_text = "Welcome back! Hope things have been well."
@@ -159,12 +159,12 @@ def assistant(request):
         text = "I can't wait to start, what shall we do today?"
         buttons = {'Upload an image': {'type': '1', 'onClick': "location.href='/assistant?action=upload&username=%s'" % username},
                    'Manage existing artwork': {'type': '2',
-                                               'onClick': "window.top.location.href='/profile/leakyjar/all'"},
+                                               'onClick': "window.top.location.href='/profile/%s/all'" % current_user},
                    'Logout': {'type': '3', 'onClick': "location.href='/assistant?action=logout&next_action=%s'" % action}}
     elif action == 'contact':
         header_text = "Need to talk to " + username + "?"
         text = "Leave your details with me, I'll ask him to get back to you."
-        contact = True;
+        contact = True
     elif action == 'inbox':
         header_text = "Checking your inbox?"
         text = "Remember to get back to them!"

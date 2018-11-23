@@ -241,3 +241,23 @@ function uploadFile(file, s3Data, url){
 function search(){
     window.top.location.href = "/search/?query=" + document.getElementById("searchBox").value
 }
+
+function deleteMessage(messageId){
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/messaging/delete/")
+    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+    xhr.setRequestHeader('X-CSRFToken', csrftoken);
+    var postData = new FormData()
+    postData.append('message_id', messageId)
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4){
+            if (xhr.status === 200 || xhr.status === 204){
+                window.location.href = '/assistant?action=inbox';
+            }
+            else{
+                alert('An error has occured')
+            }
+        }
+    }
+    xhr.send(postData);
+}

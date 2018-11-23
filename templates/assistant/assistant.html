@@ -77,14 +77,15 @@
     {% if message != None %}
     <div style="position:absolute; width: calc(10rem + 25vw); margin-left: 6rem;">
         <button class="submit-btn" onclick="javascript:window.location.href='/assistant?action=inbox'" style="left: 30%; margin-top: 1rem">Back</button>
-        <button class="submit-btn" onclick="javascript:window.location.href='/assistant?action=inbox'" style="left: 60%; margin-top: 1rem;background-color: #24685B;">Delete</button>
+        <button class="submit-btn" onclick="deleteMessage('{{message.id}}')" style="left: 60%; margin-top: 1rem;background-color: #24685B;">Delete</button>
     </div>
     {% endif %}
     {% if contact == True %}
-    <form action="" method="post" style="position:relative; padding-left: 5rem;">
+    <form action="/messaging/send/" method="post" style="position:relative; padding-left: 5rem;">
         {% csrf_token %}
+        <input type="text" hidden value="{{uploader}}" name="recipient">
         <div class="input-header">Subject:</div>
-        <input type="text" name="email" style="padding-left: 0; border-radius: 0rem; width: 80%; margin-left: 1rem;    border-width: 2px;
+        <input type="text" name="subject" style="padding-left: 0; border-radius: 0rem; width: 80%; margin-left: 1rem;    border-width: 2px;
     border-top-width: 2px;
     border-right-width: 2px;
     border-bottom-width: 2px;
@@ -95,7 +96,7 @@
     border-bottom-style: inset;
     border-left-style: inset;">
         <div class="input-header">Enter your message:</div>
-        <textarea type="text" name="text-message" style="width: 80%; height: 100%; margin-left: 1rem;"></textarea>
+        <textarea type="text" name="content" style="width: 80%; height: 100%; margin-left: 1rem;"></textarea>
         <br>
         <button type="submit" class="submit-btn" style="margin-top: 2rem;">Submit</button>
     </form>

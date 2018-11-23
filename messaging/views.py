@@ -1,4 +1,4 @@
-from django.shortcuts import HttpResponse, render
+from django.shortcuts import HttpResponse, render, redirect
 from django.contrib.auth.decorators import login_required
 from venue.models import User
 from .models import Message
@@ -17,15 +17,16 @@ def send_message(request):
         except User.DoesNotExist:
             return HttpResponse(status=400, content="User does not exist")
     else:
-        return HttpResponse(status=400, content="Missing parameters")
+        return redirect("/assistant/?action=profile&username=" + recipient_username + "&message=Please type a message")
     message = Message(sender=sender, recipient=recipient, subject=subject, content=content)
     message.save()
-    return HttpResponse(status=200, content="Message sent")
+    return redirect("/assistant/?action=profile&username=" + recipient_username + "&message=Message sent!")
 
 
 @login_required()
 def message_view(request):
     return render(request, 'messaging/messaging.html')
+
 
 @login_required()
 def inbox(request):
@@ -34,3 +35,15 @@ def inbox(request):
     for message in inbox:
         output.append(message.__str__())
     return render(request, 'messaging/inbox.html', {'messages': output})
+
+
+@login_required()
+def delete_message(request):
+    message_id = request.POST.get('message_id')
+    try:
+        message_id = int(message_id)
+    except ValueError:
+        return HttpResponse(status=400, content="invalid message id")
+    Message.objects.filter(id=message_id).delete()
+    print("delete")
+    return HttpResponse(200)
