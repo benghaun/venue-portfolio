@@ -118,6 +118,7 @@ function readfiles(files) {
 	        	var header = document.getElementById("assistant-speech");
 	        	header.innerHTML = "Are these image tags correct?";
 	        	var parent = document.getElementById("variable-content");
+            parent.style = "min-height: 10rem";
 	        	parent.innerHTML = '';
 	        	var tags = JSON.parse(xhr.responseText);
 	        	for (var i=0; i<tags.length; i++){
