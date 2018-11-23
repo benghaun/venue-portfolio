@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ["venue-portfolio.herokuapp.com"]
 INSTALLED_APPS = [
     'authentication.apps.AuthenticationConfig',
     'venue.apps.VenueConfig',
+    'templatetags.apps.TemplatetagsConfig',
     'messaging.apps.MessagingConfig',
     'django.contrib.admin',
     'django.contrib.auth',
