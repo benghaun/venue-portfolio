@@ -11,13 +11,13 @@
         {% for idx, params in urls.items %}
             {% if selected %}
                 {% if params.key == selected %}
-                    <div class='carousel-item height active' id="{{params.title}}" data-img="{{params.key}}" data-desc="{{params.description}}" data-liked="{{params.liked}}" data-tags="{{params.tags}}">
+                    <div class='carousel-item height active' id="{{params.title}}" data-img="{{params.key}}" data-desc="{{params.description}}" data-liked="{{params.liked}}" data-tags="{{params.tags}}", data-like-count="{{params.likes}}">
                         <div class="display-image" style="background-image: url('{{params.medium_url}}' )">
                             <a href="{{params.url}}" data-fancybox class="fancy-click"></a>
                         </div>
                     </div>
                 {% else %}
-                    <div class='carousel-item height' id="{{params.title}}" data-img="{{params.key}}" data-desc="{{params.description}}" data-liked="{{params.liked}}" data-tags="{{params.tags}}">
+                    <div class='carousel-item height' id="{{params.title}}" data-img="{{params.key}}" data-desc="{{params.description}}" data-liked="{{params.liked}}" data-tags="{{params.tags}}", data-like-count="{{params.likes}}">
                         <div class="display-image" style="background-image: url('{{params.medium_url}}'">
                             <a href="{{params.url}}" data-fancybox class="fancy-click"></a>
                         </div>
@@ -25,13 +25,13 @@
                 {% endif %}
             {% else %}
                 {% if params.idx == 0 %}
-                    <div class='carousel-item height active' id="{{params.title}}" data-img="{{params.key}}" data-desc="{{params.description}}" data-liked="{{params.liked}}" data-tags="{{params.tags}}">
+                    <div class='carousel-item height active' id="{{params.title}}" data-img="{{params.key}}" data-desc="{{params.description}}" data-liked="{{params.liked}}" data-tags="{{params.tags}}", data-like-count="{{params.likes}}">
                         <div class="display-image" style="background-image: url('{{params.medium_url}}')">
                             <a href="{{params.url}}" data-fancybox class="fancy-click"></a>
                         </div>
                     </div>
                 {% else %}
-                    <div class='carousel-item height' id="{{params.title}}" data-img="{{params.key}}" data-desc="{{params.description}}" data-liked="{{params.liked}}" data-tags="{{params.tags}}">
+                    <div class='carousel-item height' id="{{params.title}}" data-img="{{params.key}}" data-desc="{{params.description}}" data-liked="{{params.liked}}" data-tags="{{params.tags}}", data-like-count="{{params.likes}}">
                         <div class="display-image" style="background-image: url('{{params.medium_url}}' )">
                             <a href="{{params.url}}" data-fancybox class="fancy-click"></a>
                         </div>
@@ -74,7 +74,8 @@
     <p hidden id="selectedTitle">{{selected_title}}</p>
     <div class="container main-content">
         <div class="row">
-            <span class="ml-auto" style="text-align: right; transform:translate(-100%, 10%)">?? people liked this</span>
+            <!--TODO: shift like count to left if liked button shown-->
+            <span class="ml-auto" style="text-align: right; transform:translate(-100%, 10%)" id="likeTxt">{{selected_like_count}} liked this</span>
             {% if selected_liked %}
             <button type="button" data-toggle="button" id="like" onClick="toggleLike()" class="liked-btn">
                 <span style="background-image: url('{% static 'tick_boxless.png' %}')" class="like-img" id="like-img"></span>

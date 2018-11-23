@@ -166,7 +166,6 @@ def assistant(request):
                    'current_user': current_user, 'uploader': username, 'chooseAssistant': choose_assistant,
                    'upload_assistant': upload_assistant})
 
-# TODO: login redirect page, currently redirects wrongly
 
 
 def change_assistant(request):

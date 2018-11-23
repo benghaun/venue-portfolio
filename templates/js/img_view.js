@@ -56,21 +56,30 @@ $('#carousel-custom').on('slid.bs.carousel', function (e) {
     document.getElementById('edit-title').style.display = 'block';
 
 
-    // set correct status of like button
+    // set correct status of like button and update like count
     liked = e.relatedTarget.getAttribute("data-liked") === "True"
     var like_btn = document.getElementById('like');
-    var like_text = document.getElementById('like-text');
+    var like_btn_text = document.getElementById('like-text');
     var like_img = document.getElementById('like-img');
+    var likeTxt = document.getElementById('likeTxt');
+    var likeCount = parseInt(e.relatedTarget.getAttribute('data-like-count'),10);
     if (!liked){
         like_btn.className = 'like-btn';
-        like_text.innerHTML = 'Like';
+        like_btn_text.innerHTML = 'Like';
         like_img.style = `background-image: url('/static/like.png')`;
+        if (likeCount === 1){
+            likeTxt.innerHTML = "1 person liked this"
+        }
+        else {
+            likeTxt.innerHTML = likeCount.toString() + " people liked this"
+        }
     }
     else{
         like_btn.className = 'liked-btn';
-        like_text.innerHTML = 'Liked';
+        like_btn_text.innerHTML = 'Liked';
         like_img.style = `background-image: url('/static/tick_boxless.png')`;
     }
+
 });
 
 var title = document.getElementById('img-title');

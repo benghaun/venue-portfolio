@@ -117,24 +117,30 @@ def image(request, username, category):
                                                        'Key': 'resized_med/' + image_id + "." + image.ext},
                                                ExpiresIn=86400)
         urls[i] = {"key": image_id, "idx": i, "title": title, 'url': url, 'medium_url': medium_url,
-                   'description': description, 'liked': liked, 'tags': tags}
+                   'description': description, 'liked': liked, 'tags': tags, 'likes': image.likes}
         thumbnail_url = s3.generate_presigned_url(ClientMethod="get_object",
                                                   Params={'Bucket': S3_BUCKET,
                                                           'Key': 'resized/' + image_id + "." + image.ext},
                                                   ExpiresIn=86400)
         thumbnail_urls[i] = {"key": image_id, "idx": i, "title": title, 'url': thumbnail_url,
-                             'description': description, 'liked': liked, 'tags': tags}
+                             'description': description, 'liked': liked, 'tags': tags, 'likes': image.likes}
     if selected not in image_ids:
         selected = '0'
     selected_title = Image.objects.get(id=int(selected)).title
     selected_description = Image.objects.get(id=int(selected)).description
     selected_liked = selected in User.objects.get(username=current_user).liked_images
+    selected_like_count = Image.objects.get(id=int(selected)).likes
+    if selected_like_count == 1:
+        selected_like_count = "1 person"
+    else:
+        selected_like_count = "%d people" % selected_like_count
     return render(request, 'profile/img-view.html', {'urls': urls, 'selected': selected,
                                                      'thumbnail_urls': thumbnail_urls, 'selected_title': selected_title,
                                                      'uploader': username, 'current_user': current_user,
                                                      'selected_liked': selected_liked,
                                                      'selected_description': selected_description,
-                                                     'tags': selected_image_tags})
+                                                     'tags': selected_image_tags,
+                                                     'selected_like_count': selected_like_count})
 
 
 @login_required()
