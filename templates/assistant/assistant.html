@@ -58,12 +58,48 @@
         {% if chooseAssistant == True %}
             <div class="assistant-icon" style="background-image: url('{% static 'AssistantThumb.png' %}')" onclick="changedAssistant()"></div>
         {% endif %}
+        {% if inbox != None %}
+            {% for message in inbox %}
+                <button class="option-btn btn-2" onclick="javascript:window.location.href='/assistant?action={{message.id}}'">{{ message.subject }}</button>
+            {% endfor %}
+        {% endif %}
+        {% if message != None %}
+            <div><strong>From: </strong>{{message.sender}}</div>
+            <div><strong>Subject: </strong>{{message.subject}}</div>
+            <div><strong>Content: </strong><br>{{message.content}}</div>
+        {% endif %}
         {% if upload_assistant %}
         <p id="uploadAssistant" hidden>true</p>
         {% else %}
         <p id="uploadAssistant" hidden>false</p>
         {% endif %}
     </div>
+    {% if message != None %}
+    <div style="position:absolute; width: calc(10rem + 25vw); margin-left: 6rem;">
+        <button class="submit-btn" onclick="javascript:window.location.href='/assistant?action=inbox'" style="left: 30%; margin-top: 1rem">Back</button>
+        <button class="submit-btn" onclick="javascript:window.location.href='/assistant?action=inbox'" style="left: 60%; margin-top: 1rem;background-color: #24685B;">Delete</button>
+    </div>
+    {% endif %}
+    {% if contact == True %}
+    <form action="" method="post" style="position:relative; padding-left: 5rem;">
+        {% csrf_token %}
+        <div class="input-header">Subject:</div>
+        <input type="text" name="email" style="padding-left: 0; border-radius: 0rem; width: 80%; margin-left: 1rem;    border-width: 2px;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-style: inset;
+    border-top-style: inset;
+    border-right-style: inset;
+    border-bottom-style: inset;
+    border-left-style: inset;">
+        <div class="input-header">Enter your message:</div>
+        <textarea type="text" name="text-message" style="width: 80%; height: 100%; margin-left: 1rem;"></textarea>
+        <br>
+        <button type="submit" class="submit-btn" style="margin-top: 2rem;">Submit</button>
+    </form>
+    {% endif %}
 
 </div>
 {% if assistant_url %}

@@ -27,7 +27,10 @@ def assistant(request):
     tagging = False
     choose_assistant = False
     upload_assistant = False
+    contact = False
     rec_tags = []
+    inbox = None
+    received_message = None
     all_assistant_icons = []
     if username:
         user = User.objects.get(username=username)
@@ -68,7 +71,9 @@ def assistant(request):
             text = "What do you need to do today?"
             buttons = {'Upload an image': {'type': '1', 'onClick': "location.href='/assistant?action=upload&username=%s'" % username},
                        'Manage existing artwork': {'type': '2', 'onClick': "window.top.location.href='/profile/leakyjar/all'"},
-                       'Logout': {'type': '3', 'onClick': "location.href='/assistant?action=logout&next_action=%s'" % action}}
+                       'Inbox': {'type': '3',
+                                 'onClick': "location.href='/assistant?action=inbox'"},
+                       'Logout': {'type': '4', 'onClick': "location.href='/assistant?action=logout&next_action=%s'" % action}}
         if not request.user.username:
             buttons['Login'] = {'type': '3',
              'onClick': "location.href='/assistant?action=login&next=/assistant?action=profile%%26username=%s'" % username}
@@ -77,11 +82,14 @@ def assistant(request):
         upload = True
     elif action == 'uploadSuccess':
         header_text = "I got it! Looks interesting as always," + current_user + "!"
-        text = "You can check it out in your gallery!"
+        text = "You can check it out and manage the details in your gallery."
         buttons = {'Upload another image': {'type': '1', 'onClick': "location.href='/assistant?action=upload&username=%s'" % username},
                    'Manage existing artwork': {'type': '2',
                                                'onClick': "window.top.location.href='/profile/leakyjar/all'"},
-                   'Logout': {'type': '3', 'onClick': "location.href='/assistant?action=logout&next_action=%s'" % action}}
+                   'Inbox': {'type': '3',
+                              'onClick': "location.href='/assistant?action=inbox'"},
+                   'Logout': {'type': '4', 'onClick': "location.href='/assistant?action=logout&next_action=%s'" % action}
+                   }
     elif action == 'tagging':
         header_text = "Are these image tags correct?"
         tagging = True
@@ -114,7 +122,7 @@ def assistant(request):
         else:
             buttons = {'Search': {'type': '1', 'onClick': "location.href='/assistant?action=search'"},
                        'Profile': {'type': '2', 'onClick': "window.top.location.href='/profile/leakyjar/'"},
-                       'Logout': {'type': '3', 'onClick': "location.href='/assistant?action=logout&next_action=%s'" % action}}
+                       'Logout': {'type': '4', 'onClick': "location.href='/assistant?action=logout&next_action=%s'" % action}}
     elif action == 'login':
         header_text = "Welcome back! Hope things have been well."
         inputs = {'Username': {"type": "", "name": "Username"},
@@ -132,8 +140,6 @@ def assistant(request):
     elif action == 'logout':
         logout(request)
         return redirect("/assistant/?action=landing")
-    elif action == 'contact':
-        header_text = "Send me a message"
     elif action == 'editAssistant':
         header_text = 'Cool, I get to take a break?'
         text = "Who's taking over my shift?"
@@ -155,16 +161,25 @@ def assistant(request):
                    'Manage existing artwork': {'type': '2',
                                                'onClick': "window.top.location.href='/profile/leakyjar/all'"},
                    'Logout': {'type': '3', 'onClick': "location.href='/assistant?action=logout&next_action=%s'" % action}}
+    elif action == 'contact':
+        header_text = "Need to talk to " + username + "?"
+        text = "Leave your details with me, I'll ask him to get back to you."
+        contact = True;
+    elif action == 'inbox':
+        header_text = "Checking your inbox?"
+        text = "Remember to get back to them!"
+        inbox = request.user.inbox.all()
+    elif action.isdigit():
+        message_id = int(action)
+        received_message = request.user.inbox.get(id=message_id)
+        header_text = "Here's the message " + str(received_message.sender) + " left for you."
     if message:
         text = message
-    print(username)
-    print(current_user)
-    print(upload_assistant)
     return render(request, 'assistant/assistant.html',
                   {'header_text': header_text, 'text': text, 'buttons': buttons, 'inputs': inputs, 'search': search,
                    'form': form, 'upload': upload, 'assistant_url': assistant_url, 'tagging': tagging, 'rec_tags': rec_tags,
                    'current_user': current_user, 'uploader': username, 'chooseAssistant': choose_assistant,
-                   'upload_assistant': upload_assistant})
+                   'upload_assistant': upload_assistant, 'contact': contact, 'inbox': inbox, 'message': received_message})
 
 
 

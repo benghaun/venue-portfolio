@@ -75,7 +75,7 @@
     <div class="container main-content">
         <div class="row">
             <!--TODO: shift like count to left if liked button shown-->
-            <span class="ml-auto" style="text-align: right; transform:translate(-100%, 10%)" id="likeTxt">{{selected_like_count}} liked this</span>
+            <span class="ml-auto" style="transform: translate(-50%);" id="likeTxt">{{selected_like_count}} liked this</span>
             {% if selected_liked %}
             <button type="button" data-toggle="button" id="like" onClick="toggleLike()" class="liked-btn">
                 <span style="background-image: url('{% static 'tick_boxless.png' %}')" class="like-img" id="like-img"></span>
@@ -137,7 +137,7 @@
                     <li><a href="/profile/{{uploader}}/about/" class="navbar-button">Profile</a></li>
                 </div>
             <div class="nav navbar-nav mr-auto btn-con">
-                    <li><a href="#" class="navbar-button" onClick="launchAssistant({'action': 'contact'})">Contact</a></li>
+                    <li><a href="#" class="navbar-button" onClick="launchAssistant({'action': 'contact', 'username': '{{uploader}}'})">Contact</a></li>
                 </div>
         </div>
     </nav>
