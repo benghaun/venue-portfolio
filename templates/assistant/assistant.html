@@ -58,6 +58,11 @@
         {% if chooseAssistant == True %}
             <div class="assistant-icon" style="background-image: url('{% static 'AssistantThumb.png' %}')" onclick="changedAssistant()"></div>
         {% endif %}
+        {% if upload_assistant %}
+        <p id="uploadAssistant" hidden>true</p>
+        {% else %}
+        <p id="uploadAssistant" hidden>false</p>
+        {% endif %}
     </div>
 
 </div>
@@ -71,10 +76,14 @@
 {% if current_user == uploader %}
     <div class="edit" style="background-image: url('{% static 'edit.png' %}')" id="edit-assist" onclick="editAssistant()"></div>
 {% endif %}
+
+{% if uploader %}
+    <p id="uploader" hidden>{{uploader}}</p>
+{% endif %}
 <script src="{% static 'assistant-content.js' %}"></script>
 <script type="text/javascript">
 function editAssistant(){
-    location.href='/assistant?action=editAssistant';
+    location.href='/assistant?action=editAssistant&username={{uploader}}';
 
 return true;
 }
