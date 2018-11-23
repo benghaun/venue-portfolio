@@ -143,8 +143,8 @@ def assistant(request):
     elif action == 'editAssistant':
         header_text = 'Cool, I get to take a break?'
         text = "Who's taking over my shift?"
-        buttons = {'Upload a new assistant': {'type': '1', 'onClick': "location.href='/assistant?action=uploadAssistant&username=%s'" % username},
-                   'Choose an existing assistant': {'type': '2', 'onClick': "location.href='/assistant?action=chooseAssistant&username=%s'" % username}}
+        buttons = {'Upload a new assistant': {'type': '1', 'onClick': "location.href='/assistant?action=uploadAssistant&username=%s'" % username}}
+                 #  'Choose an existing assistant': {'type': '2', 'onClick': "location.href='/assistant?action=chooseAssistant&username=%s'" % username}}
     elif action == 'uploadAssistant':
         header_text = "A new friend to help us out... Not that I'll slack off of course!"
         upload_assistant = True
