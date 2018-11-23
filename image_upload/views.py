@@ -37,7 +37,7 @@ def sign_s3(request):
         tags[i] = tags[i].strip()
         # create tag if does not yet exist for this user
         if Tag.objects.filter(name=tags[i].lower(), uploader_id=request.user.id).count() == 0:
-            new_tag = Tag(name=tags[i].lower(), uploader_id=request.user.id)
+            new_tag = Tag(name=tags[i].lower().replace(" ", ""), uploader_id=request.user.id)
             new_tag.save()
     # file extension
     ext = file_name.split('.')[-1]
@@ -66,7 +66,7 @@ def add_tag(request):
     tag_name = request.POST.get("tag_name")
     tag_description = request.POST.get("tag_description")
     try:
-        tag = Tag(name=tag_name.lower(), description=tag_description, uploader_id=request.user.id)
+        tag = Tag(name=tag_name.lower().replace(" ", ""), description=tag_description, uploader_id=request.user.id)
         tag.save()
     except ValidationError:
         return redirect('/upload?message=tag%20too%long')

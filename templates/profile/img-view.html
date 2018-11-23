@@ -11,13 +11,13 @@
         {% for idx, params in urls.items %}
             {% if selected %}
                 {% if params.key == selected %}
-                    <div class='carousel-item height active' id="{{params.title}}" data-img="{{params.key}}" data-desc="{{params.description}}" data-liked="{{params.liked}}">
+                    <div class='carousel-item height active' id="{{params.title}}" data-img="{{params.key}}" data-desc="{{params.description}}" data-liked="{{params.liked}}" data-tags="{{params.tags}}">
                         <div class="display-image" style="background-image: url('{{params.medium_url}}' )">
                             <a href="{{params.url}}" data-fancybox class="fancy-click"></a>
                         </div>
                     </div>
                 {% else %}
-                    <div class='carousel-item height' id="{{params.title}}" data-img="{{params.key}}" data-desc="{{params.description}}" data-liked="{{params.liked}}">
+                    <div class='carousel-item height' id="{{params.title}}" data-img="{{params.key}}" data-desc="{{params.description}}" data-liked="{{params.liked}}" data-tags="{{params.tags}}">
                         <div class="display-image" style="background-image: url('{{params.medium_url}}'">
                             <a href="{{params.url}}" data-fancybox class="fancy-click"></a>
                         </div>
@@ -25,13 +25,13 @@
                 {% endif %}
             {% else %}
                 {% if params.idx == 0 %}
-                    <div class='carousel-item height active' id="{{params.title}}" data-img="{{params.key}}" data-desc="{{params.description}}" data-liked="{{params.liked}}">
+                    <div class='carousel-item height active' id="{{params.title}}" data-img="{{params.key}}" data-desc="{{params.description}}" data-liked="{{params.liked}}" data-tags="{{params.tags}}">
                         <div class="display-image" style="background-image: url('{{params.medium_url}}')">
                             <a href="{{params.url}}" data-fancybox class="fancy-click"></a>
                         </div>
                     </div>
                 {% else %}
-                    <div class='carousel-item height' id="{{params.title}}" data-img="{{params.key}}" data-desc="{{params.description}}" data-liked="{{params.liked}}">
+                    <div class='carousel-item height' id="{{params.title}}" data-img="{{params.key}}" data-desc="{{params.description}}" data-liked="{{params.liked}}" data-tags="{{params.tags}}">
                         <div class="display-image" style="background-image: url('{{params.medium_url}}' )">
                             <a href="{{params.url}}" data-fancybox class="fancy-click"></a>
                         </div>
@@ -90,7 +90,7 @@
             <div class="col-12 mx-auto">
                 <div class="title" id="img-title">- {{selected_title | upper}} -</div>
             {% if current_user == uploader %}
-                <div class="edit" style="background-image: url('{% static 'edit.png' %}')" id="edit-title" onclick="editTitle('{{selected_title | force_escape}}')"></div>
+                <div class="edit" style="background-image: url('{% static 'edit.png' %}')" id="edit-title" onclick="editTitle('{{selected_title | force_escape | force_escape}}')"></div>
             {% endif %}
             </div>
             <div class="col-12 mx-auto">
@@ -98,7 +98,7 @@
                     {{ selected_description }}
                 </div>
                 {% if current_user == uploader %}
-                <div class="edit" style="background-image: url('{% static 'edit.png' %}')" id="edit-desc" onclick="editDescription('{{selected_title | force_escape}}')"></div>
+                <div class="edit" style="background-image: url('{% static 'edit.png' %}')" id="edit-desc" onclick="editImageDescription('{{selected_description | force_escape | force_escape}}')"></div>
                 {% endif %}
             </div>
             <div class="col-12 mx-auto">
@@ -106,7 +106,7 @@
                     Tags:
                     {% for tag in tags %}
                     <li class="img-tag" id="{{tag}}">
-                        <span onclick="" style="cursor: pointer;" class="tag-text">{{ tag }}</span>
+                        <span onclick="javascript:window.location.href='/search/?query={{tag}}'" style="cursor: pointer;" class="tag-text">{{ tag }}</span>
                         {% if current_user == uploader %}
                             <div class="cross" style="background-image: url('{% static 'cross.png' %}')" id="remove-tag" onclick="removeTag('{{tag | force_escape}}')"></div>
                         {% endif %}

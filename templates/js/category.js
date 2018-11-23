@@ -21,7 +21,7 @@ function editDescription(currentDesc, tag){
         if (keyCode == '13'){
             // Enter pressed
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/profile/edit_desc/");
+            xhr.open("POST", "/profile/edit_tag_desc/");
             var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
             xhr.setRequestHeader('X-CSRFToken', csrftoken);
             var postData = new FormData();

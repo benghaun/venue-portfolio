@@ -5,6 +5,7 @@ from django.contrib.auth import logout
 from django.shortcuts import render, HttpResponse, redirect
 from authentication.models import User
 from venue.models import Tag, Image
+from venue.utils import in_bucket
 S3_BUCKET = os.environ.get('S3_BUCKET')
 
 
@@ -14,7 +15,7 @@ def assistant(request):
     message = request.GET.get("message")
     nxt = request.GET.get("next")
     current_user = request.user.username
-    tags = Tag.objects.all()
+
     buttons = {}
     inputs = None
     header_text = ""
@@ -30,12 +31,18 @@ def assistant(request):
         if assistant:
             assistant_image = Image.objects.get(id=assistant)
             s3 = boto3.client('s3', region_name='eu-west-3')
+            if in_bucket("resized/" + str(assistant_image.id) + "." + assistant_image.ext):
+                key = "resized/" + str(assistant_image.id) + "." + assistant_image.ext
+            else:
+                key = str(assistant_image.id) + "." + assistant_image.ext
             assistant_url = s3.generate_presigned_url(ClientMethod="get_object",
                                                       Params={'Bucket': S3_BUCKET,
-                                                              'Key': "resized/" + str(assistant_image.id) + "." + assistant_image.ext},
+                                                              'Key': key},
                                                       ExpiresIn=86400)
         else:
             assistant_url = None
+        tags = Tag.objects.filter(uploader_id=user.id)
+        featured_tags = json.loads(user.featured_tags)
     else:
         assistant_url = None
     if action == 'profile':
@@ -65,8 +72,14 @@ def assistant(request):
     elif action == 'browse':
         header_text = "Let me see what artwork " + username + " has..."
         text = "These are the main categories in " + username + "'s gallery"
+        ordered_tags = []
+        for idx, params in featured_tags.items():
+            ordered_tags.append(params['tag'])
         for tag in tags:
-            buttons[tag.name] = {'type': '1', 'onClick': "window.top.location.href='/profile/leakyjar/%s'" % tag.name}
+            if tag not in ordered_tags:
+                ordered_tags.append(tag.name)
+        for tag in ordered_tags:
+            buttons[tag] = {'type': '1', 'onClick': "window.top.location.href='/profile/leakyjar/%s'" % tag}
     elif action == 'search':
         header_text = "Searching for artwork?"
         text = "Sure, what type of art are you interested in?"

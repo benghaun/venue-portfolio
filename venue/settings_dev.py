@@ -34,12 +34,15 @@ INSTALLED_APPS = [
     'authentication.apps.AuthenticationConfig',
     'messaging.apps.MessagingConfig',
     'venue.apps.VenueConfig',
+    'templatetags.apps.TemplatetagsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
+    'django_postgres_extensions'
 ]
 
 MIDDLEWARE = [
@@ -108,6 +111,7 @@ STATIC_ROOT = '/static'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "templates", "css"),
     os.path.join(BASE_DIR, "templates", "js"),
+    os.path.join(BASE_DIR, "templates", "img")
 ]
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/

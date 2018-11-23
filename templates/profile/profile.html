@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load string_utils %}
 {% block content %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'profile.css' %}">
@@ -8,10 +9,10 @@
         <div>
             <div class="row">
                 <div class="col-md-4 col-sm-12 ml-auto">
-                    <a href="{% url 'category' uploader 'featured'%}">
-                        <div class="portrait" style="background-image: url('{% static 'DemonDude1.png' %}')">
+                    <a href="{% url 'category' uploader featured_tags.0.tag%}">
+                        <div class="portrait" style="background-image: url('{{featured_tags.0.url}}')">
                             <div class="black-grad"></div>
-                            <div class="cat-name">FEATURED</div>
+                            <div class="cat-name" id="0">{{featured_tags.0.tag | upper}}</div>
 
                         </div>
                     </a>
@@ -19,53 +20,53 @@
                 <div class="col-md-7 col-sm-12 mr-auto">
                     <div class="row">
                         <div class="col-12 no-padding">
-                            <a href="{% url 'category' uploader 'landscape'%}">
-                                <div class="landscape" style="background-image: url('{% static 'Chilling-in-the-Forest.jpg' %}')">
+                            <a href="{% url 'category' uploader featured_tags.1.tag%}">
+                                <div class="landscape" style="background-image: url('{{featured_tags.1.url}}')">
                                     <div class="black-grad"></div>
-                                    <div class="cat-name">LANDSCAPES</div>
+                                    <div class="cat-name" id="1">{{featured_tags.1.tag | upper}}</div>
                                 </div>
                             </a>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-2 col-sm-12 no-padding mr-auto">
-                            <a href="{% url 'category' uploader 'character' %}">
-                                <div class="fitted-vert-thumb" style="background-image: url('{% static 'Angel.jpg' %}');background-position: 25%;">
+                            <a href="{% url 'category' uploader featured_tags.2.tag %}">
+                                <div class="fitted-vert-thumb" style="background-image: url('{{featured_tags.2.url}}');background-position: 25%;">
                                     <div class="black-grad-vert"></div>
-                                    <div class="cat-name-vert">C H A R A C T E R S</div>
+                                    <div class="cat-name-vert" id="2">{{featured_tags.2.tag | upper | spaces}}</div>
                                 </div>
                             </a>
                         </div>
                         <div class="col-md-2 col-sm-12 no-padding mx-auto">
-                            <a href="{% url 'category' uploader 'portrait' %}">
-                                <div class="fitted-vert-thumb" style="background-image: url('{% static 'D.va-Portrait.jpg' %}');">
+                            <a href="{% url 'category' uploader featured_tags.3.tag %}">
+                                <div class="fitted-vert-thumb" style="background-image: url('{{featured_tags.3.url}}');">
                                     <div class="black-grad-vert"></div>
-                                    <div class="cat-name-vert">P O R T R A I T S</div>
+                                    <div class="cat-name-vert" id="3">{{featured_tags.3.tag | upper | spaces}}</div>
                                 </div>
                             </a>
                         </div>
                         <div class="col-md-2 col-sm-12 no-padding mx-auto">
-                            <a href="{% url 'category' uploader 'fantasy' %}">
-                                <div class="lg-vert-thumb" style="background-image: url('{% static 'Balazar.png' %}');background-position: 55% 30%;background-size: 25em">
+                            <a href="{% url 'category' uploader featured_tags.4.tag %}">
+                                <div class="lg-vert-thumb" style="background-image: url('{{featured_tags.4.url}}');background-position: 55% 30%;background-size: 25em">
                                     <div class="black-grad-vert"></div>
-                                    <div class="cat-name-vert">F A N T A S Y</div>
+                                    <div class="cat-name-vert" id="4">{{featured_tags.4.tag | upper | spaces}}</div>
                                 </div>
                             </a>
                         </div>
                         <div class="col-md-2 col-sm-12 no-padding mx-auto">
-                            <a href="{% url 'category' uploader 'caricature' %}">
-                                <div class="lg-vert-thumb" style="background-image: url('{% static 'Caricature-Eimran.jpg' %}');background-position: 45% 30%;">
+                            <a href="{% url 'category' uploader featured_tags.5.tag %}">
+                                <div class="lg-vert-thumb" style="background-image: url('{{featured_tags.5.url}}');background-position: 45% 30%;">
                                     <div class="black-grad-vert"></div>
-                                    <div class="cat-name-vert">C A R I C A T U R E</div>
+                                    <div class="cat-name-vert" id="5">{{featured_tags.5.tag | upper | spaces}}</div>
                                 </div>
                             </a>
                         </div>
                         <div class="col-md-2 col-sm-12 no-padding ml-auto">
                             <!--style="margin-bottom: 15rem;">-->
-                            <a href="{% url 'category' uploader 'studies' %}">
-                                <div class="lg-vert-thumb" style="background-image: url('{% static 'Material-Studies.jpg' %}');background-position: 55% 13%;background-size: 70em">
+                            <a href="{% url 'category' uploader featured_tags.6.tag %}">
+                                <div class="lg-vert-thumb" style="background-image: url('{{featured_tags.6.url}}');background-position: 55% 13%;background-size: 70em">
                                     <div class="black-grad-vert"></div>
-                                    <div class="cat-name-vert">S T U D I E S</div>
+                                    <div class="cat-name-vert" id="6">{{featured_tags.6.tag | upper | spaces}}</div>
                                 </div>
                             </a>
                         </div>
@@ -74,8 +75,7 @@
             </div>
         </div>
         {% if current_user == uploader %}
-        <!-- TODO: Implement cat name change backend on profile page -->
-            <div class="edit" style="background-image: url('{% static 'edit.png' %}')" id="edit-layout" onclick="editLayout()"></div>
+            <div class="edit" style="background-image: url('{% static 'edit.png' %}')" id="edit-layout" onclick="editLayout('{{uploader}}')"></div>
         {% endif %}
     </div>
     

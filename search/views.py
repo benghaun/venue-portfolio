@@ -30,7 +30,7 @@ def image_search_page(request):
     if count == 0:
         for tag in all_tags:
             if levenshtein_distance(tag, query) <= 2:
-                results = Image.objects.filter(tags__contains=[tag.lower()])
+                results = Image.objects.filter(tags__contains=[tag.lower().replace(" ", "")])
                 count = results.count()
                 break
     if page_size + page_start > count:

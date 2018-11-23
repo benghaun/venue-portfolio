@@ -37,9 +37,9 @@
         {% endif %}
         {% if search != None %}
             {% for search_field, params in search.items %}
-                <!--TODO: pressing enter doesnt click the button-->
-                <input type="{{search_field}}" class="input-field" placeholder="{{params}}" id="searchBox">
-                <button type="button" class="btn btn-default btn-search no-padding" onClick="search()">
+                <input type="{{search_field}}" class="input-field" placeholder="{{params}}" id="searchBox" onkeypress="searchKeyPress(event)">
+                <button type="button" id="searchBtn" class="btn btn-default btn-search no-padding" onClick="search()">
+                    <!--TODO: fix search button alignment-->
                     <img src="{% static 'search.png' %}" alt="search" class="search-img">
                 </button>
                 <br>

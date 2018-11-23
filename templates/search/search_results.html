@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block content %}
-
+<!--TODO: show text "Showing results for x"-->
 <link rel="stylesheet" type="text/css" href="{% static 'landing.css' %}">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.core.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.core.min.js"></script>
@@ -37,7 +37,6 @@
             <img src="{% static 'instagram.png' %}" alt="instagram">
         </button>
     </div>
-    <!--TODO: assistant action from search results-->
     <button type="button" id="assistant" class="btn btn-default btn-circle no-padding btn-assistant" onClick="launchAssistant({'action': 'landing'})">
             <img src="{% static 'AssistantThumb.png' %}" alt="assistant">
     </button>
